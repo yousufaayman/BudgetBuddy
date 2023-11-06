@@ -14,15 +14,15 @@ export const ContainerStyled = styled.div`
   @media ${device.laptop} { 
         width: 100%;
         height:100%;
-        grid-template-columns: 1fr 5fr 1fr;
-        grid-template-rows: 1fr 3fr 2fr 1fr;
+        grid-template-columns:${(props) => props.QLgridRows};
+        grid-template-rows:${(props) => props.QLgridColumns};
   }
 
   @media ${device.mobileL} { 
         width: 100%;
-        height:100%;
-        grid-template-columns: 1fr 5fr 1fr;
-        grid-template-rows: 1fr 2fr 2fr;
+        height: 100%;
+        grid-template-columns: ${(props) => props.QMgridRows};
+        grid-template-rows: ${(props) => props.QMgridColumns};
   }
 `;
 
