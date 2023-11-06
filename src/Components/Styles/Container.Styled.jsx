@@ -15,6 +15,14 @@ export const ContainerStyled = styled.div`
         width: 100%;
         height:100%;
         grid-template-columns: 1fr 5fr 1fr;
+        grid-template-rows: 1fr 3fr 2fr 1fr;
+  }
+
+  @media ${device.mobileL} { 
+        width: 100%;
+        height:100%;
+        grid-template-columns: 1fr 5fr 1fr;
+        grid-template-rows: 1fr 2fr 2fr;
   }
 `;
 

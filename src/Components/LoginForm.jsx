@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoginForm.Module.css'
+import './Styles/LoginForm.Module.css'
 import { GrGoogle } from "react-icons/gr";
 
 export function LoginForm() {
