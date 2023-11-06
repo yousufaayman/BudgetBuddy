@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from './devices';
 
 export const ContainerStyled = styled.div`
   margin: ${(props) => props.margin};
@@ -9,6 +10,12 @@ export const ContainerStyled = styled.div`
   place-items: ${(props) => props.placeItems};
   grid-template-rows: ${(props) => props.gridRows};
   grid-template-columns: ${(props) => props.gridColumns};
+  
+  @media ${device.laptop} { 
+        width: 100%;
+        height:100%;
+        grid-template-columns: 1fr 5fr 1fr;
+  }
 `;
 
 ContainerStyled.defaultProps = {
@@ -16,8 +23,7 @@ ContainerStyled.defaultProps = {
   padding: '0',
   width: '100vw',
   height: '100vh',
-  display: 'grid',
-  placeItems: 'center',
+  display: 'grid'
 };
 
 // Define an array of prop names that should be passed to the DOM element
