@@ -1,0 +1,24 @@
+on:
+  push:
+    branches-ignore:
+      - '*'
+    tags-ignore:
+      - '*'
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Azure DevOps repository
+        uses: actions/checkout@v2
+        with:
+          repository: https://dev.azure.com/Budget-Buddy/Budget-Buddy/_git/BudgetBuddy
+          token: ci25lxcnjy4n3aekloeg2nd724w32j2gdxarqzcr4ti2fjzzjpiq
+          ref: 'refs/heads/*'  # Sync all branches
+      - name: Push to GitHub repository
+        run: |
+          for branch in $(git branch -r); do
+            git checkout "${branch#origin/}"
+            git pull
+            git remote add github-origin your-github-repo-url
+            git push github-origin "${branch#origin/}"
+          done
