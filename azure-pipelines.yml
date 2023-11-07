@@ -1,14 +1,1 @@
-trigger:
-- main
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- checkout: self
-- script: |
-    git config --global user.email "yousufaymanh04@gmail.com"
-    git config --global user.name "yousufaayman"
-    git remote add azure https://dev.azure.com/Budget-Buddy/Budget-Buddy/_git/BudgetBuddy
-    git push azure HEAD:main --force
-  displayName: 'Sync GitHub to Azure DevOps'
