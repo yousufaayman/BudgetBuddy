@@ -1,4 +1,5 @@
 import React from 'react'
+import './Styles/SignUpPage1.css'
 
 function isValidEmail(email) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -13,9 +14,9 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
     }  
   
   return (
-    <div>
+    <div className='sign-up-form-1'>
              
-        <label>First Name
+        <label className='form-labels'>First Name
           <input 
             type="text" 
             placeholder="First Name" 
@@ -24,7 +25,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
           />
         </label>
 
-        <label>Last Name
+        <label  className='form-labels'>Last Name
           <input 
             type="text" 
             placeholder="Last Name" 
@@ -33,7 +34,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
           />
         </label>
         
-        <label>Email
+        <label  className='form-labels'>Email
           <input 
             type="text" 
             placeholder="Email Address" 
@@ -42,7 +43,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
           />
         </label>
 
-        <label>Password
+        <label  className='form-labels'>Password
           <input 
             type="password" 
             placeholder="Password" 
