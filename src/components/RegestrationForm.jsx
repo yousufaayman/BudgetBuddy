@@ -23,7 +23,7 @@ export class RegestrationForm extends Component {
 
     prevStep = () =>{
         const {step} = this.state;
-        this.state({
+        this.setState({
             step : step - 1
         });
     }
