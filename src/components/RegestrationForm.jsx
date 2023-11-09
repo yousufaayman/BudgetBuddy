@@ -11,7 +11,9 @@ export class RegestrationForm extends Component {
         lastName: '',
         email: '',
         password: '',
-        country: ''
+        country: '',
+        currency: '',
+        avgIncome: 0
     }
 
     nextStep = () =>{
@@ -35,7 +37,7 @@ export class RegestrationForm extends Component {
     render() {
 
         const {step} = this.state;
-        const {firstName, lastName, email, password, country} = this.state;
+        const {firstName, lastName, email, password, country, currency, avgIncome} = this.state;
         const values = {}
 
         switch(step){

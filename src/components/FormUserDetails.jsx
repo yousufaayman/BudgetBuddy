@@ -15,39 +15,30 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
   return (
       <div>
 
-        <label>First Name
+        <label> Country
           <input 
             type="text" 
-            placeholder="First Name" 
-            value={values.firstName} 
-            onChange={handleChange('firstName')}
+            placeholder="Country" 
+            value={values.country} 
+            onChange={handleChange('country')}
           />
         </label>
 
-        <label>Last Name
+        <label> Currency
           <input 
             type="text" 
-            placeholder="Last Name" 
-            value={values.lastName} 
-            onChange={handleChange('Last Name')}
-          />
-        </label>
-        
-        <label>Email
-          <input 
-            type="text" 
-            placeholder="Email Address" 
-            value={values.email} 
-            onChange={handleChange('email')}
+            placeholder="Currency" 
+            value={values.currency} 
+            onChange={handleChange('currency')}
           />
         </label>
 
-        <label>Password
+        <label> Average Monthly Income
           <input 
-            type="password" 
-            placeholder="Password" 
-            value={values.password} 
-            onChange={handleChange('password')}
+            type = "number" 
+            placeholder = "Average Monthly Income" 
+            value = {values.avgIncome} 
+            onChange = {handleChange('avgIncome')}
           />
         </label>
 

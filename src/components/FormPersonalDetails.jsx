@@ -29,7 +29,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
             type="text" 
             placeholder="Last Name" 
             value={values.lastName} 
-            onChange={handleChange('Last Name')}
+            onChange={handleChange('lastName')}
           />
         </label>
         
