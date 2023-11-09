@@ -3,7 +3,7 @@ import {RegestrationForm} from './components/RegestrationForm'
 
 function App() {
   return (
-    <ContainerStyled>
+    <ContainerStyled display="grid" placeItems="center">
         <RegestrationForm />
     </ContainerStyled>
   );

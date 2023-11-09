@@ -1,5 +1,7 @@
 import React from 'react'
-import './Styles/SignUpPage1.css'
+import './Styles/RegestrationForm.css'
+import { LabelStyled } from './Styles/LabelStyled';
+import { InputStyled } from './Styles/InputStyled';
 
 function isValidEmail(email) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,45 +16,57 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
     }  
   
   return (
-    <div className='sign-up-form-1'>
+    <div className='sign-up-form'>
              
-        <label className='form-labels'>First Name
-          <input 
+        <LabelStyled>First Name</LabelStyled>
+        <InputStyled
+            className='form-input' 
             type="text" 
             placeholder="First Name" 
             value={values.firstName} 
-            onChange={handleChange('firstName')}
+            onChange={handleChange('firstName')
+          }
+            
           />
-        </label>
 
-        <label  className='form-labels'>Last Name
-          <input 
+        <LabelStyled>Last Name</LabelStyled>
+        <InputStyled 
             type="text" 
             placeholder="Last Name" 
             value={values.lastName} 
             onChange={handleChange('lastName')}
+            
           />
-        </label>
         
-        <label  className='form-labels'>Email
-          <input 
+        <LabelStyled>Email</LabelStyled>
+        <InputStyled 
             type="text" 
             placeholder="Email Address" 
             value={values.email} 
             onChange={handleChange('email')}
+            
           />
-        </label>
 
-        <label  className='form-labels'>Password
-          <input 
+        <LabelStyled>Password</LabelStyled>
+        <InputStyled 
             type="password" 
             placeholder="Password" 
             value={values.password} 
             onChange={handleChange('password')}
+            
           />
-        </label>
 
-        <button onClick={ Continue }>Next</button>
+        <LabelStyled>Confirm Password</LabelStyled>
+        <InputStyled 
+            type="password" 
+            placeholder="Confirm Password" 
+            value={values.password} 
+            onChange={handleChange('password')
+          }
+            
+          />
+
+        <button className="next-button-1" onClick={ Continue }>Next</button>
       
     </div>
   )

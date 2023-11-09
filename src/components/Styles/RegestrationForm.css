@@ -1,0 +1,30 @@
+.sign-up-form{
+    display: grid;
+    width: 20%;
+    height: 20%;
+    background-color: #E74646;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 0.1 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    padding: 3%;
+
+}
+
+.next-button-1{
+    grid-area: 6 / 1 / 7 / 3;
+    width: 50%;
+    height: 120%;
+}
+
+.next-button-2{
+    grid-area: 4 / 2 / 5 / 3;
+    width: 60%;
+    height: 80%;
+}
+
+.previous-button{
+    grid-area: 4 / 1 / 5 / 1;
+    width: 60%;
+    height: 80%;
+}

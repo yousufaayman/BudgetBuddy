@@ -1,4 +1,8 @@
 import React from 'react'
+import './Styles/RegestrationForm.css'
+import { InputStyled } from './Styles/InputStyled';
+import { LabelStyled } from './Styles/LabelStyled';
+import CurrencyDropdown from './Styles/CurrencyDropdown';
 
 export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
   
@@ -13,37 +17,29 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
       }
   
   return (
-      <div>
+      <div className="sign-up-form">
 
-        <label> Country
-          <input 
+        <LabelStyled> Country</LabelStyled>
+        <InputStyled 
             type="text" 
             placeholder="Country" 
             value={values.country} 
             onChange={handleChange('country')}
           />
-        </label>
 
-        <label> Currency
-          <input 
-            type="text" 
-            placeholder="Currency" 
-            value={values.currency} 
-            onChange={handleChange('currency')}
-          />
-        </label>
+        <LabelStyled> Currency</LabelStyled>
+        <CurrencyDropdown className="currency-dropdown"/>
 
-        <label> Average Monthly Income
-          <input 
+        <LabelStyled> Average Monthly Income</LabelStyled>
+        <InputStyled 
             type = "number" 
             placeholder = "Average Monthly Income" 
             value = {values.avgIncome} 
             onChange = {handleChange('avgIncome')}
           />
-        </label>
 
-        <button onClick={ Continue }>Next</button>
-        <button onClick={ Previous }>Previous</button>
+        <button className='next-button-2' onClick={ Continue }>Next</button>
+        <button className='previous-button' onClick={ Previous }>Previous</button>
 
       </div>
   )
