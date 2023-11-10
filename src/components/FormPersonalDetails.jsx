@@ -1,19 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './Styles/RegestrationForm.css'
 import { LabelStyled } from './Styles/LabelStyled';
 import { InputStyled } from './Styles/InputStyled';
+import { ButtonStyled } from './Styles/ButtonStyled';
 
-function isValidEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailRegex.test(email);
-}
+export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle}) => {
 
-export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
-  
   const Continue = e => {
-  e.preventDefault();
-  nextStep();
-    }  
+    e.preventDefault();
+    nextStep()
+  }
   
   return (
     <div className='sign-up-form'>
@@ -35,14 +31,13 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
             placeholder="Last Name" 
             value={values.lastName} 
             onChange={handleChange('lastName')}
-            
           />
         
         <LabelStyled>Email</LabelStyled>
         <InputStyled 
             type="text" 
             placeholder="Email Address" 
-            value={values.email} 
+            value={values.Email} 
             onChange={handleChange('email')}
             
           />
@@ -51,23 +46,33 @@ export const FormPersonalDetails = ({nextStep, handleChange, values}) => {
         <InputStyled 
             type="password" 
             placeholder="Password" 
-            value={values.password} 
+            value={values.password}
             onChange={handleChange('password')}
-            
           />
 
         <LabelStyled>Confirm Password</LabelStyled>
         <InputStyled 
             type="password" 
             placeholder="Confirm Password" 
-            value={values.password} 
-            onChange={handleChange('password')
+            value={values.check_password} 
+            onChange={handleChange('check_password')
           }
             
           />
 
-        <button className="next-button-1" onClick={ Continue }>Next</button>
-      
+        <ButtonStyled 
+          fsize = "130%" 
+          color= "#FFF3E2" 
+          bgcolor1 = "#FFF3E2" 
+          bgcolor2 = "#7D2E68" 
+          height= "70%" 
+          width= "50%" 
+          gridarea= "6 / 1 / 7 / 3" 
+          onClick={ Continue }
+          >
+            Next
+          </ButtonStyled>
+          <p className="errors">{errorHandle}</p>
     </div>
   )
 }

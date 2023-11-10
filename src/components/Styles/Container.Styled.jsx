@@ -7,7 +7,7 @@ export const ContainerStyled = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   display: ${(props) => props.display};
-  place-items: ${(props) => props.placeItems};
+  place-items: ${(props) => props.placeitems};
   grid-template-rows: ${(props) => props.gridRows};
   grid-template-columns: ${(props) => props.gridColumns};
   
