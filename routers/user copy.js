@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create User Schema
+
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -17,10 +17,10 @@ const UserSchema = new Schema({
     required: true
   },
   profilePic: {
-    type: String, // URL to the image
+    type: String, 
     default: ''
   },
-  // Add any other profile fields you need
+
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
@@ -28,10 +28,10 @@ module.exports = User = mongoose.model('users', UserSchema);
 ///////////////// real-time balance ////////////////
 
 const userSchema = new mongoose.Schema({
-  // ... other fields ...
+  
   balance: {
     type: Number,
-    default: 0, // Starts with a zero balance
+    default: 0, 
   },
-  // ... other fields ...
+
 });
