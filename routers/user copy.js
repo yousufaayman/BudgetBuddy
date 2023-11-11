@@ -25,7 +25,7 @@ const UserSchema = new Schema({
 
 module.exports = User = mongoose.model('users', UserSchema);
 
-///////////////// real-time balance ////////////////
+///////////////// real-time balance ///////////////
 
 const userSchema = new mongoose.Schema({
   
