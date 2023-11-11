@@ -1,8 +1,7 @@
 import {styled} from 'styled-components'
+import { device } from './devices'
 
 export const ButtonStyled = styled.button`
-    
-
     margin: ${(props) => props.margin};
     grid-area: ${(props) => props.gridarea};
     width: ${(props) => props.width};
@@ -46,5 +45,10 @@ export const ButtonStyled = styled.button`
     &:active {
     box-shadow: #7D2E68 0 3px 7px inset;
     transform: translateY(2px);
-}
+    }
+    @media ${device.laptop} { 
+        margin-top: ${(props) => props.Qmargin};
+        width: ${(props) => props.Qwidth};
+        height: ${(props) => props.Qheight};
+  }
 `

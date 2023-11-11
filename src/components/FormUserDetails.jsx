@@ -35,6 +35,20 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
             onChange = {handleChange('avgIncome')}
           />
 
+                <ButtonStyled
+          fsize = "100%" 
+          color= "#FFF3E2" 
+          bgcolor1 = "#FFF3E2" 
+          bgcolor2 = "#7D2E68" 
+          height= "70%" 
+          width= "50%" 
+          Qheight = "15%"
+          gridarea= "5 / 1 / 7 / 2" 
+          margin = "10%"
+          onClick={ Previous }>
+            Previous
+          </ButtonStyled >
+
         <ButtonStyled 
           fsize = "130%" 
           color= "#FFF3E2" 
@@ -43,20 +57,11 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
           height= "70%" 
           width= "50%" 
           gridarea= "5 / 2 / 7 / 3" 
+          Qheight = "15%"
+          margin = "10%"
           onClick={ Continue }>
             Next
         </ButtonStyled >
-        <ButtonStyled
-          fsize = "100%" 
-          color= "#FFF3E2" 
-          bgcolor1 = "#FFF3E2" 
-          bgcolor2 = "#7D2E68" 
-          height= "70%" 
-          width= "50%" 
-          gridarea= "5 / 1 / 7 / 2" 
-          onClick={ Previous }>
-            Previous
-          </ButtonStyled >
 
       </div>
   )

@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { device } from "./devices";
 
 export const InputStyled = styled.input`
   background-color : #E74646;
   grid-column: 2 / 2;
-  grid-rows: ${(props) => props.rows};
+  grid-row: ${(props) => props.rows};
   font-family: 'Roboto Mono';
   width: 80%;
   height: 55%;
@@ -21,4 +22,9 @@ export const InputStyled = styled.input`
     &::placeholder{
         color: #fff3e2a0;
     }
+
+    @media ${device.laptop} { 
+        width: 80%;
+        height: 5%;
+  }
 `

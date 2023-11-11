@@ -67,6 +67,9 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
           bgcolor2 = "#7D2E68" 
           height= "70%" 
           width= "50%" 
+          Qheight = "10%"
+          Qwidth = "50%"
+          Qmargin = "5%"
           gridarea= "6 / 1 / 7 / 3" 
           onClick={ Continue }
           >

@@ -1,4 +1,4 @@
-.sign-up-form{
+.confirm-form{
     display: grid;
     margin: 5%;
     width: 80%;
@@ -18,25 +18,4 @@
     text-align: center;
     position: relative;
     transition: all 0.2s ease-in-out;
-}
-
-.errors{
-    grid-area: 7 / 1 / 8 / 3;
-    color: #7D2E68;
-    font-family: 'Roboto mono';
-    font-weight: 800;
-    font-size: 80%;
-    font-style: oblique;
-}
-
-@media screen and (max-width: 1024px){
-    .sign-up-form{
-        height: 90%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    .errors{
-        margin-top: 5%;
-    }
 }

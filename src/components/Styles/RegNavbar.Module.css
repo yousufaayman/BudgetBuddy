@@ -1,12 +1,11 @@
 .nav-bar{
     margin: 0;
-    grid-area: 1 / 1 / 1 /4 ;
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     grid-template-rows: 1fr;
     background-color: rgba(255, 243, 226, 0.85);
     backdrop-filter: blur(10px);
-    height: 70%;
+    height: 95%;
     width: 100%;
     box-shadow: 1px 17px 22px -3px rgba(250,152,132,0.44);
     align-items: center;
@@ -16,8 +15,15 @@
 .budget-buddy{
     grid-area: 1 / 2 / 2 / 3;
     text-align: center;
-    font-size: 500%;
+    font-size: 450%;
     color: #E74646;
     font-family: 'Open Sans';
     text-shadow: 5px 1px 5px rgba(231,70,70,0.74);
 }
+
+@media screen and (max-width: 1024px){
+    .nav-bar{
+        height: 100%;
+    }
+}
+

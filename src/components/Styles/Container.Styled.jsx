@@ -11,19 +11,19 @@ export const ContainerStyled = styled.div`
   grid-template-rows: ${(props) => props.gridRows};
   grid-template-columns: ${(props) => props.gridColumns};
   
-  /* @media ${device.laptop} { 
+  @media ${device.laptop} { 
         width: 100%;
         height:100%;
         grid-template-columns:${(props) => props.QLgridRows};
         grid-template-rows:${(props) => props.QLgridColumns};
-  } */
+  } 
 
-  /* @media ${device.mobileL} { 
+  @media ${device.mobileL} { 
         width: 100%;
         height: 100%;
         grid-template-columns: ${(props) => props.QMgridRows};
         grid-template-rows: ${(props) => props.QMgridColumns};
-  } */
+  }
 `;
 
 ContainerStyled.defaultProps = {
