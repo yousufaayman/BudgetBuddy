@@ -1,4 +1,4 @@
-.confirm-form{
+.success-form{
     display: grid;
     margin: 5%;
     width: 80%;
@@ -18,29 +18,4 @@
     text-align: center;
     position: relative;
     transition: all 0.2s ease-in-out;
-}
-
-.email{
-    grid-column: 1 / 3;
-    grid-row: 5 / 6;
-    color : #E74646;
-    font-size: 2em;
-    display: grid;
-    font-family: 'Open Sans'; 
-}
-
-.form-title{
-    font-family: 'Open Sans';
-    grid-area: 1/1/2/3;
-    color: #7D2E68;
-}
-
-@media screen and (max-width: 1024px){
-    .confirm-form{
-        height: 90%;
-        width: 80%;
-    }
-    .email{
-        font-size: 1rem;
-    }
 }

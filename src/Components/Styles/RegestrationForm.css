@@ -5,7 +5,29 @@
     height: 60%;
     background-color: rgba(255, 243, 226, 0.85);
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 2fr 0.5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 2fr 0.5fr 0.15fr;
+    align-items: center;
+    justify-items: center;
+    padding: 2%;
+    border-radius: 3%;
+    border-radius: 20px;
+    border-left: 1px solid #FFF3E2;
+    border-top: 1px solid #FFF3E2;
+    backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(125, 46, 104, 0.746);
+    text-align: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+.sign-up-form-2{
+    display: grid;
+    margin: 5%;
+    width: 80%;
+    height: 60%;
+    background-color: rgba(255, 243, 226, 0.85);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 0.5fr 1.5fr 0.5fr;
     align-items: center;
     justify-items: center;
     padding: 2%;
@@ -29,14 +51,42 @@
     font-style: oblique;
 }
 
+.country-dropdown{
+    background-color : #E74646;
+    font-family: 'Roboto Mono';
+    width: 80%;
+    height: 90%;
+    border: none;
+    grid-area: 2 / 2 / 3 / 3;
+    text-align: center;
+    padding: 3%;
+    border-radius: 0.8rem;
+    color: #FFF3E2;
+}
+
+.currency-dropdown{
+    background-color : #E74646;
+    font-family: 'Roboto Mono';
+    width: 80%;
+    height: 90%;
+    border: none;
+    text-align: center;
+    padding: 3%;
+    border-radius: 0.8rem;
+    color: #FFF3E2;
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+
+
 @media screen and (max-width: 1024px){
     .sign-up-form{
         height: 90%;
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: 0.15fr 1fr 0.15fr;
+        grid-template-rows: 0.25fr repeat(10, 1fr) 0.5fr 1.5fr 0.5fr 1fr 0.25fr;
     }
     .errors{
-        margin-top: 5%;
+        grid-area: 15 / 2 / 16 / 3;
     }
 }

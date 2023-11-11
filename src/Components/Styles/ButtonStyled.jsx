@@ -51,5 +51,6 @@ export const ButtonStyled = styled.button`
         margin-top: ${(props) => props.qmargin};
         width: ${(props) => props.qwidth};
         height: ${(props) => props.qheight};
+        grid-area: ${(props) => props.qgridarea};
   }
 `

@@ -68,7 +68,8 @@ export class RegestrationForm extends Component {
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         values={values}
-                        errorHandle={errorHandle} />
+                        errorHandle={errorHandle}
+                        fvalues={finalValues} />
                 );
 
             case 2:
@@ -77,10 +78,24 @@ export class RegestrationForm extends Component {
                         prevStep={this.prevStep}
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
-                        values={values} />
+                        values={values}
+                        fvalues={finalValues} />
                 );
 
             case 3:
+                
+                if(finalValues.country == ""){
+                    finalValues.country = "Egypt"
+                }
+
+                if(finalValues.currency == ""){
+                    finalValues.currency = "EGP"
+                }
+
+                if(finalValues.avgIncome == ""){
+                    finalValues.avgIncome = 0
+                }
+
                 return (
                     <Confirm
                         prevStep={this.prevStep}
@@ -89,6 +104,8 @@ export class RegestrationForm extends Component {
                 );
 
             case 4:
+                
+                
                 return (
                     <Success />
                 );

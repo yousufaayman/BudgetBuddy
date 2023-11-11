@@ -10,6 +10,9 @@ export const LabelStyled = styled.label`
   font-family: 'Open Sans';
 
       @media ${device.laptop} { 
-        font-size: 2rem;
+        font-size: 1.5rem;
+        grid-column: ${(props) => props.qgridcolumn};
+        display: grid;
+        grid-row: ${(props) => props.qgridrow};
   }
 `

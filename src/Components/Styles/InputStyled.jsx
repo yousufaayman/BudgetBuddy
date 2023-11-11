@@ -3,11 +3,10 @@ import { device } from "./devices";
 
 export const InputStyled = styled.input`
   background-color : #E74646;
-  grid-column: 2 / 2;
-  grid-row: ${(props) => props.rows};
+  grid-area: ${(props) => props.gridarea};
   font-family: 'Roboto Mono';
   width: 80%;
-  height: 55%;
+  height: 50%;
   border: none;
   padding: 3%;
   border-radius: 0.8rem;
@@ -24,7 +23,8 @@ export const InputStyled = styled.input`
     }
 
     @media ${device.laptop} { 
-        width: 80%;
-        height: 5%;
+        width: ${(props) => props.qwidth};
+        height: ${(props) => props.qheight};
+        grid-area: ${(props) => props.qgridarea};
   }
 `

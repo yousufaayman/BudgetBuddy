@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Styles/RegestrationForm.css'
 import { InputStyled } from './Styles/InputStyled';
 import { LabelStyled } from './Styles/LabelStyled';
-import CurrencyDropdown from './Styles/CurrencyDropdown';
-import CountryDropdown from './Styles/CountryDropdown';
 import { ButtonStyled } from './Styles/ButtonStyled';
+import {CountryList} from  './CountryList'
+import CurrencyList, {CurrencyDropdown} from './Styles/CurrencyDropdown'
 
-export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
+export const FormUserDetails = ({prevStep, nextStep, handleChange, values, fvalues}) => {
+
+  const [countries, setCountries] = useState([]);
+  CountryList(countries, setCountries)
+
+  const [currencies, setCurrencies] = useState([]);
+  CurrencyList(currencies, setCurrencies)
 
   const Continue = e => {
     e.preventDefault();
@@ -19,35 +25,59 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
       }
   
   return (
-      <div className="sign-up-form">
+      <div className="sign-up-form-2">
 
-        <LabelStyled gridColumn= "1 / 1">Country</LabelStyled>
-        <CountryDropdown/>
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 2 / 3">Country</LabelStyled>
+        <select
+          className='country-dropdown'
+          value = {values.country} 
+          onChange = {handleChange('country')}
+        >
+          <option value="" disabled selected>Country : {fvalues.country}</option>
+            {countries.map((country) => (
+              <option key={country.cca3} value={country.name.common}>
+                {country.name.common}
+              </option>
+            ))}
+        </select>
 
-        <LabelStyled gridColumn= "1 / 1">Currency</LabelStyled>
-        <CurrencyDropdown/>
+          <LabelStyled gridcolumn= "1 / 2" gridrow=" 3 / 4">Currency</LabelStyled>
+            <select
+              className='currency-dropdown'
+              id="currency"
+              onChange={handleChange('currency')}
+              value={values.currency}
+            >
+              <option value="" disabled selected>Currency : {fvalues.currency}</option>
+              {currencies.map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+            </select>
 
-        <LabelStyled gridColumn= "1 / 1"> Average Monthly Income</LabelStyled>
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 4 / 5"> Average Monthly Income</LabelStyled>
         <InputStyled 
+            gridarea="4/2/5/3"
             type = "number" 
-            placeholder = "Average Monthly Income" 
+            placeholder = {fvalues.avgIncome} 
             value = {values.avgIncome} 
             onChange = {handleChange('avgIncome')}
           />
 
-                <ButtonStyled
-          fsize = "100%" 
+        <ButtonStyled
+          fsize = "90%" 
           color= "#FFF3E2" 
           bgcolor1 = "#FFF3E2" 
           bgcolor2 = "#7D2E68" 
           height= "70%" 
           width= "50%" 
-          qheight = "15%"
-          gridarea= "5 / 1 / 7 / 2" 
+          qheight = "50%"
+          gridarea= "6 / 1 / 7 / 2" 
           margin = "10%"
           onClick={ Previous }>
             Previous
-          </ButtonStyled >
+        </ButtonStyled >
 
         <ButtonStyled 
           fsize = "130%" 
@@ -56,8 +86,8 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values}) => {
           bgcolor2 = "#7D2E68" 
           height= "70%" 
           width= "50%" 
-          gridarea= "5 / 2 / 7 / 3" 
-          qheight = "15%"
+          gridarea= "6 / 2 / 7 / 3" 
+          qheight = "50%"
           margin = "10%"
           onClick={ Continue }>
             Next

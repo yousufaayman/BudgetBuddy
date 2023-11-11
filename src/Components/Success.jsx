@@ -1,8 +1,9 @@
 import React from 'react'
+import './Styles/Success.Module.css'
 
 export const Success = () => {
   return (
-    <div>
+    <div className='success-form'>
       
     </div>
   )

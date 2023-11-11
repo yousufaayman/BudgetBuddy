@@ -4,7 +4,7 @@ import { LabelStyled } from './Styles/LabelStyled';
 import { InputStyled } from './Styles/InputStyled';
 import { ButtonStyled } from './Styles/ButtonStyled';
 
-export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle}) => {
+export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle, fvalues}) => {
 
   const Continue = e => {
     e.preventDefault();
@@ -14,46 +14,55 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
   return (
     <div className='sign-up-form'>
              
-        <LabelStyled gridColumn= "1 / 1">First Name</LabelStyled>
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 1 / 2" qgridcolumn= "2 / 3" qgridrow=" 2 / 3">First Name</LabelStyled>
         <InputStyled
-            className='form-input' 
+            gridarea= "1 / 2 / 2 / 3"
+            qgridarea= "3 / 2 / 4 / 3"  
             type="text" 
-            placeholder="First Name" 
+            placeholder={fvalues.firstName} 
             value={values.firstName} 
             onChange={handleChange('firstName')
           }
             
           />
 
-        <LabelStyled gridColumn= "1 / 1">Last Name</LabelStyled>
-        <InputStyled 
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 2 / 3" qgridcolumn= "2 / 3" qgridrow=" 4 / 5">Last Name</LabelStyled>
+        <InputStyled
+            gridarea= "2 / 2 / 3 / 3"        
+            qgridarea= "5 / 2 / 6 / 3"  
             type="text" 
-            placeholder="Last Name" 
+            placeholder={fvalues.lastName} 
             value={values.lastName} 
             onChange={handleChange('lastName')}
           />
         
-        <LabelStyled gridColumn= "1 / 1">Email</LabelStyled>
-        <InputStyled 
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 3 / 4" qgridcolumn= "2 / 3" qgridrow=" 6 / 7">Email</LabelStyled>
+        <InputStyled
+            gridarea= "3 / 2 / 4 / 3"        
+            qgridarea= "7 / 2 / 8 / 3"  
             type="text" 
-            placeholder="Email Address" 
-            value={values.Email} 
+            placeholder={fvalues.email}  
+            value={values.email} 
             onChange={handleChange('email')}
             
           />
 
-        <LabelStyled gridColumn= "1 / 1">Password</LabelStyled>
-        <InputStyled 
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 4 / 5" qgridcolumn= "2 / 3" qgridrow=" 8 / 9">Password</LabelStyled>
+        <InputStyled
+            gridarea= "4 / 2 / 5 / 3"        
+            qgridarea= "9 / 2 / 10 / 3" 
             type="password" 
-            placeholder="Password" 
+            placeholder={fvalues.password} 
             value={values.password}
             onChange={handleChange('password')}
           />
 
-        <LabelStyled gridColumn= "1 / 1">Confirm Password</LabelStyled>
-        <InputStyled 
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 5 / 6" qgridcolumn= "2 / 3" qgridrow=" 10 / 11">Confirm Password</LabelStyled>
+        <InputStyled
+            gridarea= "5 / 2 / 6 / 3"
+            qgridarea= "11 / 2 / 12 / 3" 
             type="password" 
-            placeholder="Confirm Password" 
+            placeholder={fvalues.check_password}  
             value={values.check_password} 
             onChange={handleChange('check_password')
           }
@@ -67,10 +76,9 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
           bgcolor2 = "#7D2E68" 
           height= "70%" 
           width= "50%" 
-          qheight = "10%"
-          qwidth = "50%"
           qmargin = "5%"
-          gridarea= "6 / 1 / 7 / 3" 
+          gridarea= "6 / 1 / 7 / 3"
+          qgridarea= "13 / 2 / 14 / 3" 
           onClick={ Continue }
           >
             Next
