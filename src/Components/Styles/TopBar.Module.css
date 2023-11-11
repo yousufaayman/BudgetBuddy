@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     grid-template-rows: 1fr;
-    background-color: rgba(255, 229, 202, 1);
+    background-color: rgb(255, 229, 202);
     height: 90%;
     width: 100%;
     box-shadow: 1px 17px 22px -3px rgba(250,152,132,0.44);
