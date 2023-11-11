@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { device } from './devices';
+import { device } from 
+"./devices";
 
 export const ContainerStyled = styled.div`
   margin: ${(props) => props.margin};

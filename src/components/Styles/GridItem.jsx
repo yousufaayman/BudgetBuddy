@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from './devices';
+import { device } from "./devices";
 
 export const GridItem = styled.div`
     display: flex;

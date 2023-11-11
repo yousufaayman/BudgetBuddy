@@ -14,7 +14,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
   return (
     <div className='sign-up-form'>
              
-        <LabelStyled>First Name</LabelStyled>
+        <LabelStyled gridColumn= "1 / 1">First Name</LabelStyled>
         <InputStyled
             className='form-input' 
             type="text" 
@@ -25,7 +25,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
             
           />
 
-        <LabelStyled>Last Name</LabelStyled>
+        <LabelStyled gridColumn= "1 / 1">Last Name</LabelStyled>
         <InputStyled 
             type="text" 
             placeholder="Last Name" 
@@ -33,7 +33,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
             onChange={handleChange('lastName')}
           />
         
-        <LabelStyled>Email</LabelStyled>
+        <LabelStyled gridColumn= "1 / 1">Email</LabelStyled>
         <InputStyled 
             type="text" 
             placeholder="Email Address" 
@@ -42,7 +42,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
             
           />
 
-        <LabelStyled>Password</LabelStyled>
+        <LabelStyled gridColumn= "1 / 1">Password</LabelStyled>
         <InputStyled 
             type="password" 
             placeholder="Password" 
@@ -50,7 +50,7 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
             onChange={handleChange('password')}
           />
 
-        <LabelStyled>Confirm Password</LabelStyled>
+        <LabelStyled gridColumn= "1 / 1">Confirm Password</LabelStyled>
         <InputStyled 
             type="password" 
             placeholder="Confirm Password" 
@@ -67,9 +67,9 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
           bgcolor2 = "#7D2E68" 
           height= "70%" 
           width= "50%" 
-          Qheight = "10%"
-          Qwidth = "50%"
-          Qmargin = "5%"
+          qheight = "10%"
+          qwidth = "50%"
+          qmargin = "5%"
           gridarea= "6 / 1 / 7 / 3" 
           onClick={ Continue }
           >

@@ -1,5 +1,6 @@
 import {styled} from 'styled-components'
-import { device } from './devices'
+import { device } from 
+"./devices"
 
 export const ButtonStyled = styled.button`
     margin: ${(props) => props.margin};
@@ -47,8 +48,8 @@ export const ButtonStyled = styled.button`
     transform: translateY(2px);
     }
     @media ${device.laptop} { 
-        margin-top: ${(props) => props.Qmargin};
-        width: ${(props) => props.Qwidth};
-        height: ${(props) => props.Qheight};
+        margin-top: ${(props) => props.qmargin};
+        width: ${(props) => props.qwidth};
+        height: ${(props) => props.qheight};
   }
 `

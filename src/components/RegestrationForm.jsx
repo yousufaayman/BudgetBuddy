@@ -22,18 +22,23 @@ export class RegestrationForm extends Component {
     nextStep = () => {
         const { step, email, password, check_password } = this.state;
         
-        try {
-            const emailResult = validateEmail(email)
-            const passwordResult = validatePasswords(password, check_password);
-            if (passwordResult && emailResult) {
-                this.setState({
-                    step: step + 1
-                });   
+        if(step == 1){
+            try {
+                const emailResult = validateEmail(email)
+                const passwordResult = validatePasswords(password, check_password);
+                if (passwordResult && emailResult) {
+                    this.setState({
+                        step: step + 1
+                    });   
+                }
+            } catch (error) {
+                this.setState({ errorHandle: error.message });
             }
-        } catch (error) {
-            this.setState({ errorHandle: error.message });
+        }else{
+            this.setState({
+                step: step + 1
+            });  
         }
-
     };
 
     prevStep = () => {
@@ -51,6 +56,7 @@ export class RegestrationForm extends Component {
     render() {
 
         const { step, errorHandle } = this.state;
+        const finalValues = this.state;
         const { firstName, lastName, email, password, check_password, country, currency, avgIncome } = this.state;
         const values = {};
         
@@ -66,7 +72,6 @@ export class RegestrationForm extends Component {
                 );
 
             case 2:
-                console.log(email);
                 return (
                     <FormUserDetails
                         prevStep={this.prevStep}
@@ -80,7 +85,7 @@ export class RegestrationForm extends Component {
                     <Confirm
                         prevStep={this.prevStep}
                         nextStep={this.nextStep}
-                        values={values} />
+                        values={finalValues} />
                 );
 
             case 4:
