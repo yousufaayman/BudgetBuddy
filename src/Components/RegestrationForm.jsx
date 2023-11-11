@@ -5,6 +5,7 @@ import { Confirm } from './Confirm';
 import { Success } from './Success';
 import { validateEmail, validatePasswords } from './InputValidations';
 
+
 export class RegestrationForm extends Component {
     state = {
         step: 1,
@@ -64,6 +65,7 @@ export class RegestrationForm extends Component {
 
             case 1:
                 return (
+                    
                     <FormPersonalDetails
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
@@ -100,12 +102,11 @@ export class RegestrationForm extends Component {
                     <Confirm
                         prevStep={this.prevStep}
                         nextStep={this.nextStep}
-                        values={finalValues} />
+                        values={finalValues} 
+                        />
                 );
 
             case 4:
-                
-                
                 return (
                     <Success />
                 );

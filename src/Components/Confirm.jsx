@@ -2,6 +2,7 @@ import React from 'react'
 import './Styles/Confirm.Module.css'
 import { ButtonStyled } from './Styles/ButtonStyled'
 import { LabelStyled } from './Styles/LabelStyled'
+import {handleSignUp} from './handleSignUp'
 
 export const Confirm = ({prevStep, nextStep, values}) => {
   
@@ -33,11 +34,11 @@ export const Confirm = ({prevStep, nextStep, values}) => {
         color= "#FFF3E2" 
         bgcolor1 = "#FFF3E2" 
         bgcolor2 = "#3f00ee" 
-        height= "80%" 
-        width= "30%" 
+        height= "90%" 
+        width= "60%" 
         qheight = "70%"
         qwidth = "70%"
-        gridarea= "11 / 1 / 12 / 3" 
+        gridarea= "12 / 2 / 13 / 3" 
         onClick={ Continue }>
           Confirm :)
         </ButtonStyled>
@@ -47,8 +48,8 @@ export const Confirm = ({prevStep, nextStep, values}) => {
           color= "#FFF3E2" 
           bgcolor1 = "#FFF3E2" 
           bgcolor2 = "#7D2E68" 
-          height= "80%" 
-          width= "50%" 
+          height= "90%" 
+          width= "60%" 
           qheight = "70%"
           qwidth = "70%"
           gridarea= "12 / 1 / 13 / 2" 
@@ -56,19 +57,6 @@ export const Confirm = ({prevStep, nextStep, values}) => {
             Previous
           </ButtonStyled >
 
-      <ButtonStyled 
-        fsize = "120%" 
-        color= "#FFF3E2" 
-        bgcolor1 = "#FFF3E2" 
-        bgcolor2 = "#7D2E68" 
-        height= "80%" 
-        width= "50%" 
-        gridarea= "12 / 2 / 13 / 3" 
-        qheight = "70%"
-        qwidth = "70%"
-        onClick={ Continue }>
-          Next
-          </ButtonStyled >
     </div>
   )
 }
