@@ -52,7 +52,16 @@ export class RegestrationForm extends Component {
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
     };
-
+    
+    
+    handleSignup = async (values) => {
+        try {
+          const response = await axios.post('http://localhost:3000/signup', values);
+          console.log('Signup successful:', response.data);
+        } catch (error) {
+          console.error('Signup failed:', error.response.data);
+        }
+      };
 
     render() {
 
@@ -105,8 +114,11 @@ export class RegestrationForm extends Component {
                         values={finalValues} 
                         />
                 );
+                    
 
             case 4:
+
+                this.handleSignup(finalValues)
                 return (
                     <Success />
                 );

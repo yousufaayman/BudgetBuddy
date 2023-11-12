@@ -4,18 +4,15 @@ const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const serviceAccount = require('./credentials.json'); // Replace with your Firebase credentials file
 
-// Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Firebase Authentication middleware
 const authenticate = async (req, res, next) => {
   const idToken = req.header('Authorization');
   try {
@@ -39,9 +36,7 @@ app.post('/signup', async (req, res) => {
 
     const user = userCredential.uid;
 
-    // Save additional user information to your database
-    // Replace this with your database code
-    // Example: database.collection('users').doc(user).set(additionalInfo);
+    database.collection('users').doc(user).set(additionalInfo);
 
     res.status(201).json({ success: true, user });
   } catch (error) {
@@ -51,7 +46,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
