@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { FormPersonalDetails } from './FormPersonalDetails';
 import { FormUserDetails } from './FormUserDetails';
 import { Confirm } from './Confirm';
 import { Success } from './Success';
+import { SignInOption } from './SignInOption';
 import { validateEmail, validatePasswords } from './InputValidations';
 import axios from 'axios';
 
 export class RegestrationForm extends Component {
     state = {
-        step: 1,
+        step: 0,
         errorHandle:'',
         firstName: '',
         lastName: '',
@@ -19,7 +20,8 @@ export class RegestrationForm extends Component {
         currency: '',
         avgIncome: 0,
         userExists: false, 
-        loading: true
+        loading: true,
+        googleToken: '', 
     };
 
     prevStep = () => {
@@ -28,6 +30,7 @@ export class RegestrationForm extends Component {
             step: step - 1
         });
     };
+
 
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
@@ -43,7 +46,7 @@ export class RegestrationForm extends Component {
               }
         };
       
-    };
+    };   
 
     checkUserExistence = async () => {
         const { email } = this.state;
@@ -62,38 +65,42 @@ export class RegestrationForm extends Component {
           this.setState({ error: 'An error occurred while checking user existence.', loading: false });
           throw error; // Rethrow the error for the caller to handle
         }
-      };
-      
-      nextStep = async () => {
-        const { step, email, password, check_password } = this.state;
-      
-        if (step === 1) {
-          try {
-            const emailResult = validateEmail(email);
-            const passwordResult = validatePasswords(password, check_password);
-      
-            // Wait for checkUserExistence to complete and get the result
-            const userExists = await this.checkUserExistence();
-      
-            if (passwordResult && emailResult) {
-              if (userExists) {
-                this.setState({ errorHandle: "User already exists" });
-              } else {
-                this.setState(prevState => ({ step: prevState.step + 1 }));
-              }
+    };
+    
+    nextStep = async () => {
+      const { step, email, password, check_password } = this.state;
+    
+      if (step === 1) {
+        try {
+          const emailResult = validateEmail(email);
+          const passwordResult = validatePasswords(password, check_password);
+    
+          // Wait for checkUserExistence to complete and get the result
+          const userExists = await this.checkUserExistence();
+    
+          if (passwordResult && emailResult) {
+            if (userExists) {
+              this.setState({ errorHandle: "User already exists" });
+            } else {
+              this.setState(prevState => ({ step: prevState.step + 1 }));
             }
-          } catch (error) {
-            this.setState({ errorHandle: error.message });
           }
-        } else {
-          this.setState({
-            step: step + 1
-          });
+        } catch (error) {
+          this.setState({ errorHandle: error.message });
         }
-      };
-      
-      
+      } else {
+        this.setState({
+          step: step + 1
+        });
+      }
+    };
 
+    googleNextStep = async () => {
+      const { step } = this.state;
+        this.setState({
+          step: step + 2
+        });
+    };
 
     render() {
 
@@ -104,6 +111,16 @@ export class RegestrationForm extends Component {
         const values = {};
         
         switch (step) {
+
+          case 0:
+            return (
+                
+                <SignInOption
+                    nextStep={this.nextStep}
+                    googleNextStep={this.googleNextStep}
+                    
+                     />
+            );
 
             case 1:
                 return (

@@ -42,6 +42,28 @@
     transition: all 0.2s ease-in-out;
 }
 
+.sign-up-options{
+    display: grid;
+    margin: 5%;
+    width: 80%;
+    height: 60%;
+    background-color: rgba(255, 243, 226, 0.85);
+    grid-template-columns: 0.5fr 5fr 0.5fr;
+    grid-template-rows: 0.5fr 2fr 0.5fr 2fr 0.5fr;
+    align-items: center;
+    justify-items: center;
+    padding: 2%;
+    border-radius: 3%;
+    border-radius: 20px;
+    border-left: 1px solid #FFF3E2;
+    border-top: 1px solid #FFF3E2;
+    backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(125, 46, 104, 0.746);
+    text-align: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
 .errors{
     grid-area: 7 / 1 / 8 / 3;
     color: #7D2E68;
@@ -89,4 +111,13 @@
     .errors{
         grid-area: 15 / 2 / 16 / 3;
     }
+    .sign-up-options{
+        margin-top: 20%;
+        height: 90%;
+        width: 100%;
+        grid-template-columns: 0.5fr 5fr 0.5fr;
+        grid-template-rows: 0.5fr 2fr 0.5fr 2fr 0.5fr;
+    }
 }
+
+
