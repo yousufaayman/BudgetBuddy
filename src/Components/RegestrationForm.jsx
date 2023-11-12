@@ -4,7 +4,7 @@ import { FormUserDetails } from './FormUserDetails';
 import { Confirm } from './Confirm';
 import { Success } from './Success';
 import { validateEmail, validatePasswords } from './InputValidations';
-
+import axios from 'axios';
 
 export class RegestrationForm extends Component {
     state = {
@@ -17,29 +17,9 @@ export class RegestrationForm extends Component {
         check_password: '',
         country: '',
         currency: '',
-        avgIncome: 0
-    };
-
-    nextStep = () => {
-        const { step, email, password, check_password } = this.state;
-        
-        if(step == 1){
-            try {
-                const emailResult = validateEmail(email)
-                const passwordResult = validatePasswords(password, check_password);
-                if (passwordResult && emailResult) {
-                    this.setState({
-                        step: step + 1
-                    });   
-                }
-            } catch (error) {
-                this.setState({ errorHandle: error.message });
-            }
-        }else{
-            this.setState({
-                step: step + 1
-            });  
-        }
+        avgIncome: 0,
+        userExists: false, 
+        loading: true
     };
 
     prevStep = () => {
@@ -53,20 +33,73 @@ export class RegestrationForm extends Component {
         this.setState({ [input]: e.target.value });
     };
     
-    
-    handleSignup = async (values) => {
+    handleSignup = async () => {
         try {
-          const response = await axios.post('http://localhost:3000/signup', values);
-          console.log('Signup successful:', response.data);
+          const response = await axios.post('http://localhost:3002/signup', this.state);
+          response = true
         } catch (error) {
-          console.error('Signup failed:', error.response.data);
+            if (error.response && error.response.data && error.response.data.error) {
+                alert('An unexpected error occurred. Please try again.');
+              }
+        };
+      
+    };
+
+    checkUserExistence = async () => {
+        const { email } = this.state;
+      
+        try {
+          const response = await axios.post('http://localhost:3002/api/checkUserExistence', { email });
+          const { exists } = response.data;
+      
+          // Use a callback function with setState to ensure state is updated before proceeding
+          this.setState({ userExists: exists, loading: false });
+      
+          return exists; // Return the result of user existence check
+      
+        } catch (error) {
+          console.error('Error checking user existence:', error);
+          this.setState({ error: 'An error occurred while checking user existence.', loading: false });
+          throw error; // Rethrow the error for the caller to handle
         }
       };
+      
+      nextStep = async () => {
+        const { step, email, password, check_password } = this.state;
+      
+        if (step === 1) {
+          try {
+            const emailResult = validateEmail(email);
+            const passwordResult = validatePasswords(password, check_password);
+      
+            // Wait for checkUserExistence to complete and get the result
+            const userExists = await this.checkUserExistence();
+      
+            if (passwordResult && emailResult) {
+              if (userExists) {
+                this.setState({ errorHandle: "User already exists" });
+              } else {
+                this.setState(prevState => ({ step: prevState.step + 1 }));
+              }
+            }
+          } catch (error) {
+            this.setState({ errorHandle: error.message });
+          }
+        } else {
+          this.setState({
+            step: step + 1
+          });
+        }
+      };
+      
+      
+
 
     render() {
 
         const { step, errorHandle } = this.state;
-        const finalValues = this.state;
+        const finalValues = this.state
+        const userinfo = [this.avgIncome, this.country, this.currency, this.firstName, this.lastName]
         const { firstName, lastName, email, password, check_password, country, currency, avgIncome } = this.state;
         const values = {};
         
@@ -112,13 +145,12 @@ export class RegestrationForm extends Component {
                         prevStep={this.prevStep}
                         nextStep={this.nextStep}
                         values={finalValues} 
+                        handleSignUp={this.handleSignup}
                         />
                 );
                     
 
             case 4:
-
-                this.handleSignup(finalValues)
                 return (
                     <Success />
                 );

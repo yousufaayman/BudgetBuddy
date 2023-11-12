@@ -24,9 +24,27 @@ const authenticate = async (req, res, next) => {
   }
 };
 
+// checkEmail
+app.post('/api/checkUserExistence', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const userRecord = await admin.auth().getUserByEmail(email);
+    res.json({ exists: true, user: userRecord });
+  } catch (error) {
+    if (error.code === 'auth/user-not-found') {
+      res.json({ exists: false });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+});
+
+
 // Signup route
 app.post('/signup', async (req, res) => {
-  const { email, password, additionalInfo } = req.body;
+  const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
 
   try {
     const userCredential = await admin.auth().createUser({
@@ -34,11 +52,9 @@ app.post('/signup', async (req, res) => {
       password,
     });
 
-    const user = userCredential.uid;
+    const userUID = userCredential.uid; // Correcting this line
 
-    database.collection('users').doc(user).set(additionalInfo);
-
-    res.status(201).json({ success: true, user });
+    res.status(201).json({ success: true, user: userUID });
   } catch (error) {
     console.error('Error signing up:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });

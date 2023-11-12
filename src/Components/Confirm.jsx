@@ -2,9 +2,8 @@ import React from 'react'
 import './Styles/Confirm.Module.css'
 import { ButtonStyled } from './Styles/ButtonStyled'
 import { LabelStyled } from './Styles/LabelStyled'
-import {handleSignUp} from './handleSignUp'
 
-export const Confirm = ({prevStep, nextStep, values}) => {
+export const Confirm = ({prevStep, nextStep, values, handleSignUp}) => {
   
   const Continue = e => {
     e.preventDefault();
@@ -39,7 +38,7 @@ export const Confirm = ({prevStep, nextStep, values}) => {
         qheight = "70%"
         qwidth = "70%"
         gridarea= "12 / 2 / 13 / 3" 
-        onClick={ Continue }>
+        onClick={ handleSignUp }>
           Confirm :)
         </ButtonStyled>
 

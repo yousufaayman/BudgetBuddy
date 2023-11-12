@@ -1,9 +1,10 @@
 export const validateEmail = (email) => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if( emailPattern.test(email)){
-    return true
-  }else{
-    throw new Error("Email is Invalid, Please Check It")
+
+  if (emailPattern.test(email)) {
+    return true;
+  } else {
+    throw new Error('Email is Invalid, Please Check It');
   }
 };
 
