@@ -30,7 +30,17 @@ app.post('/api/checkUserExistence', async (req, res) => {
 
   try {
     const userRecord = await admin.auth().getUserByEmail(email);
-    res.json({ exists: true, user: userRecord });
+
+    const userSnapshot = await admin.firestore().collection('users').doc(userRecord.uid).get();
+
+    if (userSnapshot.exists && userSnapshot.data()) {
+      res.json({ exists: true});
+    } else {
+      console.log('User does not exist in Firestore');
+      
+      res.json({ exists: false });
+    }
+    
   } catch (error) {
     if (error.code === 'auth/user-not-found') {
       res.json({ exists: false });
@@ -39,7 +49,7 @@ app.post('/api/checkUserExistence', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
-});
+}); 
 
 // Signup route
 app.post('/signup/email', async (req, res) => {

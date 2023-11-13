@@ -41,26 +41,29 @@ export class RegestrationForm extends Component {
         try {
             const response = await axios.post('http://localhost:3002/signup/email', this.state);
             response = true
+            this.nextStep()
           } catch (error) {
               if (error.response && error.response.data && error.response.data.error) {
                   alert('An unexpected error occurred. Please try again later.');
                 }
+              this.resetState()
           };
         
       };
 
       checkUserExistence = async () => {
           const { email } = this.state;
-        
+          
           try {
+            
             const response = await axios.post('http://localhost:3002/api/checkUserExistence', { email });
+            
             const { exists } = response.data;
-        
-            // Use a callback function with setState to ensure state is updated before proceeding
+           
             this.setState({ userExists: exists, loading: false });
-        
+            
             return exists; // Return the result of user existence check
-        
+            
           } catch (error) {
             console.error('Error checking user existence:', error);
             this.setState({ error: 'An error occurred while checking user existence.', loading: false });
@@ -114,9 +117,9 @@ export class RegestrationForm extends Component {
             lastName: userData.lastName,
             idToken: userData.idToken,
             email: userData.email,
-          }, () => {
-
-            if (this.checkUserExistence()) {
+          }, async () => {
+            const userIsRegestired = await this.checkUserExistence()
+            if (userIsRegestired) {
               this.setState({
                 step: 0,
                 errorHandle: '',
@@ -143,15 +146,21 @@ export class RegestrationForm extends Component {
         const {idToken} = this.state
         const userData = this.state
 
-        const response = await fetch('http://localhost:3002/signup/google', {
+        try{
+          const response = await fetch('http://localhost:3002/signup/google', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `${idToken}`,
           },
           body: JSON.stringify({ idToken, userData }),
+          
         });
-        
+        this.nextStep()
+        }catch(error){
+          alert(error)
+          this.resetState()
+        }  
       };
       
       removeUser = async () => {
@@ -269,7 +278,8 @@ export class RegestrationForm extends Component {
 
               case 4:
                   return (
-                      <Success />
+                      <Success
+                        values={finalValues} />
                   );
 
               default:
