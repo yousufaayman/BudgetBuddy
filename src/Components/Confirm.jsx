@@ -1,5 +1,5 @@
 import React from 'react'
-import './Styles/Confirm.Module.css'
+import './Styles/RegestrationForm.css'
 import { ButtonStyled } from './Styles/ButtonStyled'
 import { LabelStyled } from './Styles/LabelStyled'
 
@@ -31,8 +31,8 @@ export const Confirm = ({prevStep, nextStep, values, handleSignUp}) => {
       <ButtonStyled
         fsize = "100%" 
         color= "#FFF3E2" 
-        bgcolor1 = "#FFF3E2" 
-        bgcolor2 = "#3f00ee" 
+        bgcolor1 = "#ea4e33" 
+        bgcolor2 = "#ad0b82" 
         height= "90%" 
         width= "60%" 
         qheight = "70%"

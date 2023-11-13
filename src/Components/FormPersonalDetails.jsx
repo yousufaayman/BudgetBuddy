@@ -72,8 +72,8 @@ export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle
         <ButtonStyled 
           fsize = "130%" 
           color= "#FFF3E2" 
-          bgcolor1 = "#FFF3E2" 
-          bgcolor2 = "#7D2E68" 
+          bgcolor1 = "#ea4e33" 
+          bgcolor2 = "#ad0b82" 
           height= "70%" 
           width= "50%" 
           qmargin = "5%"
