@@ -4,7 +4,7 @@ import { InputStyled } from './Styles/InputStyled';
 import { LabelStyled } from './Styles/LabelStyled';
 import { ButtonStyled } from './Styles/ButtonStyled';
 import {CountryList} from  './CountryList'
-import CurrencyList, {CurrencyDropdown} from './Styles/CurrencyDropdown'
+import CurrencyList, {CurrencyDropdown} from './CurrencyDropdown'
 
 export const FormUserDetails = ({prevStep, nextStep, handleChange, values, fvalues}) => {
 

@@ -7,43 +7,43 @@ import { validateEmail, validatePasswords } from './InputValidations';
 import axios from 'axios';
 
 export class RegestrationForm extends Component {
-    state = {
-        step: 1,
-        errorHandle:'',
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        check_password: '',
-        country: '',
-        currency: '',
-        avgIncome: 0,
-        userExists: false, 
-        loading: true
-    };
+      state = {
+          step: 1,
+          errorHandle:'',
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          check_password: '',
+          country: '',
+          currency: '',
+          avgIncome: 0,
+          userExists: false, 
+          loading: true
+      };
 
-    prevStep = () => {
-        const { step } = this.state;
-        this.setState({
-            step: step - 1
-        });
-    };
+      prevStep = () => {
+          const { step } = this.state;
+          this.setState({
+              step: step - 1
+          });
+      };
 
-    handleChange = input => e => {
-        this.setState({ [input]: e.target.value });
-    };
-    
-    handleSignup = async () => {
-        try {
-          const response = await axios.post('http://localhost:3002/signup', this.state);
-          response = true
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data.error) {
-                alert('An unexpected error occurred. Please try again.');
-              }
-        };
+      handleChange = input => e => {
+          this.setState({ [input]: e.target.value });
+      };
       
-    };
+      handleSignup = async () => {
+        try {
+            const response = await axios.post('http://localhost:3002/signup', this.state);
+            response = true
+          } catch (error) {
+              if (error.response && error.response.data && error.response.data.error) {
+                  alert('An unexpected error occurred. Please try again later.');
+                }
+          };
+        
+      };
 
     checkUserExistence = async () => {
         const { email } = this.state;
@@ -64,36 +64,36 @@ export class RegestrationForm extends Component {
         }
       };
       
-      nextStep = async () => {
-        const { step, email, password, check_password } = this.state;
-      
-        if (step === 1) {
-          try {
-            const emailResult = validateEmail(email);
-            const passwordResult = validatePasswords(password, check_password);
-      
-            // Wait for checkUserExistence to complete and get the result
-            const userExists = await this.checkUserExistence();
-      
-            if (passwordResult && emailResult) {
-              if (userExists) {
-                this.setState({ errorHandle: "User already exists" });
-              } else {
-                this.setState(prevState => ({ step: prevState.step + 1 }));
+    nextStep = async () => {
+      const { step, firstName, lastName, email, password, check_password } = this.state;
+    
+      if (step === 1) {
+          if(firstName == "" || lastName == ""){
+            this.setState({ errorHandle: "Please input your first and Last Name"});
+          }else{
+            try {
+              const emailResult = validateEmail(email);
+              const passwordResult = validatePasswords(password, check_password);
+              
+              const userExists = await this.checkUserExistence();
+        
+              if (passwordResult && emailResult) {
+                if (userExists) {
+                  this.setState({ errorHandle: "User already exists" });
+                } else {
+                  this.setState(prevState => ({ step: prevState.step + 1 }));
+                }
               }
+            } catch (error) {
+              this.setState({ errorHandle: error.message });
             }
-          } catch (error) {
-            this.setState({ errorHandle: error.message });
           }
-        } else {
-          this.setState({
-            step: step + 1
-          });
-        }
-      };
-      
-      
-
+      }else {
+        this.setState({
+          step: step + 1
+        });
+      }
+    };
 
     render() {
 
@@ -147,8 +147,9 @@ export class RegestrationForm extends Component {
                         values={finalValues} 
                         handleSignUp={this.handleSignup}
                         />
+                        
                 );
-                    
+                
 
             case 4:
                 return (

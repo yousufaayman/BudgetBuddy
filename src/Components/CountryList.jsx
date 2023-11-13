@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 
 export const CountryList = (countries, setCountries) => {
   useEffect(() => {

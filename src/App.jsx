@@ -1,13 +1,13 @@
 import {ContainerStyled} from './Components/Styles/Container.Styled'
 import {RegestrationForm} from './Components/RegestrationForm'
 import { RegNavBar } from './Components/RegNavbar';
-import {GridITem, GridItem} from './Components/Styles/GridItem'
+import {GridItem} from './Components/Styles/GridItem'
 
 function App() {
   return (
-    <ContainerStyled display="grid" gridRows="1fr 4fr" gridColumns="2fr 4fr 2fr">
-        <GridItem gridArea = "1 / 1 / 1 / 4" QgridArea = "1 / 1 / 1 /4"><RegNavBar/></GridItem>
-        <GridItem gridArea = "2 / 2 / 3 / 3" QgridArea = " 2 / 1 / 4 / 4"><RegestrationForm /></GridItem>
+    <ContainerStyled display="grid" gridrows="1fr 4fr" gridcolumns="2fr 4fr 2fr">
+        <GridItem gridarea = "1 / 1 / 1 / 4" qgridarea = "1 / 1 / 1 /4"><RegNavBar/></GridItem>
+        <GridItem gridarea = "2 / 2 / 3 / 3" qgridarea = " 2 / 1 / 4 / 4"><RegestrationForm /></GridItem>
     </ContainerStyled>
   );
 }

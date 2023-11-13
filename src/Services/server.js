@@ -52,7 +52,16 @@ app.post('/signup', async (req, res) => {
       password,
     });
 
-    const userUID = userCredential.uid; // Correcting this line
+    const userUID = userCredential.uid;
+
+    // Store additional user information in Firestore
+    await admin.firestore().collection('users').doc(userUID).set({
+      firstName,
+      lastName,
+      country,
+      currency,
+      avgIncome,
+    });
 
     res.status(201).json({ success: true, user: userUID });
   } catch (error) {

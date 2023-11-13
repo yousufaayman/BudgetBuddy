@@ -9,8 +9,8 @@ export const ContainerStyled = styled.div`
   height: ${(props) => props.height};
   display: ${(props) => props.display};
   place-items: ${(props) => props.placeitems};
-  grid-template-rows: ${(props) => props.gridRows};
-  grid-template-columns: ${(props) => props.gridColumns};
+  grid-template-rows: ${(props) => props.gridrows};
+  grid-template-columns: ${(props) => props.gridcolumns};
   
   @media ${device.laptop} { 
         width: 100%;
@@ -34,11 +34,3 @@ ContainerStyled.defaultProps = {
   height: '100vh',
   display: 'grid'
 };
-
-// Define an array of prop names that should be passed to the DOM element
-const validProps = ['margin', 'padding', 'width', 'height', 'display', 'placeItems', 'backgroundColor'];
-
-// Use the shouldForwardProp prop to filter valid props
-const ContainerStyledFiltered = styled(ContainerStyled).withConfig({
-  shouldForwardProp: (prop, defaultValidatorFn) => validProps.includes(prop) || defaultValidatorFn(prop),
-});
