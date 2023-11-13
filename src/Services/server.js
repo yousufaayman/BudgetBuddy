@@ -41,7 +41,6 @@ app.post('/api/checkUserExistence', async (req, res) => {
   }
 });
 
-
 // Signup route
 app.post('/signup', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
@@ -66,6 +65,34 @@ app.post('/signup', async (req, res) => {
     res.status(201).json({ success: true, user: userUID });
   } catch (error) {
     console.error('Error signing up:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/signUpWithGoogle', async (req, res) => {
+  const { idToken, email, firstName, lastName } = req.body;
+
+  try {
+    // Verify the Google ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    
+    // Create a new user if it doesn't exist
+    const userRecord = await admin.auth().getUserByEmail(email);
+    if (!userRecord) {
+      // Create the user with additional information
+      const createdUser = await admin.auth().createUser({
+        uid: decodedToken.uid,
+        email: email,
+        displayName: `${firstName} ${lastName}`,
+      });
+
+      res.json({ success: true, user: createdUser.uid });
+    } else {
+      // User already exists
+      res.json({ success: true, user: userRecord.uid });
+    }
+  } catch (error) {
+    console.error('Error signing up with Google:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

@@ -52,5 +52,6 @@ export const ButtonStyled = styled.button`
         width: ${(props) => props.qwidth};
         height: ${(props) => props.qheight};
         grid-area: ${(props) => props.qgridarea};
+        font-size: ${(props) => props.qfsize};
   }
 `

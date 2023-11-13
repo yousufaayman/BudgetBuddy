@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { FormPersonalDetails } from './FormPersonalDetails';
 import { FormUserDetails } from './FormUserDetails';
 import { Confirm } from './Confirm';
 import { Success } from './Success';
+import { SignInOption } from './SignInOption';
 import { validateEmail, validatePasswords } from './InputValidations';
 import axios from 'axios';
 
@@ -104,6 +105,16 @@ export class RegestrationForm extends Component {
         const values = {};
         
         switch (step) {
+
+          case 0:
+            return (
+                
+                <SignInOption
+                    nextStep={this.nextStep}
+                    googleNextStep={this.googleNextStep}
+                    
+                     />
+            );
 
             case 1:
                 return (
