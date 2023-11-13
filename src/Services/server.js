@@ -42,7 +42,7 @@ app.post('/api/checkUserExistence', async (req, res) => {
 });
 
 // Signup route
-app.post('/signup', async (req, res) => {
+app.post('/signup/email', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
 
   try {
@@ -69,30 +69,48 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/api/signUpWithGoogle', async (req, res) => {
-  const { idToken, email, firstName, lastName } = req.body;
+app.post('/signup/google', async (req, res) => {
+  const { idToken, userData } = req.body;
+  const { firstName, lastName, country, currency, avgIncome } = userData;
 
   try {
-    // Verify the Google ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    
-    // Create a new user if it doesn't exist
-    const userRecord = await admin.auth().getUserByEmail(email);
-    if (!userRecord) {
-      // Create the user with additional information
-      const createdUser = await admin.auth().createUser({
-        uid: decodedToken.uid,
-        email: email,
-        displayName: `${firstName} ${lastName}`,
-      });
+    const uid = decodedToken.uid;
 
-      res.json({ success: true, user: createdUser.uid });
+    const userSnapshot = await admin.firestore().collection('users').doc(uid).get();
+
+    if (!userSnapshot.exists) {
+      await admin.firestore().collection('users').doc(uid).set({
+        firstName,
+        lastName,
+        country,
+        currency,
+        avgIncome,
+      });
+      
     } else {
-      // User already exists
-      res.json({ success: true, user: userRecord.uid });
+      console.log('User already exists');
     }
+
+    res.status(200).json({ message: 'Google sign-up successful' });
   } catch (error) {
-    console.error('Error signing up with Google:', error.message);
+    console.error('Error verifying ID token:', error);
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+});
+
+app.post('/delete/user', async (req, res) => {
+  const { idToken } = req.body;
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    await admin.auth().deleteUser(uid);
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
