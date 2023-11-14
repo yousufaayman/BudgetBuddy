@@ -279,7 +279,8 @@ export class RegestrationForm extends Component {
               case 4:
                   return (
                       <Success
-                        values={finalValues} />
+                        values={finalValues}
+                         />
                   );
 
               default:
