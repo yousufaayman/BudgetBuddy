@@ -59,6 +59,7 @@ app.post('/signup/email', async (req, res) => {
     const userCredential = await admin.auth().createUser({
       email,
       password,
+      emailVerified: false,
     });
 
     const userUID = userCredential.uid;
