@@ -1,0 +1,22 @@
+import React from 'react';
+import axios from 'axios';
+
+const GenerateReportButton = () => {
+  const handleGenerateReport = async () => {
+    try {
+      const response = await axios.post('/api/generateReport');
+      const report = response.data;
+
+      // Handle the report data//// download it!!
+      console.log(report);
+    } catch (error) {
+      console.error('Error generating report:', error);
+    }
+  };
+
+  return (
+    <button onClick={handleGenerateReport}>Generate Report</button>
+  );
+};
+
+export default GenerateReportButton;
