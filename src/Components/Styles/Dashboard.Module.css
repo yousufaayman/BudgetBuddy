@@ -1,0 +1,6 @@
+.page{
+    background-color: #FFF3E2;
+    opacity: 0.8;
+    background: radial-gradient(circle, transparent 20%, #FFF3E2 20%, #FFF3E2 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #FFF3E2 20%, #FFF3E2 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#E74646 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #E74646 2px, #FFF3E2 2px) -1px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+}
