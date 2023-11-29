@@ -1,8 +1,7 @@
 import './Styles/DashboardNavBar.Module.css'
 import React, { useState } from 'react';
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 
-export const Navbar = () => {
+export const NavBar = () => {
     const [collapsed, setCollapsed] = useState(false);
 
     const handleToggleSidebar = () => {
@@ -10,12 +9,14 @@ export const Navbar = () => {
     };
 
     return (
-        <Sidebar collapsed={collapsed}>
-            <Menu>
-                <MenuItem>Home</MenuItem>
-            </Menu>
-        </Sidebar>
+        <div className="nav-bar" collapsed={collapsed}>
+            <ul className="nav-menu">
+                <li className='menu-item'><a href="#" className='menu-link'>Dashboard</a></li>
+                <li className='menu-item'><a href="#" className='menu-link'>Home</a></li>
+                <li className='menu-item'><a href="#" className='menu-link'>Home</a></li>
+            </ul>
+        </div>
     );
   }
   
-  export default Navbar;
+  export default NavBar;
