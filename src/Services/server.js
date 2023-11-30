@@ -73,6 +73,14 @@ app.post('/signup/email', async (req, res) => {
       avgIncome,
     });
 
+    const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
+    const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
+
+    await admin.firestore().collection('categories').doc(userUID).set({
+      incomeCategories: defaultIncomeCategories,
+      expenseCategories: defaultExpenseCategories,
+    });
+
     res.status(201).json({ success: true, user: userUID });
   } catch (error) {
     console.error('Error signing up:', error.message);
@@ -99,6 +107,14 @@ app.post('/signup/google', async (req, res) => {
         avgIncome,
       });
       
+      const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
+      const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
+
+      await admin.firestore().collection('categories').doc(uid).set({
+        incomeCategories: defaultIncomeCategories,
+        expenseCategories: defaultExpenseCategories,
+      });
+
     } else {
       console.log('User already exists');
     }

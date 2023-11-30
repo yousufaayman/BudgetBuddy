@@ -39,16 +39,33 @@ export class RegestrationForm extends Component {
       
       handleSignup = async () => {
         try {
-            const response = await axios.post('http://localhost:3002/signup/email', this.state);
-            response = true
-            this.nextStep()
-          } catch (error) {
-              if (error.response && error.response.data && error.response.data.error) {
-                  alert('An unexpected error occurred. Please try again later.');
-                }
-              this.resetState()
-          };
-        
+          const response = await axios.post('http://localhost:3002/signup/email', this.state);
+      
+          if (response.status === 201) {
+            // Assuming the response contains a property indicating success
+            if (response.data && response.data.success) {
+              // Handle success
+              console.log('Signup successful');
+              this.nextStep();
+            } else {
+              // Handle scenarios where the response doesn't indicate success
+              console.error('Signup failed. No success indication in response.');
+              this.resetState();
+            }
+          } else {
+            // Handle unexpected status codes if needed
+            console.error('Unexpected status code:', response.status);
+            this.resetState();
+          }
+        } catch (error) {
+          console.error('Error during signup:', error.message);
+          // Check if it's an Axios error or server error and act accordingly
+          if (error.response) {
+            // Handle error response from server (if available)
+            console.error('Error response from server:', error.response.data);
+          }
+          this.resetState();
+        }
       };
 
       checkUserExistence = async () => {
@@ -164,17 +181,29 @@ export class RegestrationForm extends Component {
       };
       
       removeUser = async () => {
-        const {idToken} = this.state
-
-        const response = await fetch('http://localhost:3002/delete/user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${idToken}`,
-          },
-          body: JSON.stringify({ idToken }),
-        });
-        
+        const { idToken } = this.state;
+      
+        try {
+          const response = await fetch('http://localhost:3002/delete/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': idToken, // Just pass the token directly here
+            },
+            body: JSON.stringify({ idToken }), // Sending idToken in the request body
+          });
+      
+          if (response.ok) {
+            // Handle success, maybe show a success message or redirect the user
+            console.log('User deleted successfully');
+          } else {
+            // Handle other status codes if needed
+            console.error('Error deleting user:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+          // Handle network errors or other exceptions
+        }
       };
 
       resetState = async () => {
