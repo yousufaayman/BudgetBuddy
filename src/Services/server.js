@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
-const serviceAccount = require('./credentials.json'); // Replace with your Firebase credentials file
+const serviceAccount = require('./credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
