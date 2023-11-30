@@ -1,7 +1,7 @@
 
 .page {
     --s: 100px; /* control the size */
-    --c1: #E74646;
+    --c1: #670AAD;
     --c2: #FFF3E2;
     
     --_s: calc(2*var(--s)) calc(2*var(--s));

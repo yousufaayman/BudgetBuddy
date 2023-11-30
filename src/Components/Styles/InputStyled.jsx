@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "./devices";
 
 export const InputStyled = styled.input`
-  background-color : #E74646;
+  background-color : #670AAD;
   grid-area: ${(props) => props.gridarea};
   font-family: 'Roboto Mono';
   width: 80%;

@@ -7,7 +7,7 @@
     backdrop-filter: blur(10px);
     height: 95%;
     width: 100%;
-    box-shadow: 1px 17px 22px -3px rgba(250,152,132,0.44);
+    box-shadow: 1px 17px 22px -3px #BBB9BB70;
     align-items: center;
     justify-content: center;
 }
@@ -16,9 +16,9 @@
     grid-area: 1 / 2 / 2 / 3;
     text-align: center;
     font-size: 450%;
-    color: #E74646;
+    color: #670AAD;
     font-family: 'Open Sans';
-    text-shadow: 5px 1px 5px rgba(231,70,70,0.74);
+    text-shadow: 5px 1px 5px #670AADbd;
     margin-left: -5%
 }
 

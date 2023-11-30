@@ -24,7 +24,7 @@ const googleSignUP = e => {
           fsize = "100%" 
           color= "white" 
           bgcolor1 = "#FFF3E2" 
-          bgcolor2 = "#7D2E68" 
+          bgcolor2 = "#670AAD" 
           height= "70%" 
           width= "80%" 
           qmargin = "5%"

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "./devices";
 
 export const LabelStyled = styled.label`
-  color : #E74646;
+  color : #670AAD;
   font-size: 2em;
   grid-column: ${(props) => props.gridcolumn};
   display: grid;

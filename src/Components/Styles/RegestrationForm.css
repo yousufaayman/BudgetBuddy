@@ -89,7 +89,7 @@
 .email{
     grid-column: 1 / 3;
     grid-row: 5 / 6;
-    color : #E74646;
+    color : #670AAD;
     font-size: 2em;
     display: grid;
     font-family: 'Open Sans'; 
@@ -111,7 +111,7 @@
 }
 
 .country-dropdown{
-    background-color : #E74646;
+    background-color : #670AAD;
     font-family: 'Roboto Mono';
     width: 80%;
     height: 90%;
@@ -124,7 +124,7 @@
 }
 
 .currency-dropdown{
-    background-color : #E74646;
+    background-color : #670AAD;
     font-family: 'Roboto Mono';
     width: 80%;
     height: 90%;

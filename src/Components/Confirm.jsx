@@ -46,7 +46,7 @@ export const Confirm = ({prevStep, nextStep, values, handleSignUp}) => {
           fsize = "80%" 
           color= "#FFF3E2" 
           bgcolor1 = "#FFF3E2" 
-          bgcolor2 = "#7D2E68" 
+          bgcolor2 = "#670AAD" 
           height= "90%" 
           width= "60%" 
           qheight = "70%"
