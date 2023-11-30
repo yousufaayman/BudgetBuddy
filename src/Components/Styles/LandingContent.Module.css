@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
     grid-template-rows: 0.5fr 4fr 2fr 0.5fr;
-    background-color: rgba(255, 229, 202, 1);
+    background-color: #FFF3E2;
     border-radius: 1%;
     margin-right: 2%;
 }
@@ -10,17 +10,17 @@
 .main-slogan{
     font-size: 270%;
     font-family: 'Open Sans';
-    color: #E74646;
+    color: #670AAD;
     grid-area: 2 / 3 / 3 / 4;
     text-align: right;
     margin-top: 40%;
-    text-shadow: 5px 1px 5px rgba(231,70,70,0.74);
+    text-shadow: 5px 1px 5px #670AADbd;
 }
 
 .sub-heading-1{
     font-size: 130%;
     font-family: 'Open Sans';
-    color: #E74646;
+    color: #670AAD;
     grid-area: 3 / 2 / 4 / 3;
     text-align: right;
     margin-top: 10%;
@@ -30,7 +30,7 @@
 .sub-heading-2{
     font-size: 130%;
     font-family: 'Open Sans';
-    color: #E74646;
+    color: #670AAD;
     grid-area: 3 / 3 / 4 / 4;
     text-align: right;
     margin-top: 10%;

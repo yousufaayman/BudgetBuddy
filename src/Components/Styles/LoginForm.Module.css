@@ -5,9 +5,9 @@
     align-items : center;
     height: 80%;
     width: 90%;
-    background : #E74646;
+    background : #670AAD;
     backdrop-filter: blur(10px);
-    box-shadow : 0 0.8rem 3.2em 0  #FA9884;
+    box-shadow : 0 0.1rem 1.5em 0  #670AAD;
     border-radius: 0.3rem;
     overflow-wrap: normal;
     
@@ -58,14 +58,14 @@
   color: #FFE5CA;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  text-shadow: 0.3rem 0.2em 0.2em #FA9884; 
+  text-shadow: 0.1rem 0.05em 0.1em #BBB9BB; 
   margin: 3rem 0 2rem 0;
   grid-area: 1 / 1 / 2 / 1; 
 }
 
 .input{
-  background: #FFE5CA;
-  box-shadow: 0.2rem 0.2rem 0.6em 0 #ffc3c3;
+  background: #FFF3E2;
+  box-shadow: 0.2rem 0.2rem 0.6em 0 #BBB9BB;
   border-radius: 0.3rem;
   width: 60%;
   height: 5%;
@@ -75,55 +75,61 @@
   margin: 0.2rem 0 0.5rem 0;
   font-family: 'Roboto Mono', monospace;
   font-size: 90%;
+  color:#670AAD
 }
 
 .input:focus {
     display: inline-block;
-    box-shadow: 0 0 0 0.2rem #ffdd7f;
+    box-shadow: 0 0 0 0.2rem #BBB9BB;
     border-radius: 0.4rem;
   }
 
 .input::placeholder {
-    color: #FA9884;
+    color: #660aad77;
   }
 
 .login-button{
     height: 4000%;
     width: 65%;
     font-size: 100%;
-    color: #FA9884;
+    color: #670AAD;
     font-family: 'Roboto Mono', monospace;
     text-align: center;
-    background: linear-gradient(45deg, #FFF3E2, #fdd7ae);
+    background: linear-gradient(45deg, #FFF3E2, #FFF3E2);
     border: none;
     border-radius: 25px;
     padding: 10px 20px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0.2rem 0.2rem 0.6em 0 #ffc3c3;
+    box-shadow: 0.2rem 0.2rem 0.2em 0 #BBB9BB;
 }
 
 .login-button:hover {
     color: #FFF3E2;
-    background: #FA9884;
+    background: #fa8ee1;
+    box-shadow: 0.2rem 0.2rem 0.2em 0 #fa8ee1;
   }
 
 .login-option-text{
   margin-top: 10%;
     font-size: 150%;
-    color: #FFE5CA;
+    color: #FFF3E2;
     font-family: 'Open Sans', sans-serif;
     text-align: center;
-    text-shadow: 0.2rem 0.1em 0.3em #FA9884; 
+    text-shadow: 0.2rem 0.05em 0.3em #BBB9BB; 
   }
 
 .hyperlink{
     font-size: 150%;
-    color: #ffdd7f;
+    color: #BBB9BB;
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     margin: 1em;
     text-decoration: underline;
+  }
+
+  .hyperlink:hover{
+    color: #FFF3E2;
   }
 
 @media only screen and (max-width: 1024px){

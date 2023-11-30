@@ -24,7 +24,7 @@ const StyledInput = styled.input`
     }
 
     &::placeholder{
-        color: #FA9884;
+        color: #670AAD;
     }
 
 `;
