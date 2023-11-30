@@ -50,6 +50,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
 
             <PopupInputStyled
               type="number"
+              min="1"
               name="amount"
               value={inputValues.amount}
               onChange={handleInputChange}
