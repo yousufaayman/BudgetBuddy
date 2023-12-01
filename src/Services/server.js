@@ -54,6 +54,8 @@ app.post('/api/checkUserExistence', async (req, res) => {
 // Signup route
 app.post('/signup/email', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
+  const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
+  const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
 
   try {
     const userCredential = await admin.auth().createUser({
@@ -71,14 +73,10 @@ app.post('/signup/email', async (req, res) => {
       country,
       currency,
       avgIncome,
-    });
-
-    const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
-    const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
-
-    await admin.firestore().collection('categories').doc(userUID).set({
-      incomeCategories: defaultIncomeCategories,
-      expenseCategories: defaultExpenseCategories,
+      categories: {
+        incomeCategories: defaultIncomeCategories,
+        expenseCategories: defaultExpenseCategories,
+      }
     });
 
     res.status(201).json({ success: true, user: userUID });
