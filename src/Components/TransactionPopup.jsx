@@ -2,31 +2,116 @@ import React, { useState } from 'react';
 import './Styles/popups.css';
 import { GrClose } from 'react-icons/gr';
 import { PopupInputStyled } from './Styles/PopupInputStyled';
+import axios from 'axios';
+import { StatusPopup } from './StatusPopup'
 
 export const TransactionPopup = ({ isOpen, onClose, type }) => {
+  const [showStatusPopup, setShowStatusPopup] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [inputValues, setInputValues] = useState({
     title: '',
     amount: '',
     category: '',
-    description: '',
     date: '',
-    recurring: 'false'
+    description: '',
+    recurring: 'false',
+    type: type,
   });
+
+  const validateTitle = (title) => {
+    return title.trim().length > 0;
+  };
+  
+  const validateAmount = (amount) => {
+    return parseFloat(amount) > 0;
+  };
+  
+  const validateDate = (date) => {
+    return date.trim().length > 0;
+  };
+  
+  const validateCategory = (category) => {
+    return category.trim().length > 0;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
   };
 
-  const handleSubmit = () => {
-    setInputValues({
-      title: '',
-      amount: '',
-      category: '',
-      description: '',
-      date: '',
-      recurring: 'false', // reset radio button to default after submission
-    });
+  const handleSubmit = async () => {
+    const { title, amount, category, date, description, recurring, type } = inputValues;
+    const userID = "3cZUJIvnx7OqOl5uXkSGfveaLHw2";
+    
+    
+    const isTitleValid = validateTitle(title);
+    const isAmountValid = validateAmount(amount);
+    const isDateValid = validateDate(date);
+    const isCategoryValid = validateCategory(category);
+
+    if (!isTitleValid || !isAmountValid || !isDateValid || !isCategoryValid) {
+      let errorMessage = '';
+  
+      if (!isTitleValid) errorMessage += 'Title is required. ';
+      if (!isAmountValid) errorMessage += 'Amount should be greater than 0. ';
+      if (!isDateValid) errorMessage += 'Date is required. ';
+      if (!isCategoryValid) errorMessage += 'Category is required. ';
+  
+      setErrorMessage(errorMessage.trim());
+      setShowStatusPopup(true);
+      setIsSuccess(false);
+  
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3002/user/transaction', {
+        title,
+        amount,
+        category,
+        date,
+        description,
+        recurring,
+        type,
+        userID,
+      });
+  
+      if (response.status === 201 && response.data && response.data.success) {
+        setInputValues({
+          title: '',
+          amount: '',
+          category: '',
+          description: '',
+          date: '',
+          recurring: 'false',
+          type: '',
+        });
+        
+        setShowStatusPopup(true);
+        setIsSuccess(true);
+
+        setTimeout(() => {
+          setShowStatusPopup(false);
+          setIsSuccess(false);
+          onClose();
+        }, 2000);
+
+      } else {
+        setErrorMessage("Error Adding Transaction! Please Try Again Later.");
+        setShowStatusPopup(true);
+        setIsSuccess(false);
+
+        setTimeout(() => {
+          setShowStatusPopup(false);
+          onClose();
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+
   };
 
   return (
@@ -34,17 +119,17 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
       {isOpen && (
         <div className="popup-overlay">
           <div className="popup">
-            <button className="close-btn" onClick={onClose}>
+
+            <button id="close-btn" onClick={onClose}>
               <GrClose style={{ color: '#670AAD' }} />
             </button>
             <h1 className="title">Add {type}</h1>
 
             <PopupInputStyled
+              placeholder="Transaction Title"
               type="text"
-              name="title"
               value={inputValues.title}
               onChange={handleInputChange}
-              placeholder="Title"
               gridarea="2 / 2 / 3 /3 "
             />
 
@@ -68,11 +153,11 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
             />
 
             <PopupInputStyled
+              placeholder="Description"
               type="text"
               name="description"
               value={inputValues.description}
               onChange={handleInputChange}
-              placeholder="Description"
               gridarea="5 / 2 / 6 /3 "
             />
 
@@ -117,10 +202,14 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               </label>
             </div>
 
-            <button className="submit-btn" onClick={handleSubmit}>
+            <button id="submit-btn" onClick={handleSubmit}>
               Submit
             </button>
+
+            {showStatusPopup && <StatusPopup isSuccess={isSuccess} message={errorMessage} />}
+
           </div>
+
         </div>
       )}
     </>

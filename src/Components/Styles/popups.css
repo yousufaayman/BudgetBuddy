@@ -4,12 +4,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #BBB9BBda;
+    background-color: #bbb9bb;
+    opacity: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(100px); /* Apply blur effect to the background */
-    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
   }
   
   .popup {
@@ -26,15 +26,16 @@
     gap: 0.2rem; /* Gap between grid items */
     align-items: center;
     justify-items: center;
+    z-index: 2;
   }
 
-  .close-btn{
+  #close-btn{
     grid-area: 1 / 3 / 2 / 4;
     background-color: transparent;
     border: none
   }
 
-  .submit-btn {
+  #submit-btn {
     grid-area: 8 / 2 / 9 /3;
     font-size: 120%;
     height: 80%;
@@ -57,12 +58,12 @@
     touch-action: manipulation;
 }
 
-.submit-btn:hover {
+#submit-btn:hover {
   box-shadow: #670AAD59 0 -25px 18px -14px inset,#670AAD40 0 1px 2px,#670AAD40 0 2px 4px,#670AAD40 0 4px 8px,#670AAD40 0 8px 16px,#670AAD40 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
 }
 
-.close-btn:hover{
+#close-btn:hover{
     transform: scale(1.55) rotate(-5deg);
     color: #BBB9BB;
 }
@@ -96,4 +97,20 @@
   grid-area: 1 / 2 / 2 / 3;
   color: #670AAD;
   text-transform: capitalize;
+}
+
+.status-overlay{
+  grid-area: 1 / 1 / 4 / 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #670AAD;
+  border-radius: 5%;
+  padding: 10%;
+
+}
+
+.popup-text{
+  color: #ffffff;
+  font-family: 'Open Sans';
+  font-size: 80%;
 }

@@ -5,6 +5,7 @@ import {MainContent} from './DashboardMainContent'
 import {NavBar} from './DashboardNavBar'
 
 export const Dashboard = () => {
+    MainContent("3cZUJIvnx7OqOl5uXkSGfveaLHw2")
     return (
       <ContainerStyled className="page" display="grid" gridrows="1fr 10fr" gridcolumns="2fr 10fr 0.1fr">
           <GridItem gridarea = "1 / 2 / 2 / 3" qgridarea = " 2 / 1 / 4 / 4"><div></div></GridItem>
