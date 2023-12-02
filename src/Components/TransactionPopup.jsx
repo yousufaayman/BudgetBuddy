@@ -4,11 +4,14 @@ import { GrClose } from 'react-icons/gr';
 import { PopupInputStyled } from './Styles/PopupInputStyled';
 import axios from 'axios';
 import { StatusPopup } from './StatusPopup'
+import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
 
 export const TransactionPopup = ({ isOpen, onClose, type }) => {
+  const userID = 'fxAEXzfQSHf26vyOJFPFOtpcZyE3'
   const [showStatusPopup, setShowStatusPopup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [inputValues, setInputValues] = useState({
     title: '',
@@ -36,6 +39,11 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
     return category.trim().length > 0;
   };
 
+  const handleCategoryChange = (selectedCategory) => {
+    setSelectedCategory(selectedCategory);
+    setInputValues({ ...inputValues, category: selectedCategory });
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
@@ -43,7 +51,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
 
   const handleSubmit = async () => {
     const { title, amount, category, date, description, recurring, type } = inputValues;
-    const userID = "3cZUJIvnx7OqOl5uXkSGfveaLHw2";
     
     
     const isTitleValid = validateTitle(title);
@@ -128,6 +135,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
             <PopupInputStyled
               placeholder="Transaction Title"
               type="text"
+              name="title"
               value={inputValues.title}
               onChange={handleInputChange}
               gridarea="2 / 2 / 3 /3 "
@@ -143,14 +151,13 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               gridarea="3 / 2 / 4 /3 "
             />
 
-            <PopupInputStyled
-              type="text"
-              name="category"
-              value={inputValues.category}
-              onChange={handleInputChange}
-              placeholder="Category"
-              gridarea="4 / 2 / 5 /3 "
-            />
+            {type === 'income' && (
+              <IncomeCategoriesDropdown className="category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+            )}
+
+            {type === 'expense' && (
+              <ExpenseCategoriesDropdown className="category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+            )}
 
             <PopupInputStyled
               placeholder="Description"

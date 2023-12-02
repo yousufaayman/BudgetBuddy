@@ -114,3 +114,25 @@
   font-family: 'Open Sans';
   font-size: 80%;
 }
+
+.category-dropdwon{
+  background-color : #BBB9BB;
+  grid-area: 4 / 2 / 5 / 3;
+  font-family: 'Roboto Mono';
+  width: 84%;
+  height: 85%;
+  border: none;
+  padding: 2%;
+  border-radius: 0.3rem;
+  color: #670AAD;
+}
+
+.category-dropdwon:focus{
+  display: inline-block;
+  box-shadow : 0 0 0 0.2rem  #7D2E68;
+  border-radius: 0.4rem;
+}
+
+.category-dropdwon::placeholder{
+  color: #670AADa0;
+}
