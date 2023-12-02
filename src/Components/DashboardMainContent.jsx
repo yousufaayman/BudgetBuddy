@@ -8,6 +8,7 @@ import { TransactionTable } from './TableTransactionHistory'
 export const MainContent = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [transactionType, setTransactionType] = useState('');
+  const [refreshTable, setRefreshTable] = useState(false);
 
   const handleOpenPopupIncome = () => {
     setIsPopupOpen(true);
@@ -21,7 +22,8 @@ export const MainContent = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-g  };
+    setRefreshTable(prev => !prev);
+  };
 
   return (
     <div className="MainContent">
@@ -45,7 +47,7 @@ g  };
         />
       )}
 
-      <TransactionTable />
+      <TransactionTable refresh={refreshTable}/>
     </div>
   );
 };

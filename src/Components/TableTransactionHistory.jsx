@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useTable } from 'react-table';
 import './Styles/TableTransactionHistory.css'
 
-export const TransactionTable = () => {
+export const TransactionTable = ({ refresh }) => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const TransactionTable = () => {
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
   const columns = React.useMemo(
     () => [
