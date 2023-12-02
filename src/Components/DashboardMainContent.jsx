@@ -21,7 +21,7 @@ export const MainContent = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-  };
+g  };
 
   return (
     <div className="MainContent">
