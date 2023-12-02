@@ -74,7 +74,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3002/user/transaction', {
+      const response = await axios.post(`http://localhost:3002/user/transactions/${userID}`, {
         title,
         amount,
         category,
@@ -82,7 +82,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
         description,
         recurring,
         type,
-        userID,
       });
   
       if (response.status === 201 && response.data && response.data.success) {

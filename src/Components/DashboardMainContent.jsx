@@ -3,6 +3,7 @@ import './Styles/DashboardMainContent.Module.css';
 import { TbPigMoney } from 'react-icons/tb';
 import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
 import { TransactionPopup } from './TransactionPopup';
+import { TransactionTable } from './TableTransactionHistory'
 
 export const MainContent = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -24,6 +25,7 @@ export const MainContent = () => {
 
   return (
     <div className="MainContent">
+
       <div className="main-features">
         <div className="balance">
           <TbPigMoney />Real-Time Balance:{' '}
@@ -35,7 +37,6 @@ export const MainContent = () => {
           <GiPayMoney /> Add Expense
         </button>
       </div>
-
       {isPopupOpen && (
         <TransactionPopup
           isOpen={isPopupOpen}
@@ -43,6 +44,8 @@ export const MainContent = () => {
           type={transactionType}
         />
       )}
+
+      <TransactionTable />
     </div>
   );
 };

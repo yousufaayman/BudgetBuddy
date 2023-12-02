@@ -25,9 +25,10 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-app.post('/user/transaction', async (req, res) => {
+app.post('/user/transaction/:userID', async (req, res) => {
   try {
-    const { title, amount, category, date, description, recurring, type, userID } = req.body;
+    const { title, amount, category, date, description, recurring, type } = req.body;
+    const userID = req.params.userID
 
     const transactionDocRef = await admin.firestore().collection('users').doc(userID).collection('user_transactions').add({
       title,
@@ -107,6 +108,33 @@ app.get('/user/getIncomeCategories/:userID', async (req, res) => {
     res.status(200).json({ incomeCategories });
   } catch (error) {
     console.error('Error fetching income categories:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/user/getTransactions/:userID', async (req, res) => {
+  try {
+    const userID = req.params.userID;
+
+    const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_transactions');
+    const snapshot = await userTransactionsRef.get();
+
+    if (snapshot.empty) {
+      console.log('No transactions found for the user.');
+      return res.status(404).json({ error: 'No transactions found for the user.' });
+    }
+
+    let transactions = [];
+    snapshot.forEach(doc => {
+      transactions.push({
+        id: doc.id,
+        data: doc.data()
+      });
+    });
+
+    res.status(200).json({ transactions });
+  } catch (error) {
+    console.error('Error retrieving transactions:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
