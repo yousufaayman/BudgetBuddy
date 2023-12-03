@@ -54,7 +54,7 @@ app.post('/api/checkUserExistence', async (req, res) => {
 // Signup route
 app.post('/signup/email', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
-  const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
+  const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments', 'Savings'];
   const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
 
   try {
