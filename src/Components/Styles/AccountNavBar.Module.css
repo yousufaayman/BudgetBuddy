@@ -1,0 +1,87 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: matrix3d(200);
+    }
+    to {
+      opacity: 1;
+      transform: matrix3d(0);
+    }
+  }
+  
+.nav-bar{
+    display: grid;
+    width: 95%;
+    height: 90%;
+    background-color: #670aad;
+    grid-template-rows: 1fr 2fr 2fr;
+    align-items: center;
+    justify-items: center;
+    border-radius: 2px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-menu{
+    background-color: transparent;
+    width: 100%;
+}
+
+.menu-item{
+    color: transparent;
+    padding: 2%;
+    display: flex;
+}
+
+.menu-item:hover{
+    background-color: #FA8EE1;
+}
+
+.menu-item:hover .menu-link {
+    transform: scale(1.1) skew(6deg);
+}
+
+.menu-link{
+    color: #FFF3E2;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    transition: all 250ms;
+    font-size: 200%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu-link .link-icon{
+    margin-right: 3%;
+}
+
+.account-bb-logo{
+    width: 70%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+
+#active-page{
+    color:#FA8EE1;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    font-size: 200%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+    text-align: center;
+}
+
+#active-page:hover{
+    transform: none;
+    color: white;
+}

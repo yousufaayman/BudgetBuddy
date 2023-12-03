@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: matrix3d(200);
+    }
+    to {
+      opacity: 1;
+      transform: matrix3d(0);
+    }
+  }
+
 .MainContent{
     display: grid;
     width: 95%;
@@ -13,6 +24,7 @@
     text-align: center;
     position: relative;
     transition: all 0.2s ease-in-out; 
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 
@@ -32,17 +44,16 @@
 }
 
 .add-income, .add-expense{
-    font-size: 130%;
+    font-size: 110%;
     width: 90%;
     height: 40%;
     color: #FFF3E2;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat';
     background-color: #670AAD;
     border-radius: 100px;
     box-shadow: #670AAD33 0 -25px 18px -14px inset,#670AAD26 0 1px 2px,#670AAD26 0 2px 4px,#670AAD26 0 4px 8px,#670AAD26 0 8px 16px,#670AAD26 0 16px 32px;
     cursor: pointer;
     display: inline-block;
-    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
     padding: 7px 20px;
     text-align: center;
     text-decoration: none;
@@ -51,6 +62,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    font-weight: 400;
 }
 
 .add-income{

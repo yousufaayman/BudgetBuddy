@@ -11,18 +11,16 @@ export const TransactionTable = ({ refresh }) => {
       try {
         const userID = "fxAEXzfQSHf26vyOJFPFOtpcZyE3";
         const response = await axios.get(`http://localhost:3002/user/getTransactions/${userID}`);
-        // Assuming response.data is the JSON you provided
         const data = response.data.transactions;
 
-        // Transform the data to match the expected format, sort by date, and take only the latest 8
         const transformedData = data
           .map(transaction => ({
             ...transaction.data,
-            date: new Date(transaction.data.date._seconds * 1000), // Convert timestamp to Date object
+            date: new Date(transaction.data.date._seconds * 1000), 
           }))
-          .sort((a, b) => b.date - a.date) // Sort by date descending
-          .slice(0, 8) // Take only the latest 8 transactions
-          .map(t => ({ ...t, date: t.date.toLocaleDateString() })); // Convert Date object to readable date string
+          .sort((a, b) => b.date - a.date) 
+          .slice(0, 8)
+          .map(t => ({ ...t, date: t.date.toLocaleDateString() })); 
 
         setTransactions(transformedData);
       } catch (error) {
@@ -62,7 +60,7 @@ export const TransactionTable = ({ refresh }) => {
       {
         Header: 'Recurring',
         accessor: 'recurring',
-        Cell: ({ value }) => (value === 'true' ? 'Yes' : 'No'), // Display 'Yes' or 'No' instead of 'true' or 'false'
+        Cell: ({ value }) => (value === 'true' ? 'Yes' : 'No'),
       },
     ],
     []
@@ -81,7 +79,7 @@ export const TransactionTable = ({ refresh }) => {
 
   return (
     <div className='table-container'>
-      <h2 className='table-header'>Latest Transactions</h2>
+      <div className="table-header"><h2 className='table-title'>Latest Transactions</h2> <button className='all-transactions-btn'>View all Transactions</button></div>
       <table {...getTableProps()} className='table'>
         <thead>
           {headerGroups.map(headerGroup => (
