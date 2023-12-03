@@ -1,74 +1,81 @@
 import React, { useState } from 'react';
-import { firebaseApp } from './firebaseConfig';
-import {
- GoogleAuthProvider,
- signInWithEmailAndPassword,
- signInWithPopup,
- onAuthStateChanged,
- sendPasswordResetEmail,
-} from 'firebase/auth';
+import 'firebase/auth';
+import firebase from 'firebase/app';
+import './App.css';
 
-const Login = () => {
+const LoginComponent = () => {
  const [email, setEmail] = useState('');
  const [password, setPassword] = useState('');
- const [error, setError] = useState(null);
- const auth = firebaseApp.auth();
 
- const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('User signed in:', user);
-      })
+ const login = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .catch((error) => {
-        setError(error.message);
+        console.log(error);
+      });
+ };
+
+ const register = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch((error) => {
+        console.log(error);
       });
  };
 
  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log('User signed in with Google:', user);
+        console.log('User signed in successfully:', result.user);
       })
       .catch((error) => {
-        setError(error.message);
+        console.error('Error during sign in:', error);
       });
  };
 
- const sendPasswordReset = () => {
-    sendPasswordResetEmail(auth, email)
+ const resetPassword = (email) => {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
       .then(() => {
-        setError('Password reset email sent.');
+        console.log('Password reset email sent successfully');
       })
       .catch((error) => {
-        setError(error.message);
+        console.error('Error during password reset:', error);
       });
  };
 
  return (
-    <div>
+    <div className="App">
+        <h1>Login</h1>
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={login}>Login</button>
+        <button onClick={register}>Register</button>
+        <button onClick={signInWithGoogle}>Sign in with Google</button>
       <input
         type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email for password reset"
+        onChange={(e) => setState({ email: e.target.value })}
       />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={signIn}>Login</button>
-      <button onClick={signInWithGoogle}>Login with Google</button>
-      <button onClick={sendPasswordReset}>Reset Password</button>
-      {error && <p>{error}</p>}
-    </div>
+      <button onClick={() => resetPassword(state.email)}>
+        Request password reset
+      </button>    </div>
  );
 };
-
-export default Login;
+export default LoginComponent;
