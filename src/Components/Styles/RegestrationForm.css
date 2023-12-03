@@ -46,13 +46,12 @@
     display: grid;
     margin: 5%;
     width: 80%;
-    height: 60%;
+    height: 50%;
     background-color: rgba(255, 243, 226, 0.85);
     grid-template-columns: 0.5fr 5fr 0.5fr;
     grid-template-rows: 0.5fr 2fr 0.5fr 2fr 0.5fr;
     align-items: center;
     justify-items: center;
-    padding: 2%;
     border-radius: 3%;
     border-radius: 20px;
     border-left: 1px solid #FFF3E2;

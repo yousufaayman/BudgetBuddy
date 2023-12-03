@@ -27,10 +27,9 @@ const googleSignUP = e => {
           bgcolor2 = "#670AAD" 
           height= "70%" 
           width= "80%" 
-          qmargin = "5%"
           gridarea= "2 / 2 / 3 / 3"
           qgridarea= "2 / 2 / 3 / 3"
-          qfsize= "50%"  
+          qfsize= "90%"  
           onClick={ standeredSignUP }
           >
             Sign Up using Email <GrMail style={{ margin: '10px' }} size={25} color="white" />
@@ -43,10 +42,9 @@ const googleSignUP = e => {
           bgcolor2 = "#F4B400" 
           height= "70%" 
           width= "80%" 
-          qmargin = "5%"
           gridarea= "4 / 2 / 5 / 3"
           qgridarea= "4 / 2 / 5 / 3" 
-          qfsize= "50%"
+          qfsize= "90%"
           onClick={ googleSignUP }
           >
             Sign Up using Google <GrGoogle style={{ margin: '10px' }} size={25} color="white" />
