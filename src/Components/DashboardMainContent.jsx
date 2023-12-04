@@ -3,7 +3,7 @@ import './Styles/DashboardMainContent.Module.css';
 import { TbPigMoney } from 'react-icons/tb';
 import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
 import { TransactionPopup } from './TransactionPopup';
-import { TransactionTable } from './TableTransactionHistory'
+import { TransactionHistoryTable } from './TableTransactionHistory'
 
 export const MainContent = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -47,7 +47,7 @@ export const MainContent = () => {
         />
       )}
 
-      <TransactionTable refresh={refreshTable} numberOfTransactions="8"/>
+      <TransactionHistoryTable refresh={refreshTable} numberOfTransactions="8"/>
     </div>
   );
 };
