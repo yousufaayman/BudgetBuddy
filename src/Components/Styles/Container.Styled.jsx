@@ -17,8 +17,8 @@ export const ContainerStyled = styled.div`
         height: 100%;
         grid-template-columns:${(props) => props.QLgridRows};
         grid-template-rows:${(props) => props.QLgridColumns};
-        width: ${(props) => props.QLWidth};
-        height: ${(props) => props.QLHeight};
+        width: ${(props) => props.ql_width};
+        height: ${(props) => props.ql_height};
   } 
 
   @media ${device.mobileL} { 
@@ -26,8 +26,8 @@ export const ContainerStyled = styled.div`
         height: 100%;
         grid-template-columns: ${(props) => props.QMgridRows};
         grid-template-rows: ${(props) => props.QMgridColumns};
-        width: ${(props) => props.QMWidth};
-        height: ${(props) => props.QMHeight};
+        width: ${(props) => props.qm_width};
+        height: ${(props) => props.qm_height};
   }
 `;
 

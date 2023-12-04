@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTable } from 'react-table';
+import { useTable, useRowSelect } from 'react-table';
 import './Styles/TransactionTable.css';
 
-export const TransactionTable = ({ refresh, numberOfTransactions}) => {
+export const TransactionTable = ({ refresh, numberOfTransactions, selectable, onSelect, 
+  filterType = 'all'  }) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,15 +17,20 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
         const data = response.data.transactions;
 
         let transformedData = data
-          .map(transaction => ({
-            ...transaction.data,
-            date: new Date(transaction.data.date._seconds * 1000),
-          }))
+        .map(transaction => ({
+          id: transaction.id,
+          ...transaction.data,
+          date: new Date(transaction.data.date._seconds * 1000),
+        }))
           .sort((a, b) => b.date - a.date)
           .map(t => ({ ...t, date: t.date.toLocaleDateString() }));
 
         if (numberOfTransactions) {
           transformedData = transformedData.slice(0, numberOfTransactions);
+        }
+
+        if (filterType !== 'all') {
+          transformedData = transformedData.filter(t => t.type === filterType);
         }
 
         setTransactions(transformedData);
@@ -34,7 +41,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
     };
 
     fetchData();
-  }, [refresh, numberOfTransactions]);
+  }, [refresh, numberOfTransactions, filterType]);
 
   const columns = React.useMemo(
     () => [
@@ -77,10 +84,48 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data: transactions,
-  });
+  } = useTable(
+    {
+      columns,
+      data: transactions,
+      initialState: {
+        selectedRowIds: {},
+      },
+    },
+    useRowSelect,
+    hooks => {
+      if (selectable) {
+        hooks.visibleColumns.push(columns => [
+          {
+            id: 'selection',
+            Header: '',
+            Cell: ({ row }) => (
+              <div>
+                <input
+                  type="radio"
+                  name="rowSelector"
+                  id='row-select-box'
+                  checked={selectedTransaction && selectedTransaction.id === row.original.id}
+                  onChange={() => {
+                    row.toggleRowSelected(true);
+                    setSelectedTransaction({
+                      id: row.original.id,
+                      data: row.original,
+                    });
+                  }}
+                />
+              </div>
+            ),
+          },
+          ...columns,
+        ]);
+      }
+    }
+  );
+
+  useEffect(() => {
+    onSelect(selectedTransaction);
+  }, [selectedTransaction, onSelect]);
 
   const placeholderRows = isLoading
     ? Array.from({ length: 8 }).map((_, index) => (
@@ -115,12 +160,20 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
             {rows.map(row => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    );
+                <tr
+                  {...row.getRowProps({
+                    onClick: () => {
+                      row.toggleRowSelected(!row.isSelected);
+                      setSelectedTransaction(row.isSelected ? null : {
+                        id: row.original.id,
+                        data: row.original,
+                      });
+                    },
                   })}
+                >
+                  {row.cells.map(cell => (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  ))}
                 </tr>
               );
             })}

@@ -1,9 +1,9 @@
-import {Dashboard} from './Components/Transactions'
+import {Transactions} from './Components/Transactions'
 
 function App() {
   return (
     <div>
-      <Dashboard />
+      <Transactions />
     </div>
   );
 }

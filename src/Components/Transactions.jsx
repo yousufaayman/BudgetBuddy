@@ -7,7 +7,7 @@ import { TopBar } from './AccountTopBar';
 import './Styles/Transactions.Module.css';
 import {device} from './Styles/devices'
 
-export const Dashboard = () => {
+export const Transactions = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const Dashboard = () => {
     TransactionsMainContent("3cZUJIvnx7OqOl5uXkSGfveaLHw2")
 
     return (
-        <ContainerStyled className="page" display="grid" gridrows="1fr 10fr" gridcolumns="2fr 10fr 0.1fr" QLHeight="100vh" QLWidth="100vw" QMHeight="100vh" QMWidth="100vw">
+        <ContainerStyled className="page" display="grid" gridrows="1fr 10fr" gridcolumns="2fr 10fr 0.1fr" ql_height="100vh" ql_width="100vw" qm_height="100vh" qm_width="100vw">
             <GridItem gridarea="1 / 2 / 2 / 3" qtgridarea="1 / 2 / 2 / 3">
                 <TopBar pageName='Transactions' />
             </GridItem>
@@ -37,4 +37,4 @@ export const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+export default Transactions;

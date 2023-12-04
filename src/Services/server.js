@@ -139,6 +139,30 @@ app.get('/user/getTransactions/:userID', async (req, res) => {
   }
 });
 
+app.put('/user/updateTransaction/:userID/:transactionID', async (req, res) => {
+  try {
+    const { title, amount, category, date, description, recurring } = req.body;
+    const { userID, transactionID } = req.params;
+
+    const transactionRef = admin.firestore().collection('users').doc(userID)
+    .collection('user_transactions').doc(transactionID);
+
+    await transactionRef.update({
+      title: title,
+      amount: amount,
+      category: category,
+      date: admin.firestore.Timestamp.fromDate(new Date(date)),
+      description: description,
+      recurring: recurring,
+    });
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {

@@ -51,7 +51,7 @@ export const ManageTransactions = () => {
           />
         )}
          
-        <ListTransactionsTable additionalClassName="manage-transactions-table" refresh={refreshTable}/>
+        <ListTransactionsTable refresh={refreshTable}/>
     </div>
   );
 };

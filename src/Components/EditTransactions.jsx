@@ -1,41 +1,24 @@
 import React, { useState } from 'react';
-// import './Styles/DashboardMainContent.Module.css';
-import { TbPigMoney } from 'react-icons/tb';
-import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
-import { TransactionPopup } from './TransactionPopup';
-import { ListTransactionsTable } from './ListTransactionsTable'
+import './Styles/EditTransactions.css';
+import { EditTransactionsTable } from './EditTransactionsTable'
+import {EditSelectedTransactions} from './EditSelectedTransaction'
 
 export const EditTransactions = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [transactionType, setTransactionType] = useState('');
-  const [refreshTable, setRefreshTable] = useState(false);
+  const [refreshTable, setRefreshTable,] = useState(false);
+  const [editSelectedTransaction, setEditSelectedTransaction] = useState(null);
 
-  const handleOpenPopupIncome = () => {
-    setIsPopupOpen(true);
-    setTransactionType('income');
+  const handleSelectedTransaction = (transaction) => {
+    setEditSelectedTransaction(transaction);
   };
 
-  const handleOpenPopupExpense = () => {
-    setIsPopupOpen(true);
-    setTransactionType('expense');
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-    setRefreshTable(prev => !prev);
+  const handleTableRefresh = (status) => {
+    setRefreshTable(status);
   };
 
   return (
-    <div className="manage-transactions">
-      {isPopupOpen && (
-        <TransactionPopup
-          isOpen={isPopupOpen}
-          onClose={handleClosePopup}
-          type={transactionType}
-        />
-      )}
-
-      <ListTransactionsTable refresh={refreshTable} numberOfTransactions="8"/>
+    <div className="edit-transactions">
+      <EditTransactionsTable refresh={refreshTable} onTransactionSelect={handleSelectedTransaction}/>
+      <EditSelectedTransactions editSelectedTransaction={editSelectedTransaction} editRefreshTable={handleTableRefresh}/>
     </div>
   );
 };
