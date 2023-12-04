@@ -31,7 +31,7 @@ export const Dashboard = () => {
                 <MainContent />
             </GridItem>
             <GridItem gridarea="1 / 1 / 3 / 2" qtgridarea="1 / 1 / 2 / 2">
-                <NavBar collapsed={windowWidth <= device.tablet} />
+                <NavBar collapsed={windowWidth <= device.tablet} activePage="dashboard" />
             </GridItem>
         </ContainerStyled>
     );

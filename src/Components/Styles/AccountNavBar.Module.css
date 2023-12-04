@@ -73,7 +73,7 @@
 
 }
 
-#active-page{
+.active-page{
     color:#EBEBEB;
     text-decoration: none;
     font-family: 'Montserrat';
@@ -86,7 +86,7 @@
     text-align: center;
 }
 
-#active-page:hover{
+.active-page:hover{
     transform: none;
     color: #EBEBEB;
 }
@@ -94,21 +94,11 @@
 .collapsed-icon {
     display: none;
   }
-
-.sepeartor{
+  
+.nav-menu hr{
     border: none;
     height: 3px;
     background-color: #670AAD;
-
-}
-
-.nav-sepeartor{
-    border: none;
-    height: 3px;
-    background-color: #860ee1;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
 }
 
 @media screen and (max-width: 1440px){

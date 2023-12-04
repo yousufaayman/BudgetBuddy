@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { PiStackBold } from "react-icons/pi";
 import './Styles/AccountNavBar.Module.css';
 
-export const NavBar = ({ collapsed }) => {
+export const NavBar = ({ collapsed, activePage }) => {
     const [overlayVisible, setOverlayVisible] = useState(false);
     const navbarRef = useRef(null);
 
@@ -27,19 +27,33 @@ export const NavBar = ({ collapsed }) => {
     };
 
     return (
-        <div className= "nav-container">        
-            <div ref={navbarRef} className={`nav-bar ${collapsed ? 'collapsed' : ''} ${overlayVisible ? 'overlay visible' : 'overlay'}`}>            <ul className="nav-menu">
-                <li><img className='account-bb-logo' src="BudgetBuddyLogo.png" alt='budget buddy logo' /></li>
-                <hr className='sepeartor' />
-                <li className='menu-item'><a href="#" className='menu-link' id='active-page'><LuLayoutDashboard className='link-icon'/> Dashboard</a></li>
-                <li className='menu-item'><a href="#" className='menu-link'><AiOutlineTransaction className='link-icon'/> Transactions</a></li>
-                <hr className='sepeartor' />
-            </ul>
-        </div>
-        <div className="collapsed-icon" onClick={toggleOverlay}>
+        <div className="nav-container">
+
+            <div ref={navbarRef} className={`nav-bar ${collapsed ? 'collapsed' : ''} ${overlayVisible ? 'overlay visible' : 'overlay'}`}>
+                
+                <ul className="nav-menu">
+                    <li><img className='account-bb-logo' src="BudgetBuddyLogo.png" alt='budget buddy logo' /></li>
+                    <hr/>
+                    <li className='menu-item'>
+                        <a href="#" className={`menu-link ${activePage === 'dashboard' ? 'active-page' : ''}`}>
+                            <LuLayoutDashboard className='link-icon' /> Dashboard
+                        </a>
+                    </li>
+                    <li className='menu-item'>
+                        <a href="#" className={`menu-link ${activePage === 'transactions' ? 'active-page' : ''}`}>
+                            <AiOutlineTransaction className='link-icon' /> Transactions
+                        </a>
+                    </li>
+                    <hr/>
+                </ul>
+
+            </div>
+
+            <div className="collapsed-icon" onClick={toggleOverlay}>
                 <PiStackBold className='collapsed-link-icon' />
+            </div>
+            
         </div>
-    </div>
     );
 }
 
