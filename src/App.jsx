@@ -1,6 +1,10 @@
+import {Dashboard} from './Components/Transactions'
+
 function App() {
   return (
-    <div></div>
+    <div>
+      <Dashboard />
+    </div>
   );
 }
 
