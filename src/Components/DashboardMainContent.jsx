@@ -47,7 +47,7 @@ export const MainContent = () => {
         />
       )}
 
-      <TransactionTable refresh={refreshTable}/>
+      <TransactionTable refresh={refreshTable} numberOfTransactions="8"/>
     </div>
   );
 };
