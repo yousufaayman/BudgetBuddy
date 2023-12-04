@@ -58,9 +58,9 @@
     text-align: center;
     color: #FFF3E2;
     font-family: 'Open Sans', sans-serif;
-    background-color: #670AAD;
+    background-color: #7b0dcf;
     border-radius: 100px;
-    box-shadow: #670AAD33 0 -25px 18px -14px inset,#670AAD26 0 1px 2px,#670AAD26 0 2px 4px,#670AAD26 0 4px 8px,#670AAD26 0 8px 16px,#670AAD26 0 16px 32px;
+    box-shadow: #7b0dcf33 0 -25px 18px -14px inset,#7b0dcf26 0 1px 2px,#7b0dcf26 0 2px 4px,#7b0dcf26 0 4px 8px,#7b0dcf26 0 8px 16px,#7b0dcf26 0 16px 32px;
     cursor: pointer;
     display: inline-block;
     font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
@@ -74,7 +74,7 @@
 }
 
 #submit-btn:hover {
-  box-shadow: #670AAD59 0 -25px 18px -14px inset,#670AAD40 0 1px 2px,#670AAD40 0 2px 4px,#670AAD40 0 4px 8px,#670AAD40 0 8px 16px,#670AAD40 0 16px 32px;
+  box-shadow: #7b0dcf59 0 -25px 18px -14px inset,#7b0dcf40 0 1px 2px,#7b0dcf40 0 2px 4px,#7b0dcf40 0 4px 8px,#7b0dcf40 0 8px 16px,#7b0dcf40 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
 }
 
@@ -94,7 +94,7 @@
   font-size: 120%;
   font-family: 'Roboto Mono', monospace;
   margin-left: 5%;
-  color: #670AAD;
+  color: #7b0dcf;
   font-weight: 600;
 }
 
@@ -104,13 +104,13 @@
 }
 
 .radio-btn:checked{
-  background-color: #670AAD;
+  background-color: #7b0dcf;
 }
 
 .title{
   font-family: 'Open Sans', sans-serif;
   grid-area: 1 / 2 / 2 / 3;
-  color: #670AAD;
+  color: #7b0dcf;
   text-transform: capitalize;
 }
 
@@ -118,7 +118,7 @@
   grid-area: 1 / 1 / 4 / 2;
   display: flex;
   flex-direction: column;
-  background-color: #670AAD;
+  background-color: #7b0dcf;
   border-radius: 5%;
   padding: 10%;
 
@@ -139,7 +139,7 @@
   border: none;
   padding: 2%;
   border-radius: 0.3rem;
-  color: #670AAD;
+  color: #7b0dcf;
 }
 
 .category-dropdwon:focus{
@@ -149,5 +149,33 @@
 }
 
 .category-dropdwon::placeholder{
-  color: #670AADa0;
+  color: #7b0dcfa0;
+}
+
+@media screen and (max-width: 500px) {
+
+  .title{
+    font-size: 150%;
+  }
+
+  .recurring-radio{
+    font-size: 90%;
+  }
+
+  .popup {
+    padding: 40px;
+  }
+
+  #submit-btn {
+    font-size: 100%;
+}
+
+}
+
+@media screen and (max-width: 375px) {
+
+  .recurring-radio{
+    font-size: 70%;
+  }
+
 }

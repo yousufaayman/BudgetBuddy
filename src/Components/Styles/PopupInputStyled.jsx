@@ -10,7 +10,7 @@ export const PopupInputStyled = styled.input`
   border: none;
   padding: 2%;
   border-radius: 0.3rem;
-  color: #670AAD;
+  color: #7b0dcf;
   
   &:focus{
         display: inline-block;
@@ -19,7 +19,7 @@ export const PopupInputStyled = styled.input`
     }
 
     &::placeholder{
-        color: #670AADa0;
+        color: #7b0dcfa0;
     }
 
     @media ${device.laptop} { 

@@ -14,9 +14,11 @@ export const ContainerStyled = styled.div`
   
   @media ${device.laptop} { 
         width: 100%;
-        height:100%;
+        height: 100%;
         grid-template-columns:${(props) => props.QLgridRows};
         grid-template-rows:${(props) => props.QLgridColumns};
+        width: ${(props) => props.QLWidth};
+        height: ${(props) => props.QLHeight};
   } 
 
   @media ${device.mobileL} { 

@@ -40,7 +40,7 @@
 
 .balance{
     font-size: 200%;
-    color: #670AAD;
+    color: #7b0dcf;
 }
 
 .add-income, .add-expense{
@@ -49,9 +49,9 @@
     height: 40%;
     color: #FFF3E2;
     font-family: 'Montserrat';
-    background-color: #670AAD;
+    background-color: #7b0dcf;
     border-radius: 100px;
-    box-shadow: #670AAD33 0 -25px 18px -14px inset,#670AAD26 0 1px 2px,#670AAD26 0 2px 4px,#670AAD26 0 4px 8px,#670AAD26 0 8px 16px,#670AAD26 0 16px 32px;
+    box-shadow: #7b0dcf33 0 -25px 18px -14px inset,#7b0dcf26 0 1px 2px,#7b0dcf26 0 2px 4px,#7b0dcf26 0 4px 8px,#7b0dcf26 0 8px 16px,#7b0dcf26 0 16px 32px;
     cursor: pointer;
     display: inline-block;
     padding: 7px 20px;
@@ -74,6 +74,32 @@
 }
 
 .add-income:hover, .add-expense:hover {
-    box-shadow: #670AAD59 0 -25px 18px -14px inset,#670AAD40 0 1px 2px,#670AAD40 0 2px 4px,#670AAD40 0 4px 8px,#670AAD40 0 8px 16px,#670AAD40 0 16px 32px;
+    box-shadow: #7b0dcf59 0 -25px 18px -14px inset,#7b0dcf40 0 1px 2px,#7b0dcf40 0 2px 4px,#7b0dcf40 0 4px 8px,#7b0dcf40 0 8px 16px,#7b0dcf40 0 16px 32px;
     transform: scale(1.05) rotate(-1deg);
 }
+
+
+@media screen and (max-width: 1024px){
+    .balance{
+        font-size: 120%;
+        color: #7b0dcf;
+    }
+
+    .add-income, .add-expense{
+        font-size: 80%;
+        width: 90%;
+        height: 40%;
+    }
+    
+    .main-features{
+        grid-template-columns: 4fr 5fr 2fr 2fr;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    .add-income, .add-expense{
+        font-size: 50%;
+    }
+
+  }

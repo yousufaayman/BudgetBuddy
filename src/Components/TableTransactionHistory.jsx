@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTable } from 'react-table';
-import './Styles/TableTransactionHistory.css'
+import './Styles/TableTransactionHistory.css';
 
 export const TransactionTable = ({ refresh }) => {
   const [transactions, setTransactions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,13 +17,14 @@ export const TransactionTable = ({ refresh }) => {
         const transformedData = data
           .map(transaction => ({
             ...transaction.data,
-            date: new Date(transaction.data.date._seconds * 1000), 
+            date: new Date(transaction.data.date._seconds * 1000),
           }))
-          .sort((a, b) => b.date - a.date) 
+          .sort((a, b) => b.date - a.date)
           .slice(0, 8)
-          .map(t => ({ ...t, date: t.date.toLocaleDateString() })); 
+          .map(t => ({ ...t, date: t.date.toLocaleDateString() }));
 
         setTransactions(transformedData);
+        setIsLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -77,34 +79,55 @@ export const TransactionTable = ({ refresh }) => {
     data: transactions,
   });
 
+  const placeholderRows = Array.from({ length: 8 }).map((_, index) => {
+    return (
+      <tr key={index}>
+        {columns.map(column => (
+          <td key={column.accessor} style={{ fontSize: '80%' }}></td>
+        ))}
+      </tr>
+    );
+  });
+
   return (
     <div className='table-container'>
-      <div className="table-header"><h2 className='table-title'>Latest Transactions</h2> <button className='all-transactions-btn'>View all Transactions</button></div>
-      <table {...getTableProps()} className='table'>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
-                })}
+      <div className="table-header">
+        <h2 className='table-title'>Latest Transactions</h2>
+        <button className='all-transactions-btn'>View all Transactions</button>
+      </div>
+      {isLoading ? (
+        <table className='table'>
+          <tbody>
+            {placeholderRows}
+          </tbody>
+        </table>
+      ) : (
+        <table {...getTableProps()} className='table'>
+          <thead>
+            {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map(cell => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

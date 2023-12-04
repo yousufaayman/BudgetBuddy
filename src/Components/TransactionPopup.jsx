@@ -127,7 +127,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
           <div className="popup">
 
             <button id="close-btn" onClick={onClose}>
-              <GrClose style={{ color: '#670AAD' }} />
+              <GrClose style={{ color: '#7b0dcf' }} />
             </button>
             <h1 className="title">Add {type}</h1>
 
