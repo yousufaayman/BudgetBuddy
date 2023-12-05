@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const serviceAccount = require('./credentials.json');
-const axios = require('axios');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -25,12 +25,145 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-app.post('/user/transaction/:userID', async (req, res) => {
+// Check Email Endpoint
+app.post('/api/checkUserExistence', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const userRecord = await admin.auth().getUserByEmail(email);
+
+    const userSnapshot = await admin.firestore().collection('users').doc(userRecord.uid).get();
+
+    if (userSnapshot.exists && userSnapshot.data()) {
+      res.json({ exists: true});
+    } else {
+      console.log('User does not exist in Firestore');
+      
+      res.json({ exists: false });
+    }
+    
+  } catch (error) {
+    if (error.code === 'auth/user-not-found') {
+      res.json({ exists: false });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+}); 
+
+// Signup Endpoint
+app.post('/signup/email', async (req, res) => {
+  const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
+  const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments', 'Savings'];
+  const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
+
+  try {
+    const userCredential = await admin.auth().createUser({
+      email,
+      password,
+      emailVerified: false,
+    });
+
+    const userUID = userCredential.uid;
+
+    await admin.firestore().collection('users').doc(userUID).set({
+      firstName,
+      lastName,
+      country,
+      currency,
+      avgIncome,
+      categories: {
+        incomeCategories: defaultIncomeCategories,
+        expenseCategories: defaultExpenseCategories,
+      }
+    });
+
+    const walletRef = await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
+      walletName: 'Main Wallet',
+    });
+
+    const transaction = {
+      type: "income",
+      title: "salary",
+      amount: avgIncome,
+      category: "Salary",
+      date: new Date().toISOString().split('T')[0],  
+      description: "Monthly Salary",
+      recurring: true,
+    };
+    await axios.post(`http://localhost:3002/user/transaction/${userUID}/${walletRef.id}`, transaction);
+
+    res.status(201).json({ success: true, user: userUID });
+  } catch (error) {
+    console.error('Error signing up:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.post('/signup/google', async (req, res) => {
+  const { idToken, userData } = req.body;
+  const { firstName, lastName, country, currency, avgIncome } = userData;
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    const userSnapshot = await admin.firestore().collection('users').doc(uid).get();
+
+    if (!userSnapshot.exists) {
+      await admin.firestore().collection('users').doc(uid).set({
+        firstName,
+        lastName,
+        country,
+        currency,
+        avgIncome,
+      });
+      
+      const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
+      const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
+
+      await admin.firestore().collection('categories').doc(uid).set({
+        incomeCategories: defaultIncomeCategories,
+        expenseCategories: defaultExpenseCategories,
+      });
+
+    } else {
+      console.log('User already exists');
+    }
+
+    res.status(200).json({ message: 'Google sign-up successful' });
+  } catch (error) {
+    console.error('Error verifying ID token:', error);
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+});
+
+// Delete User Endpoint
+app.post('/delete/user', async (req, res) => {
+  const { idToken } = req.body;
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    await admin.auth().deleteUser(uid);
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Add Transaction Endpoint
+app.post('/user/transaction/:userID/:walletID', async (req, res) => {
   try {
     const { title, amount, category, date, description, recurring, type } = req.body;
-    const userID = req.params.userID
+    const { userID, walletID } = req.params;
 
-    const transactionDocRef = await admin.firestore().collection('users').doc(userID).collection('user_transactions').add({
+    const transactionDocRef = await admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions').add({
       title,
       amount,
       category,
@@ -74,6 +207,7 @@ app.post('/user/transaction/:userID', async (req, res) => {
   }
 });
 
+// Retrieve Categoris Endpoint
 app.get('/user/getExpenseCategories/:userID', async (req, res) => {
   try {
     const userID = req.params.userID;
@@ -112,11 +246,12 @@ app.get('/user/getIncomeCategories/:userID', async (req, res) => {
   }
 });
 
-app.get('/user/getTransactions/:userID', async (req, res) => {
+// Retrieve Transactions Endpoint
+app.get('/user/getTransactions/:userID/:walletID', async (req, res) => {
   try {
     const userID = req.params.userID;
 
-    const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_transactions');
+    const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions')
     const snapshot = await userTransactionsRef.get();
 
     if (snapshot.empty) {
@@ -139,13 +274,14 @@ app.get('/user/getTransactions/:userID', async (req, res) => {
   }
 });
 
-app.put('/user/updateTransaction/:userID/:transactionID', async (req, res) => {
+// Update Transactions Endpoint
+app.put('/user/updateTransaction/:userID/:walletID/:transactionID', async (req, res) => {
   try {
     const { title, amount, category, date, description, recurring } = req.body;
     const { userID, transactionID } = req.params;
 
     const transactionRef = admin.firestore().collection('users').doc(userID)
-    .collection('user_transactions').doc(transactionID);
+    .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
 
     await transactionRef.update({
       title: title,
@@ -163,12 +299,13 @@ app.put('/user/updateTransaction/:userID/:transactionID', async (req, res) => {
   }
 });
 
-app.delete('/user/deleteTransaction/:userID/:transactionID', async (req, res) => {
+// Delete Transactions Endpoint
+app.delete('/user/deleteTransaction/:userID/:walletID/:transactionID', async (req, res) => {
   try {
     const { userID, transactionID } = req.params;
 
     const transactionRef = admin.firestore().collection('users').doc(userID)
-      .collection('user_transactions').doc(transactionID);
+    .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
 
     await transactionRef.delete();
 
@@ -178,7 +315,6 @@ app.delete('/user/deleteTransaction/:userID/:transactionID', async (req, res) =>
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 3002;
