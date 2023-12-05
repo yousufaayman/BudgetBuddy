@@ -163,6 +163,23 @@ app.put('/user/updateTransaction/:userID/:transactionID', async (req, res) => {
   }
 });
 
+app.delete('/user/deleteTransaction/:userID/:transactionID', async (req, res) => {
+  try {
+    const { userID, transactionID } = req.params;
+
+    const transactionRef = admin.firestore().collection('users').doc(userID)
+      .collection('user_transactions').doc(transactionID);
+
+    await transactionRef.delete();
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.error('Error deleting transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {

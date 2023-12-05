@@ -4,7 +4,7 @@ import { useTable, useRowSelect } from 'react-table';
 import './Styles/TransactionTable.css';
 
 export const TransactionTable = ({ refresh, numberOfTransactions, selectable, onSelect, 
-  filterType = 'all'  }) => {
+  filterType = 'all', filterRecurring = 'all', filterCategory = 'all'}) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -33,6 +33,14 @@ export const TransactionTable = ({ refresh, numberOfTransactions, selectable, on
           transformedData = transformedData.filter(t => t.type === filterType);
         }
 
+        if (filterCategory !== 'all') {
+          transformedData = transformedData.filter(t => t.category === filterCategory);
+        }
+
+        if (filterRecurring !== 'all') {
+          transformedData = transformedData.filter(t => t.recurring === filterRecurring);
+        }
+
         setTransactions(transformedData);
         setIsLoading(false);
       } catch (error) {
@@ -41,7 +49,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions, selectable, on
     };
 
     fetchData();
-  }, [refresh, numberOfTransactions, filterType]);
+  }, [refresh, numberOfTransactions, filterType, filterCategory, filterRecurring]);
 
   const columns = React.useMemo(
     () => [

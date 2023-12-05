@@ -118,6 +118,42 @@ export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTa
       }
   
     };
+
+    const handleDelete = async () => {
+      try {
+        const response = await axios.delete(`http://localhost:3002/user/deleteTransaction/${userID}/${editSelectedTransaction.id}`, {});
+    
+        if (response.status === 201) {
+          setInputValues({
+            title: '',
+            amount: '',
+            category: '',
+            description: '',
+            date: '',
+            recurring: 'false',
+          });
+
+          editRefreshTable(true)
+  
+          setTimeout(() => {
+            editRefreshTable(false);
+          }, 2000);
+  
+          } else {
+            setErrorMessage("Error Adding Transaction! Please Try Again Later.");
+            setShowStatusPopup(true);
+            setIsSuccess(false);
+            editRefreshTable(false);
+    
+            setTimeout(() => {
+              setShowStatusPopup(false);
+            }, 2000);
+          }
+          } catch (error) {
+            console.error('Error:', error.message);
+          }
+  
+    };
     
     function formatDate(dateString) {
       const [month, day, year] = dateString.split('/');
@@ -220,10 +256,17 @@ export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTa
             No
         </label>
         </div>
+        
+        <div id='edit-delete-submit-btns'>
+          <button className='edit-transaction-btns' id="edit-transaction-submit-btn" onClick={handleSubmit}>
+          Submit
+          </button>
 
-        <button id="edit-transaction-submit-btn" onClick={handleSubmit}>
-        Submit
-        </button>
+          <button className='edit-transaction-btns' id="edit-transaction-delete-btn" onClick={handleDelete}>
+          Delete
+          </button>
+        </div>
+
 
         {showStatusPopup && <StatusPopup isSuccess={isSuccess} message={errorMessage} />}
 

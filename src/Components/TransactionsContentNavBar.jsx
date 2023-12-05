@@ -30,11 +30,6 @@ export function TransactionsNavbar({ goToStep }) {
            View Income</button>
         </li>
 
-        <li className='transactions-menu-item'>
-          <button className='transactions-menu-button' onClick={() => handleStepClick(5)}>
-           View Expenses</button>
-        </li>
-
       </ul>
     </nav>
   );

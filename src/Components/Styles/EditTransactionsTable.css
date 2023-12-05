@@ -8,7 +8,7 @@
 }
 
 .edit-table-container {
-  width: 90%;
+  width: 100%;
   padding: 1%;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
@@ -58,6 +58,38 @@
 .all-transactions-btn:hover{
   box-shadow: #7b0dcf59 0 -25px 18px -14px inset,#7b0dcf40 0 1px 2px,#7b0dcf40 0 2px 4px,#7b0dcf40 0 4px 8px,#7b0dcf40 0 8px 16px,#7b0dcf40 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
+}
+
+.edit-table-filters{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding: 1%;
+}
+
+.edit-table-filters label{
+  color: #7b0dcf;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 90%;
+}
+
+.edit-table-filters select{
+  color: #7b0dcf !important;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 90%;
+  border-radius: 5%;
+  border: none;
+}
+
+.filter-category-dropdown{
+  color: #7b0dcf !important;
+  font-family: 'Montserrat' !important;
+  font-weight: 400 !important;
+  font-size: 90% !important;
+  border-radius: 5% !important;
+  border: none !important;
 }
 
 @media screen and (max-width: 1024px){
