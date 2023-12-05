@@ -79,6 +79,12 @@ app.post('/signup/email', async (req, res) => {
       }
     });
 
+    await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
+      walletName: 'Main Wallet',
+    });
+
+    
+
     res.status(201).json({ success: true, user: userUID });
   } catch (error) {
     console.error('Error signing up:', error.message);
