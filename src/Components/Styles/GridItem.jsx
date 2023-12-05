@@ -10,4 +10,9 @@ export const GridItem = styled.div`
     @media ${device.laptop} { 
         grid-area: ${(props) => props.qgridarea};
   }
+
+  @media ${device.tablet}{ 
+        grid-area: ${(props) => props.qtgridarea};
+  }
+  
 `;
