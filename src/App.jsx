@@ -1,6 +1,8 @@
+import {BudgetBuddyApp} from './React-Router'
+
 function App() {
   return (
-    <div></div>
+    <BudgetBuddyApp/>
   );
 }
 
