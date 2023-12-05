@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const serviceAccount = require('./credentials.json');
@@ -24,7 +25,7 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-// checkEmail
+// Check Email Endpoint
 app.post('/api/checkUserExistence', async (req, res) => {
   const { email } = req.body;
 
@@ -51,7 +52,7 @@ app.post('/api/checkUserExistence', async (req, res) => {
   }
 }); 
 
-// Signup route
+// Signup Endpoint
 app.post('/signup/email', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
   const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments', 'Savings'];
@@ -66,7 +67,6 @@ app.post('/signup/email', async (req, res) => {
 
     const userUID = userCredential.uid;
 
-    // Store additional user information in Firestore
     await admin.firestore().collection('users').doc(userUID).set({
       firstName,
       lastName,
@@ -79,11 +79,20 @@ app.post('/signup/email', async (req, res) => {
       }
     });
 
-    await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
+    const walletRef = await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
       walletName: 'Main Wallet',
     });
 
-    
+    const transaction = {
+      type: "income",
+      title: "salary",
+      amount: avgIncome,
+      category: "Salary",
+      date: new Date().toISOString().split('T')[0],  
+      description: "Monthly Salary",
+      recurring: true,
+    };
+    await axios.post(`http://localhost:3002/user/transaction/${userUID}/${walletRef.id}`, transaction);
 
     res.status(201).json({ success: true, user: userUID });
   } catch (error) {
@@ -91,6 +100,7 @@ app.post('/signup/email', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.post('/signup/google', async (req, res) => {
   const { idToken, userData } = req.body;
@@ -130,6 +140,7 @@ app.post('/signup/google', async (req, res) => {
   }
 });
 
+// Delete User Endpoint
 app.post('/delete/user', async (req, res) => {
   const { idToken } = req.body;
 
@@ -142,6 +153,165 @@ app.post('/delete/user', async (req, res) => {
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Add Transaction Endpoint
+app.post('/user/transaction/:userID/:walletID', async (req, res) => {
+  try {
+    const { title, amount, category, date, description, recurring, type } = req.body;
+    const { userID, walletID } = req.params;
+
+    const transactionDocRef = await admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions').add({
+      title,
+      amount,
+      category,
+      date: admin.firestore.Timestamp.fromDate(new Date(date)),
+      description,
+      recurring,
+      type,
+    });
+
+    res.status(201).json({ success: true, transactionID: transactionDocRef.id });
+
+    if (recurring === 'true') {
+      const currentDate = new Date(date);
+      currentDate.setMonth(currentDate.getMonth() + 1);
+
+      const newTransaction = {
+        title,
+        amount,
+        category,
+        date: admin.firestore.Timestamp.fromDate(currentDate),
+        description,
+        recurring,
+        type,
+        userID
+      };
+
+      try {
+        const userToken = 'b08502d697e50b56a999fd1d7042dc79';
+        const newTransactionString = JSON.stringify(newTransaction);
+        const postEndpoint = 'https://gmi0yl-ip-156-213-152-119.tunnelmole.net/user/transaction'
+
+        const response = await axios.get(`https://www.easycron.com/rest/add?token=${userToken}&cron_job_name=${userID}&cron_expression=0%200%20${currentDate.getDate()}%20${currentDate.getMonth() + 1}%20*&url=${postEndpoint}&method=POST&headers=Content-Type:application/json|Authorization:b08502d697e50b56a999fd1d7042dc79&body=${encodeURIComponent(newTransactionString)}`);
+        console.log('Recurring transaction scheduled:', response.data);
+      } catch (error) {
+        console.error('Error scheduling recurring transaction:', error);
+      }
+    }
+  } catch (error) {
+    console.error('Error adding transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Retrieve Categoris Endpoint
+app.get('/user/getExpenseCategories/:userID', async (req, res) => {
+  try {
+    const userID = req.params.userID;
+
+    const categoriesSnapshot = await admin.firestore().collection('users').doc(userID).get();
+    if (!categoriesSnapshot.exists) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const categoriesData = categoriesSnapshot.data().categories;
+    const expenseCategories = categoriesData.expenseCategories || [];
+
+    res.status(200).json({ expenseCategories });
+  } catch (error) {
+    console.error('Error fetching expense categories:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/user/getIncomeCategories/:userID', async (req, res) => {
+  try {
+    const userID = req.params.userID;
+
+    const categoriesSnapshot = await admin.firestore().collection('users').doc(userID).get();
+    if (!categoriesSnapshot.exists) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const categoriesData = categoriesSnapshot.data().categories;
+    const incomeCategories = categoriesData.incomeCategories || [];
+
+    res.status(200).json({ incomeCategories });
+  } catch (error) {
+    console.error('Error fetching income categories:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Retrieve Transactions Endpoint
+app.get('/user/getTransactions/:userID/:walletID', async (req, res) => {
+  try {
+    const userID = req.params.userID;
+
+    const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions')
+    const snapshot = await userTransactionsRef.get();
+
+    if (snapshot.empty) {
+      console.log('No transactions found for the user.');
+      return res.status(404).json({ error: 'No transactions found for the user.' });
+    }
+
+    let transactions = [];
+    snapshot.forEach(doc => {
+      transactions.push({
+        id: doc.id,
+        data: doc.data()
+      });
+    });
+
+    res.status(200).json({ transactions });
+  } catch (error) {
+    console.error('Error retrieving transactions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Update Transactions Endpoint
+app.put('/user/updateTransaction/:userID/:walletID/:transactionID', async (req, res) => {
+  try {
+    const { title, amount, category, date, description, recurring } = req.body;
+    const { userID, transactionID } = req.params;
+
+    const transactionRef = admin.firestore().collection('users').doc(userID)
+    .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
+
+    await transactionRef.update({
+      title: title,
+      amount: amount,
+      category: category,
+      date: admin.firestore.Timestamp.fromDate(new Date(date)),
+      description: description,
+      recurring: recurring,
+    });
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Delete Transactions Endpoint
+app.delete('/user/deleteTransaction/:userID/:walletID/:transactionID', async (req, res) => {
+  try {
+    const { userID, transactionID } = req.params;
+
+    const transactionRef = admin.firestore().collection('users').doc(userID)
+    .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
+
+    await transactionRef.delete();
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.error('Error deleting transaction:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
