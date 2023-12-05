@@ -10,6 +10,7 @@ admin.initializeApp({
 });
 
 const app = express();
+app.setMaxListeners(20);
 
 app.use(cors());
 app.use(bodyParser.json());

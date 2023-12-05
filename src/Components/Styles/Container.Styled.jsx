@@ -15,15 +15,15 @@ export const ContainerStyled = styled.div`
   @media ${device.laptop} { 
         width: 100%;
         height:100%;
-        grid-template-columns:${(props) => props.QLgridRows};
-        grid-template-rows:${(props) => props.QLgridColumns};
+        grid-template-columns:${(props) => props.qlgridRows};
+        grid-template-rows:${(props) => props.qlgridColumns};
   } 
 
   @media ${device.mobileL} { 
         width: 100%;
         height: 100%;
-        grid-template-columns: ${(props) => props.QMgridRows};
-        grid-template-rows: ${(props) => props.QMgridColumns};
+        grid-template-columns: ${(props) => props.qmgridRows};
+        grid-template-rows: ${(props) => props.qmgridColumns};
   }
 `;
 
@@ -33,4 +33,4 @@ ContainerStyled.defaultProps = {
   width: '100vw',
   height: '100vh',
   display: 'grid'
-};
+}; 

@@ -1,7 +1,6 @@
 // Import the necessary Firebase modules
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import React, { Component, useEffect } from 'react';
 
 
 const firebaseConfig = {

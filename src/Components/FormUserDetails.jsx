@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './Styles/RegestrationForm.css'
 import { InputStyled } from './Styles/InputStyled';
 import { LabelStyled } from './Styles/LabelStyled';
 import { ButtonStyled } from './Styles/ButtonStyled';
 import {CountryList} from  './CountryList'
-import CurrencyList, {CurrencyDropdown} from './CurrencyDropdown'
+import CurrencyList from './CurrencyDropdown'
 
 export const FormUserDetails = ({prevStep, nextStep, handleChange, values, fvalues}) => {
 
