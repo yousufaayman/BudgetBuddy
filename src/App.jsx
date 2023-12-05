@@ -1,8 +1,8 @@
-import {LandingPage} from './Components/LandingPage'
+import {BudgetBuddyApp} from './React-Router'
 
 function App() {
   return (
-    <LandingPage/>
+    <BudgetBuddyApp/>
   );
 }
 

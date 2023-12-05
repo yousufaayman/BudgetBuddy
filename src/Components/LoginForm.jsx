@@ -11,7 +11,7 @@ export function LoginForm() {
                 <form className="input-container">
                     <input type="text" placeholder = "Email" className="input" />
                     <input type="Password" placeholder = "Password" className="input" />
-                    <button className="login-button">Login</button>
+                    <button className="landing-login-button">Login</button>
                 </form>
             </div>
             
@@ -23,7 +23,7 @@ export function LoginForm() {
 
             <div className="login-help-container">
                 <a className="hyperlink">Forgot Passowrd?</a>
-                <a className="hyperlink">No Account? Sign up!</a>
+                <a className="hyperlink" href='/regestration-page'>No Account? Sign up!</a>
             </div>
 
         </div>
