@@ -1,8 +1,8 @@
-import {RegestrationPage} from './Components/RegestrationPage'
+import {LandingPage} from './Components/LandingPage'
 
 function App() {
   return (
-    <RegestrationPage/>
+    <LandingPage/>
   );
 }
 
