@@ -56,7 +56,7 @@ export const FormUserDetails = ({prevStep, nextStep, handleChange, values, fvalu
               ))}
             </select>
 
-        <LabelStyled gridcolumn= "1 / 2" gridrow=" 4 / 5"> Average Monthly Income</LabelStyled>
+        <LabelStyled gridcolumn= "1 / 2" gridrow=" 4 / 5"> Average Monthly Salary</LabelStyled>
         <InputStyled 
             gridarea="4/2/5/3"
             type = "number" 
