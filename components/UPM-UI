@@ -1,0 +1,74 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const UpdateNameButton = () => {
+  const [newName, setNewName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleUpdateName = async () => {
+    try {
+      const response = await axios.post('/api/updateName', { newName });
+      console.log(response.data);
+      setIsEditing(false);
+      // success message ////
+    } catch (error) {
+      console.error('Error updating name:', error);
+     /// error message ///
+    }
+  };
+
+export default UpdateNameButton;
+ //// update pass ////
+const UpdatePasswordButton = () => {
+    const [newPassword, setNewPassword] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+  
+    const handleUpdatePassword = async () => {
+      try {
+        const response = await axios.post('/api/updatePassword', { newPassword });
+        console.log(response.data);
+        setIsEditing(false);
+        // Handle success ////
+      } catch (error) {
+        console.error('Error updating password:', error);
+        // Handle error ////
+      }
+    };
+    
+
+const UpdateEmailButton = () => {
+  const [newEmail, setNewEmail] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleUpdateEmail = async () => {
+    try {
+      const response = await axios.post('/api/updateEmail', { newEmail });
+      console.log(response.data);
+      setIsEditing(false);
+      // Handle success (e.g., show a success message)
+    } catch (error) {
+      console.error('Error updating email:', error);
+      // Handle error (e.g., show an error message)
+    }
+  };
+
+  return (
+    <div>
+      {isEditing ? (
+        <div>
+          <input
+            type="email"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+            placeholder="Enter new email"
+          />
+          <button onClick={handleUpdateEmail}>Save Email</button>
+        </div>
+      ) : (
+        <button onClick={() => setIsEditing(true)}>Update Email</button>
+      )}
+    </div>
+  );
+};
+
+export default UpdateEmailButton;
