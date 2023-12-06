@@ -53,7 +53,7 @@ app.post('/api/checkUserExistence', async (req, res) => {
   }
 }); 
 
-// Signup Endpoint
+// Signup Endpoints
 app.post('/signup/email', async (req, res) => {
   const { email, password, firstName, lastName, country, currency, avgIncome } = req.body;
   const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments', 'Savings'];
@@ -84,6 +84,10 @@ app.post('/signup/email', async (req, res) => {
       walletName: 'Main Wallet',
     });
 
+    await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
+      walletName: 'SEcond Wallet',
+    });
+
     const transaction = {
       type: "income",
       title: "salary",
@@ -101,7 +105,6 @@ app.post('/signup/email', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 app.post('/signup/google', async (req, res) => {
   const { idToken, userData } = req.body;
@@ -157,12 +160,13 @@ app.post('/delete/user', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
+ 
 // Add Transaction Endpoint
 app.post('/user/transaction/:userID/:walletID', async (req, res) => {
   try {
     const { title, amount, category, date, description, recurring, type } = req.body;
-    const { userID, walletID } = req.params;
+    const userID = req.params.userID;
+    const walletID = req.params.walletID;
 
     const transactionDocRef = await admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions').add({
       title,
@@ -251,12 +255,12 @@ app.get('/user/getIncomeCategories/:userID', async (req, res) => {
 app.get('/user/getTransactions/:userID/:walletID', async (req, res) => {
   try {
     const userID = req.params.userID;
+    const walletID = req.params.walletID;
 
     const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions')
     const snapshot = await userTransactionsRef.get();
 
     if (snapshot.empty) {
-      console.log('No transactions found for the user.');
       return res.status(404).json({ error: 'No transactions found for the user.' });
     }
 
@@ -279,7 +283,7 @@ app.get('/user/getTransactions/:userID/:walletID', async (req, res) => {
 app.put('/user/updateTransaction/:userID/:walletID/:transactionID', async (req, res) => {
   try {
     const { title, amount, category, date, description, recurring } = req.body;
-    const { userID, transactionID } = req.params;
+    const { userID, walletID, transactionID } = req.params;
 
     const transactionRef = admin.firestore().collection('users').doc(userID)
     .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
@@ -303,7 +307,7 @@ app.put('/user/updateTransaction/:userID/:walletID/:transactionID', async (req, 
 // Delete Transactions Endpoint
 app.delete('/user/deleteTransaction/:userID/:walletID/:transactionID', async (req, res) => {
   try {
-    const { userID, transactionID } = req.params;
+    const { userID, walletID, transactionID } = req.params;
 
     const transactionRef = admin.firestore().collection('users').doc(userID)
     .collection('user_wallets').doc(walletID).collection('user_transactions').doc(transactionID);
@@ -313,6 +317,31 @@ app.delete('/user/deleteTransaction/:userID/:walletID/:transactionID', async (re
     res.status(201).json({ success: true });
   } catch (error) {
     console.error('Error deleting transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get User Wallets 
+app.get('/user/wallets/:userID', async (req, res) => {
+  const userid = req.params.userID;
+
+  try {
+    const walletsRef = admin.firestore().collection('users').doc(userid).collection('user_wallets');
+    const walletsSnapshot = await walletsRef.get();
+    
+    let wallets = [];
+    
+    walletsSnapshot.forEach(doc => {
+      wallets.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+
+    res.status(200).json({ wallets });
+  } catch (error) {
+    console.error('Error retrieving wallets:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
