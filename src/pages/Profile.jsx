@@ -1,7 +1,6 @@
 import '../Components/Styles/Dashboard.Module.css'
 import {ContainerStyled} from '../Components/Styles/Container.Styled'
 import {GridItem} from '../Components/Styles/GridItem'
-// import {MainContent} from './DashboardMainContent'
 import {NavBar} from '../Components/AccountNavBar'
 import {TopBar} from '../Components/AccountTopBar'
 import { useState } from 'react'
@@ -9,6 +8,7 @@ import { useEffect } from 'react'
 import { API_URL } from '../lib/const'
 import axios from 'axios'
 import { getCookie } from '../lib/CookieHandler'
+// import {MainContent} from './DashboardMainContent'
 
 export const Profile = () => {
     const [firstName, setFirstName] = useState()
