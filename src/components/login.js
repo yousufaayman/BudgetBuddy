@@ -22,8 +22,15 @@ function Login() {
     }
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      await auth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.error('Error sending password reset email:', error);
+    }
+  };
 
-  
+
 }
 
 export default Login;
