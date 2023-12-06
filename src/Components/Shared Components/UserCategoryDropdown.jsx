@@ -40,7 +40,7 @@ const ExpenseCategoriesDropdown = ({ className, onCategoryChange }) => {
 };
 
 const IncomeCategoriesDropdown = ({ className, onCategoryChange }) => {
-  const { user, walletId } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [selectedIncomeCategory, setSelectedIncomeCategory] = useState('');
 

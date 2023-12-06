@@ -37,11 +37,6 @@ export const NavBar = ({ collapsed, activePage }) => {
         setisWalletPopupOpen(false);
     };
 
-    const handleChangeWalletPopup = () => {
-        window.location.reload();
-        setisWalletPopupOpen(false);
-    };
-
     return (
         <div className="nav-container">
             
@@ -54,7 +49,6 @@ export const NavBar = ({ collapsed, activePage }) => {
                         <WalletPopup
                         isOpen={isWalletPopupOpen}
                         onClose={handleCloseWalletPopup}
-                        onChangeWallet={handleChangeWalletPopup}
                         />
                     )}
                     <li><img className='account-bb-logo' src="BudgetBuddyLogo.png" alt='budget buddy logo' /></li>

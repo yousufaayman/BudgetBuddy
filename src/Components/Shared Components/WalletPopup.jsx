@@ -1,16 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './Styles/popups.css';
 import { GrClose } from 'react-icons/gr';
 import UserContext from '../UserContext';
 import {WalletsDropwdoown} from './UserWalletsDropdown'
 
-export const WalletPopup = ({ isOpen, onClose, onChangeWallet}) => {
+export const WalletPopup = ({ isOpen, onClose}) => {
   const {setWalletId} = useContext(UserContext);
-  const [selectedWallet, setselectedWallet] = useState('');
-
 
   const handleSelectedWallet = (selectedWallet) => {
-    setselectedWallet(selectedWallet);
     setWalletId(selectedWallet)
   };
 
@@ -23,11 +20,7 @@ export const WalletPopup = ({ isOpen, onClose, onChangeWallet}) => {
               <GrClose style={{ color: '#7b0dcf' }} />
             </button>
 
-            <WalletsDropwdoown onCategoryChange={handleSelectedWallet}/>
-
-            <button id="walletclose-btn" onClick={onChangeWallet}>
-              Change Wallet
-            </button>
+            <WalletsDropwdoown onWalletSelectChange={handleSelectedWallet}/>
 
         </div>
       )}

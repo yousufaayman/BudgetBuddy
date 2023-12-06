@@ -207,7 +207,7 @@ app.post('/user/transaction/:userID/:walletID', async (req, res) => {
       }
     }
   } catch (error) {
-    console.error('Error adding transaction:', error);
+    console.error('Error adding recurring transaction:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -259,10 +259,6 @@ app.get('/user/getTransactions/:userID/:walletID', async (req, res) => {
 
     const userTransactionsRef = admin.firestore().collection('users').doc(userID).collection('user_wallets').doc(walletID).collection('user_transactions')
     const snapshot = await userTransactionsRef.get();
-
-    if (snapshot.empty) {
-      return res.status(404).json({ error: 'No transactions found for the user.' });
-    }
 
     let transactions = [];
     snapshot.forEach(doc => {

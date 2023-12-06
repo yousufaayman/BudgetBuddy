@@ -36,7 +36,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
     };
 
     fetchData();
-  }, [refresh, numberOfTransactions, user]);
+  }, [refresh, numberOfTransactions, user, walletId]);
 
   const columns = React.useMemo(
     () => [
@@ -114,7 +114,8 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
+          {rows.length > 0 ? (
+            rows.map(row => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -125,7 +126,12 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
                   })}
                 </tr>
               );
-            })}
+            })
+          ) : (
+            <tr>
+              <td colSpan={7}>No transactions were found in this wallet please add one</td>
+            </tr>
+          )}
           </tbody>
         </table>
       )}

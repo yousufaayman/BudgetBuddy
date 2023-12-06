@@ -8,8 +8,7 @@ import UserContext from '../UserContext';
 
 
 export const DashboardMainContent = ({refresh}) => {
-  const { user, walletId } = useContext(UserContext);
-  const [UserId, setUserId] = useState(false);
+  const { walletId } = useContext(UserContext);
   const [WalletId, setWalletId] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [transactionType, setTransactionType] = useState('');
@@ -36,8 +35,7 @@ export const DashboardMainContent = ({refresh}) => {
 
   useEffect(() => {
     setWalletId(walletId)
-    setUserId(user)
-  });
+  }, [setWalletId, walletId]);
   
 
   return (

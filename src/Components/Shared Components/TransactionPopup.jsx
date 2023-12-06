@@ -15,7 +15,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
   const [showStatusPopup, setShowStatusPopup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
 
 
   const [inputValues, setInputValues] = useState({
@@ -45,7 +44,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
   };
 
   const handleCategoryChange = (selectedCategory) => {
-    setSelectedCategory(selectedCategory);
     setInputValues({ ...inputValues, category: selectedCategory });
   };
   
