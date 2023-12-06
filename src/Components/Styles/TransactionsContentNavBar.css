@@ -1,0 +1,75 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: matrix3d(200);
+    }
+    to {
+      opacity: 1;
+      transform: matrix3d(0);
+    }
+  }
+
+.transactions-navbar{
+    grid-area: 1 / 1 / 2 / 2;
+    width: 90%;
+    height: 100%;
+    border-bottom: 0.15rem solid #FA8EE1;
+    animation: fadeIn 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.transactions-menu{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.transactions-menu-item{
+    width: 20%;
+    height: 100%;
+    transition: all 250ms;
+}
+
+.transactions-menu-button{
+    background-color: transparent;
+    color: #670AAD;
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-size: 120%;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 250ms;
+}
+
+.transactions-menu-item:hover{
+    background-color: #ebebebe9;
+    
+}
+
+.transactions-menu-button:hover{
+    transform: rotate(2deg);
+}
+
+@media screen and (max-width: 768px){
+    .transactions-menu-button{
+        font-size: 100%;
+    }
+
+}
+
+@media screen and (max-width: 630px){
+    .transactions-menu-button{
+        font-size: 80%;
+    }
+
+}
+
+@media screen and (max-width: 510px){
+    .transactions-menu-button{
+        font-size: 0.5rem;
+    }
+
+}

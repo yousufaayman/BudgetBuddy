@@ -2,7 +2,7 @@ import {BudgetBuddyApp} from './Budget-Buddy-Router'
 
 function App() {
   return (
-    <BudgetBuddyApp/>
+    <div></div>
   );
 }
 
