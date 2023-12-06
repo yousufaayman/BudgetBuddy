@@ -30,6 +30,30 @@ function Login() {
     }
   };
 
+  return (
+    <div>
+      <h1>Login</h1>
+      <label>
+        Email:
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Password:
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Remember Me:
+        <input type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
+      </label>
+      <br />
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleGoogleLogin}>Login with Google</button>
+      <button onClick={handleForgotPassword}>Forgot Password</button>
+    </div>
+  );
+
 
 }
 
