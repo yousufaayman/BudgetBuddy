@@ -13,6 +13,17 @@ function Login() {
       console.error('Error logging in:', error);
     }
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await auth.signInWithPopup(googleProvider);
+    } catch (error) {
+      console.error('Error logging in with Google:', error);
+    }
+  };
+
+
+  
 }
 
 export default Login;

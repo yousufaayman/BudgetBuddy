@@ -24,6 +24,7 @@ const authenticate = async (req, res, next) => {
   }
 };
 
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
