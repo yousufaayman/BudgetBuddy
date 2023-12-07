@@ -3,16 +3,14 @@ import { device } from "./devices";
 
 export const PopupInputStyled = styled.input`
   background-color : #BBB9BB;
-  font-family: 'Montserrat';
+  grid-area: ${(props) => props.gridarea};
+  font-family: 'Roboto Mono';
   width: 80%;
   height: 50%;
   border: none;
   padding: 2%;
   border-radius: 0.3rem;
   color: #7b0dcf;
-  margin: ${(props) => props.margin};
-  color: ${(props) => props.color} ;
-  grid-area: ${(props) => props.gridarea};
   
   &:focus{
         display: inline-block;

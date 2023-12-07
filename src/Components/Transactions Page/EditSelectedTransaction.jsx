@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import './Styles/EditSelectedTransactions.css';
-import { PopupInputStyled } from './Styles/PopupInputStyled';
-import { StatusPopup } from './StatusPopup'
-import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
+import { PopupInputStyled } from '../Shared Components/Styles/PopupInputStyled';
+import { StatusPopup } from '../Shared Components/StatusPopup'
+import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from '../Shared Components/UserCategoryDropdown'
+import UserContext from '../../Services/UserContext';
 
 export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTable}) => {
-    const userID = 'fxAEXzfQSHf26vyOJFPFOtpcZyE3'
+    const {user, walletId} = useContext(UserContext)
     const [showStatusPopup, setShowStatusPopup] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -74,7 +75,7 @@ export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTa
       }
   
       try {
-        const response = await axios.put(`http://localhost:3002/user/updateTransaction/${userID}/${editSelectedTransaction.id}`, {
+        const response = await axios.put(`http://localhost:3002/user/updateTransaction/${user}/${walletId}/${editSelectedTransaction.id}`, {
           title,
           amount,
           category,
@@ -121,7 +122,7 @@ export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTa
 
     const handleDelete = async () => {
       try {
-        const response = await axios.delete(`http://localhost:3002/user/deleteTransaction/${userID}/${editSelectedTransaction.id}`, {});
+        const response = await axios.delete(`http://localhost:3002/user/deleteTransaction/${user}/${walletId}/${editSelectedTransaction.id}`, {});
     
         if (response.status === 201) {
           setInputValues({
@@ -208,11 +209,11 @@ export const EditSelectedTransactions = ({editSelectedTransaction, editRefreshTa
         />
 
             {editSelectedTransaction?.data?.type === 'income' && (
-              <IncomeCategoriesDropdown className="edit-category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+              <IncomeCategoriesDropdown className="edit-category-dropdwon"  onCategoryChange={handleCategoryChange} />
             )}
 
             {editSelectedTransaction?.data?.type === 'expense' && (
-              <ExpenseCategoriesDropdown className="edit-category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+              <ExpenseCategoriesDropdown className="edit-category-dropdwon" onCategoryChange={handleCategoryChange} />
             )}
 
         <PopupInputStyled

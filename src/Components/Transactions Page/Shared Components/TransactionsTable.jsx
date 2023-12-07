@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useTable, useRowSelect } from 'react-table';
 import './Styles/TransactionTable.css';
+import UserContext from '../../Services/UserContext';
 
-export const TransactionTable = ({ refresh, numberOfTransactions, selectable, onSelect, 
+export const TransactionTable = ({ refresh, numberOfTransactions, className, innerClassName, selectable, onSelect, 
   filterType = 'all', filterRecurring = 'all', filterCategory = 'all'}) => {
+  const { user, walletId } = useContext(UserContext);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-
+    
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userID = "fxAEXzfQSHf26vyOJFPFOtpcZyE3";
-        const response = await axios.get(`http://localhost:3002/user/getTransactions/${userID}`);
+        const response = await axios.get(`http://localhost:3002/user/getTransactions/${user}/${walletId}`);
         const data = response.data.transactions;
 
         let transformedData = data
-        .map(transaction => ({
-          id: transaction.id,
-          ...transaction.data,
-          date: new Date(transaction.data.date._seconds * 1000),
-        }))
+          .map(transaction => ({
+            id: transaction.id,
+            ...transaction.data,
+            date: new Date(transaction.data.date._seconds * 1000),
+          }))
           .sort((a, b) => b.date - a.date)
           .map(t => ({ ...t, date: t.date.toLocaleDateString() }));
 
@@ -49,7 +50,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions, selectable, on
     };
 
     fetchData();
-  }, [refresh, numberOfTransactions, filterType, filterCategory, filterRecurring]);
+  }, [refresh, numberOfTransactions, user, walletId, filterType, filterCategory, filterRecurring]);
 
   const columns = React.useMemo(
     () => [
@@ -132,29 +133,14 @@ export const TransactionTable = ({ refresh, numberOfTransactions, selectable, on
   );
 
   useEffect(() => {
-    onSelect(selectedTransaction);
-  }, [selectedTransaction, onSelect]);
-
-  const placeholderRows = isLoading
-    ? Array.from({ length: 8 }).map((_, index) => (
-        <tr key={index}>
-          {columns.map(column => (
-            <td key={column.accessor} style={{ fontSize: '80%' }}></td>
-          ))}
-        </tr>
-      ))
-    : null;
+    if (typeof onSelect === 'function') {
+      onSelect(selectedTransaction);
+    }
+  }, [selectedTransaction, onSelect]);  
 
   return (
-    <div className='inner-table-container'>
-      {isLoading ? (
-        <table className='table'>
-          <tbody>
-            {placeholderRows}
-          </tbody>
-        </table>
-      ) : (
-        <table {...getTableProps()} className='table'>
+    <div className={innerClassName}>
+        <table {...getTableProps()} className={className}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -165,29 +151,26 @@ export const TransactionTable = ({ refresh, numberOfTransactions, selectable, on
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps({
-                    onClick: () => {
-                      row.toggleRowSelected(!row.isSelected);
-                      setSelectedTransaction(row.isSelected ? null : {
-                        id: row.original.id,
-                        data: row.original,
-                      });
-                    },
-                  })}
-                >
-                  {row.cells.map(cell => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
+                {rows.length > 0 ? (
+                  rows.map(row => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                          return (
+                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={7}>No transactions were found in this wallet. Please add one.</td>
+                  </tr>
+                )}
+              </tbody>
         </table>
-      )}
     </div>
   );
 };
