@@ -1,6 +1,6 @@
-import { ContainerStyled } from "./Shared Components/Styles/Container.Styled"
+import { ContainerStyled } from "../Shared Components/Styles/Container.Styled"
 import { LoginForm } from "./LoginForm"
-import { GridItem } from "./Shared Components/Styles/GridItem";
+import { GridItem } from "../Shared Components/Styles/GridItem";
 import { LandingTopBar } from "./TopBar"; 
 import { LandingContent } from "./LandingContent";
 import './Styles/LandingPage.css'
