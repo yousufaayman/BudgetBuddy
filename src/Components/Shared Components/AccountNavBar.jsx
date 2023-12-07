@@ -3,9 +3,13 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { PiStackBold } from "react-icons/pi";
 import './Styles/AccountNavBar.Module.css';
+import { WalletPopup } from './WalletPopup';
+import { useNavigate } from 'react-router';
 
 export const NavBar = ({ collapsed, activePage }) => {
     const [overlayVisible, setOverlayVisible] = useState(false);
+    const [isWalletPopupOpen, setisWalletPopupOpen] = useState(false);
+    const navigate = useNavigate()
     const navbarRef = useRef(null);
 
     useEffect(() => {
@@ -26,21 +30,37 @@ export const NavBar = ({ collapsed, activePage }) => {
         setOverlayVisible(!overlayVisible);
     };
 
+    const handleOpenWalletPopup = () => {
+        setisWalletPopupOpen(true);
+      };
+    
+    const handleCloseWalletPopup = () => {
+        setisWalletPopupOpen(false);
+    };
+
     return (
         <div className="nav-container">
+            
 
             <div ref={navbarRef} className={`nav-bar ${collapsed ? 'collapsed' : ''} ${overlayVisible ? 'overlay visible' : 'overlay'}`}>
                 
                 <ul className="nav-menu">
-                    <li><img className='account-bb-logo' src="BudgetBuddyLogo.png" alt='budget buddy logo' /></li>
+                    <li><button onClick={handleOpenWalletPopup}>Wallet popup</button></li>
+                    {isWalletPopupOpen && (
+                        <WalletPopup
+                        isOpen={isWalletPopupOpen}
+                        onClose={handleCloseWalletPopup}
+                        />
+                    )}
+                    <li><img className='account-bb-logo' src="../../Assets/BudgetBuddyLogo.png" alt='budget buddy logo' /></li>
                     <hr/>
                     <li className='menu-item'>
-                        <a href="#" className={`menu-link ${activePage === 'dashboard' ? 'active-page' : ''}`}>
+                        <a onClick={() => navigate("/user/dashboard")} className={`menu-link ${activePage === 'dashboard' ? 'active-page' : ''}`}>
                             <LuLayoutDashboard className='link-icon' /> Dashboard
                         </a>
                     </li>
                     <li className='menu-item'>
-                        <a href="#" className={`menu-link ${activePage === 'transactions' ? 'active-page' : ''}`}>
+                        <a onClick={() => navigate("/user/transactions")} className={`menu-link ${activePage === 'transactions' ? 'active-page' : ''}`}>
                             <AiOutlineTransaction className='link-icon' /> Transactions
                         </a>
                     </li>

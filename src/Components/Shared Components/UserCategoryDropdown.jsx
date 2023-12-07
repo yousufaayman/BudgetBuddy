@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import UserContext from '../../Services/UserContext';
 
-const ExpenseCategoriesDropdown = ({ className, userID, onCategoryChange }) => {
+ 
+const ExpenseCategoriesDropdown = ({ className, onCategoryChange }) => {
+  const { user } = useContext(UserContext);
   const [expenseCategories, setExpenseCategories] = useState([]);
   const [selectedExpenseCategory, setSelectedExpenseCategory] = useState('');
 
   useEffect(() => {
     const fetchExpenseCategories = async () => {
       try {
-        const response = await axios.get(`http://localhost:3002/user/getExpenseCategories/${userID}`);
+        const response = await axios.get(`http://localhost:3002/user/getExpenseCategories/${user}`);
         setExpenseCategories(response.data.expenseCategories);
       } catch (error) {
         console.error('Error fetching expense categories:', error);
@@ -16,7 +19,7 @@ const ExpenseCategoriesDropdown = ({ className, userID, onCategoryChange }) => {
     };
 
     fetchExpenseCategories();
-  }, [userID]);
+  }, [user]);
 
   const handleExpenseCategoryChange = (e) => {
     const selectedCategory = e.target.value;
@@ -36,14 +39,15 @@ const ExpenseCategoriesDropdown = ({ className, userID, onCategoryChange }) => {
   );
 };
 
-const IncomeCategoriesDropdown = ({ className, userID, onCategoryChange }) => {
+const IncomeCategoriesDropdown = ({ className, onCategoryChange }) => {
+  const { user } = useContext(UserContext);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [selectedIncomeCategory, setSelectedIncomeCategory] = useState('');
 
   useEffect(() => {
     const fetchIncomeCategories = async () => {
       try {
-        const response = await axios.get(`http://localhost:3002/user/getIncomeCategories/${userID}`);
+        const response = await axios.get(`http://localhost:3002/user/getIncomeCategories/${user}`);
         setIncomeCategories(response.data.incomeCategories);
       } catch (error) {
         console.error('Error fetching income categories:', error);
@@ -51,7 +55,7 @@ const IncomeCategoriesDropdown = ({ className, userID, onCategoryChange }) => {
     };
 
     fetchIncomeCategories();
-  }, [userID]);
+  }, [user]);
 
   const handleIncomeCategoryChange = (e) => {
     const selectedCategory = e.target.value;

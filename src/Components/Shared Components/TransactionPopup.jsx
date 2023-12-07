@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Styles/popups.css';
 import { GrClose } from 'react-icons/gr';
 import { PopupInputStyled } from './Styles/PopupInputStyled';
 import axios from 'axios';
 import { StatusPopup } from './StatusPopup'
 import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
+import UserContext from '../../Services/UserContext';
+
+
+
 
 export const TransactionPopup = ({ isOpen, onClose, type }) => {
-  const userID = 'fxAEXzfQSHf26vyOJFPFOtpcZyE3'
+  const { user, walletId} = useContext(UserContext);
   const [showStatusPopup, setShowStatusPopup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+
 
   const [inputValues, setInputValues] = useState({
     title: '',
@@ -40,7 +44,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
   };
 
   const handleCategoryChange = (selectedCategory) => {
-    setSelectedCategory(selectedCategory);
     setInputValues({ ...inputValues, category: selectedCategory });
   };
   
@@ -74,7 +77,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3002/user/transaction/${userID}`, {
+      const response = await axios.post(`http://localhost:3002/user/transaction/${user}/${walletId}`, {
         title,
         amount,
         category,
@@ -119,7 +122,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
     }
 
   };
-
+  
   return (
     <>
       {isOpen && (
@@ -151,11 +154,11 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
             />
 
             {type === 'income' && (
-              <IncomeCategoriesDropdown className="category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+              <IncomeCategoriesDropdown className="category-dropdwon" onCategoryChange={handleCategoryChange} />
             )}
 
             {type === 'expense' && (
-              <ExpenseCategoriesDropdown className="category-dropdwon" userID={userID} onCategoryChange={handleCategoryChange} />
+              <ExpenseCategoriesDropdown className="category-dropdwon" onCategoryChange={handleCategoryChange} />
             )}
 
             <PopupInputStyled
