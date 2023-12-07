@@ -1,7 +1,7 @@
 import React from 'react'
 import './Styles/RegestrationForm.css'
-import { ButtonStyled } from '../Shared Components/Styles/ButtonStyled'
-import { LabelStyled } from '../Shared Components/Styles/LabelStyled'
+import { ButtonStyled } from './Styles/ButtonStyled'
+import { LabelStyled } from './Styles/LabelStyled'
 
 export const Confirm = ({prevStep, values, handleSignUp}) => {
 
@@ -56,3 +56,4 @@ export const Confirm = ({prevStep, values, handleSignUp}) => {
 }
 
 export default Confirm
+  
