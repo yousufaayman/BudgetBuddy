@@ -1,31 +1,29 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import './Styles/AccountTopBar.css'
+import React, { useState, useEffect, useRef, useContext } from "react";
+import "./Styles/AccountTopBar.css";
 import { FaUserCircle } from "react-icons/fa";
-import UserContext from '../../Services/UserContext';
-import { useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
+import UserContext from "../../Services/UserContext";
+import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
 
-
-
-export const TopBar = ({pageName}) => {
+export const TopBar = ({ pageName }) => {
   const [isUserOptionsOpen, setUserOptionsIsOpen] = useState(false);
   const dropdownRef = useRef();
   const navigate = useNavigate();
   const { setUser, setUserWallets, setWalletId } = useContext(UserContext);
 
   const logout = () => {
-    Cookies.remove('user'); 
+    Cookies.remove("user");
     setUser(null);
     setUserWallets([]);
     setWalletId(null);
-    navigate('/');
+    navigate("/");
   };
 
-  const handleClickOutside = e => {
+  const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setUserOptionsIsOpen(false);
     }
-  };  
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -36,19 +34,28 @@ export const TopBar = ({pageName}) => {
 
   return (
     <div className="top-bar-container">
-      <h1 className='page-title'>{pageName}</h1>
-      <div className='account-dropdown'>
-        <FaUserCircle onClick={() => setUserOptionsIsOpen(!isUserOptionsOpen)} className='account-icon'/>
+      <h1 className="page-title">{pageName}</h1>
+      <div className="account-dropdown">
+        <FaUserCircle
+          onClick={() => setUserOptionsIsOpen(!isUserOptionsOpen)}
+          className="account-icon"
+        />
         {isUserOptionsOpen && (
-          <div ref={dropdownRef} className='account-dropdown-menu'>
-            <a className='user-account-options' href='/profile'>Edit Profile</a>
-            <a className='user-account-options' href='/settings'>Settings</a>
-            <a className='user-account-options' onClick={logout}>Logout</a>
+          <div ref={dropdownRef} className="account-dropdown-menu">
+            <a className="user-account-options" href="/profile">
+              Edit Profile
+            </a>
+            <a className="user-account-options" href="/settings">
+              Settings
+            </a>
+            <a className="user-account-options" onClick={logout}>
+              Logout
+            </a>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
 export default TopBar;

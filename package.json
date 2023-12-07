@@ -19,7 +19,6 @@
     "react-notifications": "^1.7.4",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-scripts": "5.0.1",
-    "react-table": "^7.8.0",
     "styled": "^1.0.0",
     "styled-components": "^6.1.1",
     "toast": "^0.5.4",
@@ -48,5 +47,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "js-cookie": "3.0.5",
+    "react-router": "6.20.1",
+    "react-table": "7.8.0"
   }
 }

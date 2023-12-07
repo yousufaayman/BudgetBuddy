@@ -1,44 +1,43 @@
-import React, { useState, useContext } from 'react';
-import './Styles/popups.css';
-import { GrClose } from 'react-icons/gr';
-import { PopupInputStyled } from './Styles/PopupInputStyled';
-import axios from 'axios';
-import { StatusPopup } from './StatusPopup'
-import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
-import UserContext from '../../Services/UserContext';
-
-
-
+import React, { useState, useContext } from "react";
+import "./Styles/popups.css";
+import { GrClose } from "react-icons/gr";
+import { PopupInputStyled } from "./Styles/PopupInputStyled";
+import axios from "axios";
+import { StatusPopup } from "./StatusPopup";
+import {
+  ExpenseCategoriesDropdown,
+  IncomeCategoriesDropdown,
+} from "./UserCategoryDropdown";
+import UserContext from "../../Services/UserContext";
 
 export const TransactionPopup = ({ isOpen, onClose, type }) => {
-  const { user, walletId} = useContext(UserContext);
+  const { user, walletId } = useContext(UserContext);
   const [showStatusPopup, setShowStatusPopup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [inputValues, setInputValues] = useState({
-    title: '',
-    amount: '',
-    category: '',
-    date: '',
-    description: '',
-    recurring: 'false',
+    title: "",
+    amount: "",
+    category: "",
+    date: "",
+    description: "",
+    recurring: "false",
     type: type,
   });
 
   const validateTitle = (title) => {
     return title.trim().length > 0;
   };
-  
+
   const validateAmount = (amount) => {
     return parseFloat(amount) > 0;
   };
-  
+
   const validateDate = (date) => {
     return date.trim().length > 0;
   };
-  
+
   const validateCategory = (category) => {
     return category.trim().length > 0;
   };
@@ -46,58 +45,61 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
   const handleCategoryChange = (selectedCategory) => {
     setInputValues({ ...inputValues, category: selectedCategory });
   };
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
   };
 
   const handleSubmit = async () => {
-    const { title, amount, category, date, description, recurring, type } = inputValues;
-    
-    
+    const { title, amount, category, date, description, recurring, type } =
+      inputValues;
+
     const isTitleValid = validateTitle(title);
     const isAmountValid = validateAmount(amount);
     const isDateValid = validateDate(date);
     const isCategoryValid = validateCategory(category);
 
     if (!isTitleValid || !isAmountValid || !isDateValid || !isCategoryValid) {
-      let errorMessage = '';
-  
-      if (!isTitleValid) errorMessage += 'Title is required. ';
-      if (!isAmountValid) errorMessage += 'Amount should be greater than 0. ';
-      if (!isDateValid) errorMessage += 'Date is required. ';
-      if (!isCategoryValid) errorMessage += 'Category is required. ';
-  
+      let errorMessage = "";
+
+      if (!isTitleValid) errorMessage += "Title is required. ";
+      if (!isAmountValid) errorMessage += "Amount should be greater than 0. ";
+      if (!isDateValid) errorMessage += "Date is required. ";
+      if (!isCategoryValid) errorMessage += "Category is required. ";
+
       setErrorMessage(errorMessage.trim());
       setShowStatusPopup(true);
       setIsSuccess(false);
-  
+
       return;
     }
 
     try {
-      const response = await axios.post(`http://localhost:3002/user/transaction/${user}/${walletId}`, {
-        title,
-        amount,
-        category,
-        date,
-        description,
-        recurring,
-        type,
-      });
-  
+      const response = await axios.post(
+        `http://localhost:3002/user/transaction/${user}/${walletId}`,
+        {
+          title,
+          amount,
+          category,
+          date,
+          description,
+          recurring,
+          type,
+        }
+      );
+
       if (response.status === 201 && response.data && response.data.success) {
         setInputValues({
-          title: '',
-          amount: '',
-          category: '',
-          description: '',
-          date: '',
-          recurring: 'false',
-          type: '',
+          title: "",
+          amount: "",
+          category: "",
+          description: "",
+          date: "",
+          recurring: "false",
+          type: "",
         });
-        
+
         setShowStatusPopup(true);
         setIsSuccess(true);
 
@@ -106,7 +108,6 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
           setIsSuccess(false);
           onClose();
         }, 2000);
-
       } else {
         setErrorMessage("Error Adding Transaction! Please Try Again Later.");
         setShowStatusPopup(true);
@@ -118,23 +119,22 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
         }, 2000);
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
-
   };
-  
+
   return (
     <>
       {isOpen && (
         <div className="popup-overlay">
           <div className="popup">
-
             <button id="close-btn" onClick={onClose}>
-              <GrClose style={{ color: '#7b0dcf' }} />
+              <GrClose style={{ color: "#7b0dcf" }} />
             </button>
             <h1 className="title">Add {type}</h1>
 
             <PopupInputStyled
+              data-test-id="dashboard-add-transaction-title"
               placeholder="Transaction Title"
               type="text"
               name="title"
@@ -144,6 +144,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
             />
 
             <PopupInputStyled
+              data-test-id="dashboard-add-transaction-number"
               type="number"
               min="1"
               name="amount"
@@ -153,15 +154,22 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               gridarea="3 / 2 / 4 /3 "
             />
 
-            {type === 'income' && (
-              <IncomeCategoriesDropdown className="category-dropdwon" onCategoryChange={handleCategoryChange} />
+            {type === "income" && (
+              <IncomeCategoriesDropdown
+                className="category-dropdwon"
+                onCategoryChange={handleCategoryChange}
+              />
             )}
 
-            {type === 'expense' && (
-              <ExpenseCategoriesDropdown className="category-dropdwon" onCategoryChange={handleCategoryChange} />
+            {type === "expense" && (
+              <ExpenseCategoriesDropdown
+                className="category-dropdwon"
+                onCategoryChange={handleCategoryChange}
+              />
             )}
 
             <PopupInputStyled
+              data-test-id="dashboard-add-transaction-decripton"
               placeholder="Description"
               type="text"
               name="description"
@@ -171,6 +179,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
             />
 
             <PopupInputStyled
+              data-test-id="dashboard-add-transaction-date"
               type="date"
               name="date"
               value={inputValues.date}
@@ -185,12 +194,13 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               </label>
 
               <input
+                data-test-id="dashboard-add-transaction-recurring-yes"
                 type="radio"
                 id="recurring-true"
                 name="recurring"
                 value="true"
                 className="radio-btn"
-                checked={inputValues.recurring === 'true'}
+                checked={inputValues.recurring === "true"}
                 onChange={handleInputChange}
               />
               <label className="radio-text" htmlFor="recurring-true">
@@ -198,12 +208,13 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               </label>
 
               <input
+                data-test-id="dashboard-add-transaction-recurring-no"
                 type="radio"
                 id="recurring-false"
                 name="recurring"
                 value="false"
                 className="radio-btn"
-                checked={inputValues.recurring === 'false'}
+                checked={inputValues.recurring === "false"}
                 onChange={handleInputChange}
               />
               <label className="radio-text" htmlFor="recurring-false">
@@ -215,10 +226,10 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               Submit
             </button>
 
-            {showStatusPopup && <StatusPopup isSuccess={isSuccess} message={errorMessage} />}
-
+            {showStatusPopup && (
+              <StatusPopup isSuccess={isSuccess} message={errorMessage} />
+            )}
           </div>
-
         </div>
       )}
     </>

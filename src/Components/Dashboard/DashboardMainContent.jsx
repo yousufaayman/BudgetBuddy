@@ -1,17 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import './Styles/DashboardMainContent.Module.css';
-import { TbPigMoney } from 'react-icons/tb';
-import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
-import { TransactionPopup } from '../Shared Components/TransactionPopup';
-import { TransactionHistoryTable } from './TableTransactionHistory'
-import UserContext from '../../Services/UserContext';
+import React, { useState, useContext, useEffect } from "react";
+import "./Styles/DashboardMainContent.Module.css";
+import { TbPigMoney } from "react-icons/tb";
+import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
+import { TransactionPopup } from "../Shared Components/TransactionPopup";
+import { TransactionHistoryTable } from "./TableTransactionHistory";
+import UserContext from "../../Services/UserContext";
 
-
-export const DashboardMainContent = ({refresh}) => {
+export const DashboardMainContent = ({ refresh }) => {
   const { walletId } = useContext(UserContext);
   const [WalletId, setWalletId] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [transactionType, setTransactionType] = useState('');
+  const [transactionType, setTransactionType] = useState("");
   const [refreshTable, setRefreshTable] = useState(false);
 
   useEffect(() => {
@@ -20,23 +19,22 @@ export const DashboardMainContent = ({refresh}) => {
 
   const handleOpenPopupIncome = () => {
     setIsPopupOpen(true);
-    setTransactionType('income');
+    setTransactionType("income");
   };
 
   const handleOpenPopupExpense = () => {
     setIsPopupOpen(true);
-    setTransactionType('expense');
+    setTransactionType("expense");
   };
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-    setRefreshTable(prev => !prev);
+    setRefreshTable((prev) => !prev);
   };
 
   useEffect(() => {
-    setWalletId(walletId)
+    setWalletId(walletId);
   }, [setWalletId, walletId]);
-  
 
   return (
     <div className="main-content-dashboard">
@@ -44,12 +42,19 @@ export const DashboardMainContent = ({refresh}) => {
         <>
           <div className="main-features">
             <div className="balance">
-              <TbPigMoney />Real-Time Balance:: 
+              <TbPigMoney />
+              Real-Time Balance::
             </div>
-            <button onClick={handleOpenPopupIncome} className="add-income-dashboard">
+            <button
+              onClick={handleOpenPopupIncome}
+              className="add-income-dashboard"
+            >
               <GiReceiveMoney /> Add Income
             </button>
-            <button onClick={handleOpenPopupExpense} className="add-expense-dashboard">
+            <button
+              onClick={handleOpenPopupExpense}
+              className="add-expense-dashboard"
+            >
               <GiPayMoney /> Add Expense
             </button>
           </div>
@@ -60,12 +65,17 @@ export const DashboardMainContent = ({refresh}) => {
               type={transactionType}
             />
           )}
-  
-          <TransactionHistoryTable refresh={refreshTable} numberOfTransactions="8"/>
+
+          <TransactionHistoryTable
+            refresh={refreshTable}
+            numberOfTransactions="8"
+          />
         </>
-      ):(<div>Please Select a Wallet</div>)}
+      ) : (
+        <div>Please Select a Wallet</div>
+      )}
     </div>
-  );  
+  );
 };
 
 export default DashboardMainContent;
