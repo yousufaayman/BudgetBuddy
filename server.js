@@ -79,6 +79,33 @@ app.put('/api/categories/:categoryId', async (req, res) => {
   }
 });
 
+
+// delete category
+app.delete('/api/categories/:categoryId', async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    // check if category exists
+    const categoryRef = admin.database().ref(`categories/${categoryId}`);
+    const categorySnapshot = await categoryRef.once('value');
+    const categoryData = categorySnapshot.val();
+
+    if (!categoryData) {
+      return res.status(404).send('Category not found');
+    }
+
+    // delete category in firebase
+    await categoryRef.remove();
+
+    // re-categorizing or mark transaction as unassigned
+
+    res.status(200).send('Category deleted successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {

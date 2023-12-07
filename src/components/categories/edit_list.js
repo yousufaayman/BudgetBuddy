@@ -1,73 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import firebase from 'firebase';
-import EditCategoryForm from './EditCategoryForm';
+import React, { useState } from 'react';
+import CreateCategoryForm from './CreateCategoryForm';
+import CategoryList from './CategoryList';
+import { updateCategory, deleteCategory } from './api';
 
-const CategoryList = ({ onSelectCategory }) => {
-  const [categories, setCategories] = useState([]);
+const TransactionManagement = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [editModalVisible, setEditModalVisible] = useState(false);
 
-  useEffect(() => {
-    // Fetch categories from Firebase
-    const categoriesRef = firebase.database().ref('categories');
-    categoriesRef.on('value', (snapshot) => {
-      const categoriesData = snapshot.val();
-      const categoriesArray = [];
-      for (let key in categoriesData) {
-        categoriesArray.push({ id: key, ...categoriesData[key] });
-      }
-      setCategories(categoriesArray);
-    });
+  const handleCategoryCreated = (newCategory) => {
+    setSelectedCategory(newCategory);
+  };
 
-    return () => {
-      // clean remove event listener when component is empty
-      categoriesRef.off('value');
-    };
-  }, []);
-
-  const handleEditCategory = (category) => {
+  const handleSelectCategory = (category) => {
     setSelectedCategory(category);
-    setEditModalVisible(true);
   };
 
-  const handleCloseEditModal = () => {
-    setSelectedCategory(null);
-    setEditModalVisible(false);
+  const handleUpdateCategory = async () => {
+    try {
+      if (!selectedCategory) {
+        console.error('No category selected for update.');
+        return;
+      }
+
+      const { id, name } = selectedCategory;
+
+      const updatedCategoryData = {
+        name: 'Updated Category Name',
+        // ... other properties
+      };
+
+      await updateCategory(id, updatedCategoryData);
+
+      // Simulate call to updateCategory function
+      console.log('Updating category:', id, updatedCategoryData);
+
+      // handle success
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
   };
 
-  const handleCategoryUpdated = (updatedCategory) => {
-    // update category in the local state
-    setCategories((prevCategories) =>
-      prevCategories.map((category) =>
-        category.id === updatedCategory.id ? { ...category, ...updatedCategory } : category
-      )
-    );
+  const handleDeleteCategory = async () => {
+    try {
+      if (!selectedCategory) {
+        console.error('No category selected for deletion.');
+        return;
+      }
 
-    // inform parent category has been updated
-    onSelectCategory(updatedCategory);
+      const { id } = selectedCategory;
+
+      await deleteCategory(id);
+
+      // Simulate call to deleteCategory function
+      console.log('Deleting category:', id);
+
+      // handle success
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
   };
 
   return (
     <div>
-      <h2>Categories</h2>
-      <ul>
-        {categories.map((category) => (
-          <li key={category.id}>
-            {category.name}{' '}
-            <button onClick={() => handleEditCategory(category)}>Edit</button>
-          </li>
-        ))}
-      </ul>
+      <CreateCategoryForm onCategoryCreated={handleCategoryCreated} />
+      <CategoryList onSelectCategory={handleSelectCategory} />
 
-      {editModalVisible && selectedCategory && (
-        <EditCategoryForm
-          category={selectedCategory}
-          onClose={handleCloseEditModal}
-          onCategoryUpdated={handleCategoryUpdated}
-        />
+      {selectedCategory && (
+        <div>
+          <h2>Selected Category</h2>
+          <p>Name: {selectedCategory.name}</p>
+          <button onClick={handleUpdateCategory}>Update Category</button>
+          <button onClick={handleDeleteCategory}>Delete Category</button>
+        </div>
       )}
     </div>
   );
 };
 
-export default CategoryList;
+export default TransactionManagement;

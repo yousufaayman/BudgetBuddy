@@ -16,7 +16,6 @@ const TransactionManagement = () => {
   const handleUpdateCategory = async () => {
     try {
       if (!selectedCategory) {
-        // Handle the case where no category is selected
         console.error('No category selected for update.');
         return;
       }
@@ -37,6 +36,26 @@ const TransactionManagement = () => {
     }
   };
 
+  const handleDeleteCategory = async () => {
+    try {
+      if (!selectedCategory) {
+        // Handle the case where no category is selected
+        console.error('No category selected for deletion.');
+        return;
+      }
+
+      const { id } = selectedCategory;
+
+      // Simulate an API call or call your actual deleteCategory function
+      console.log('Deleting category:', id);
+
+      // handle success
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
+  };
+
   return (
     <div>
       <CreateCategoryForm onCategoryCreated={handleCategoryCreated} />
@@ -48,6 +67,7 @@ const TransactionManagement = () => {
           <p>Name: {selectedCategory.name}</p>
           <p>Icon: {selectedCategory.icon}</p>
           <button onClick={handleUpdateCategory}>Update Category</button>
+          <button onClick={handleDeleteCategory}>Delete Category</button>
         </div>
       )}
     </div>
