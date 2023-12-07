@@ -1,6 +1,6 @@
 import React from 'react';
 import './Styles/RegNavbar.Module.css'
-import { ButtonStyled } from './Styles/ButtonStyled';
+import { ButtonStyled } from '../Shared Components/Styles/ButtonStyled';
 
 export function RegNavBar() {
 

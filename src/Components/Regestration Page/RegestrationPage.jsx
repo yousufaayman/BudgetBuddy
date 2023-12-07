@@ -1,7 +1,7 @@
-import {ContainerStyled} from './Styles/Container.Styled'
+import {ContainerStyled} from '../Shared Components/Styles/Container.Styled'
 import {RegestrationForm} from './RegestrationForm'
 import { RegNavBar } from './RegNavbar';
-import {GridItem} from './Styles/GridItem'
+import {GridItem} from '../Shared Components/Styles/GridItem'
 import './Styles/RegestrationPage.css'
 
 export const RegestrationPage = () => {

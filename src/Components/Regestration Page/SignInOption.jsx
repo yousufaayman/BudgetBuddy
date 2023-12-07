@@ -1,6 +1,6 @@
 import React from 'react'
 import './Styles/RegestrationForm.css'
-import { ButtonStyled } from './Styles/ButtonStyled'
+import { ButtonStyled } from '../Shared Components/Styles/ButtonStyled'
 import { GrGoogle } from "react-icons/gr";
 import { GrMail } from "react-icons/gr";
 

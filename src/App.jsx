@@ -1,4 +1,4 @@
-import {RegestrationPage} from './Components/RegestrationPage'
+import {RegestrationPage} from './Components/Regestration Page/RegestrationPage'
 
 function App() {
   return (

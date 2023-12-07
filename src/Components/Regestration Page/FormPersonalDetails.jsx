@@ -1,8 +1,8 @@
 import React from 'react'
 import './Styles/RegestrationForm.css'
-import { LabelStyled } from './Styles/LabelStyled';
-import { InputStyled } from './Styles/InputStyled';
-import { ButtonStyled } from './Styles/ButtonStyled';
+import { LabelStyled } from '../Shared Components/Styles/LabelStyled';
+import { InputStyled } from '../Shared Components/Styles/InputStyled';
+import { ButtonStyled } from '../Shared Components/Styles/ButtonStyled';
 
 export const FormPersonalDetails = ({nextStep, handleChange, values, errorHandle, fvalues}) => {
 

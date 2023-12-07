@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import './Styles/RegestrationForm.css'
-import { InputStyled } from './Styles/InputStyled';
-import { LabelStyled } from './Styles/LabelStyled';
-import { ButtonStyled } from './Styles/ButtonStyled';
+import { InputStyled } from '../Shared Components/Styles/InputStyled';
+import { LabelStyled } from '../Shared Components/Styles/LabelStyled';
+import { ButtonStyled } from '../Shared Components/Styles/ButtonStyled';
 import {CountryList} from  './CountryList'
 import CurrencyList from './CurrencyDropdown'
 
