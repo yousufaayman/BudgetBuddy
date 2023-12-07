@@ -1,10 +1,10 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from "react";
 
 export const CountryList = (countries, setCountries) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
+        const response = await fetch("https://restcountries.com/v3.1/all");
         const data = await response.json();
 
         const sortedCountries = data.sort((a, b) => {
@@ -15,12 +15,11 @@ export const CountryList = (countries, setCountries) => {
 
         setCountries(sortedCountries);
       } catch (error) {
-        console.error('Error fetching countries:', error);
+        console.error("Error fetching countries:", error);
       }
     };
 
     fetchData();
   }, []);
-
-}
+};
 export default CountryList;

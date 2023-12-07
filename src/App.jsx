@@ -1,9 +1,7 @@
-import {RegestrationPage} from './Components/Regestration Page/RegestrationPage'
+import { RegestrationPage } from "./Components/Regestration Page/RegestrationPage";
 
 function App() {
-  return (
-    <RegestrationPage/>
-  );
+  return <RegestrationPage />;
 }
 
 export default App;
