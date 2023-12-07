@@ -73,6 +73,7 @@ export const FormUserDetails = ({
         Average Monthly Salary
       </LabelStyled>
       <InputStyled
+        data-test-id= "input-for-avg-Income" 
         gridarea="4/2/5/3"
         type="number"
         placeholder={fvalues.avgIncome}
