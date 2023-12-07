@@ -171,7 +171,7 @@ export class RegestrationForm extends Component {
     const userData = this.state;
 
     try {
-      const response = await fetch("http://localhost:3002/signup/google", {
+      await fetch("http://localhost:3002/signup/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -237,6 +237,10 @@ export class RegestrationForm extends Component {
     const { step, errorHandle, googleAccount } = this.state;
     const finalValues = this.state;
     const values = {};
+    let signUpMethod = null;
+    let returnOption = this.prevStep;
+
+
 
     switch (step) {
       case 0:
@@ -259,7 +263,6 @@ export class RegestrationForm extends Component {
         );
 
       case 2:
-        let returnOption = this.prevStep;
         if (googleAccount) {
           returnOption = this.resetState;
         }
@@ -275,7 +278,6 @@ export class RegestrationForm extends Component {
         );
 
       case 3:
-        let signUpMethod = null;
 
         if (finalValues.country === "") {
           finalValues.country = "Egypt";
@@ -285,7 +287,7 @@ export class RegestrationForm extends Component {
           finalValues.currency = "EGP";
         }
 
-        if (finalValues.avgIncome === "") {
+        if (finalValues.avgIncome === 0) {
           finalValues.avgIncome = 0;
         }
 

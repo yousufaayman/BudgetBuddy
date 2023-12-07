@@ -1,5 +1,5 @@
 // CurrencyList.js
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 const CurrencyList = (currencies, setCurrencies) => {
   useEffect(() => {
@@ -15,7 +15,7 @@ const CurrencyList = (currencies, setCurrencies) => {
     };
 
     fetchCurrencies();
-  }, []);
+  }, [setCurrencies]);
 };
 
 export default CurrencyList;

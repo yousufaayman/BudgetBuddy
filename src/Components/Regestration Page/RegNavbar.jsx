@@ -1,7 +1,11 @@
 import React from "react";
 import "./Styles/RegNavbar.Module.css";
 import { ButtonStyled } from "../Shared Components/Styles/ButtonStyled";
-
+/**
+ * RegNavBar component.
+ *
+ * @returns {JSX.Element} The rendered RegNavBar component.
+ */
 export function RegNavBar() {
   return (
     <div className="nav-bar">

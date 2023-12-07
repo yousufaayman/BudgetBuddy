@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+/**
+ * Input Button component using styled ocmponents.
+ *
+ * @returns {JSX.Element} The rendered RegNavBar component.
+ */
+
 export default function Input({ type, placeholder }) {
   return <StyledInput type={type} placeholder={placeholder} />;
 }
