@@ -81,6 +81,7 @@ export const FormUserDetails = ({
       />
 
       <ButtonStyled
+        data-test-id= "pevious-for-regestration"  
         fsize="90%"
         color="#FFF3E2"
         bgcolor1="#FFF3E2"
@@ -96,6 +97,7 @@ export const FormUserDetails = ({
       </ButtonStyled>
 
       <ButtonStyled
+        data-test-id= "next-for-regestration" 
         fsize="130%"
         color="#FFF3E2"
         bgcolor1="#ea4e33"

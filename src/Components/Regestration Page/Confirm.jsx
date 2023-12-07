@@ -34,6 +34,7 @@ export const Confirm = ({ prevStep, values, handleSignUp }) => {
       </LabelStyled>
 
       <ButtonStyled
+        data-test-id= "confirm-for-regestration"
         fsize="100%"
         color="#FFF3E2"
         bgcolor1="#ea4e33"
@@ -49,6 +50,7 @@ export const Confirm = ({ prevStep, values, handleSignUp }) => {
       </ButtonStyled>
 
       <ButtonStyled
+      data-test-id= "return-for-regestration"
         fsize="80%"
         color="#FFF3E2"
         bgcolor1="#FFF3E2"

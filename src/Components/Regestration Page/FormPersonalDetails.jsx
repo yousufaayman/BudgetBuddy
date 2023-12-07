@@ -104,6 +104,7 @@ export const FormPersonalDetails = ({
       />
 
       <ButtonStyled
+        data-test-id= "next-for-regestration-to-confirm"
         fsize="130%"
         color="#FFF3E2"
         bgcolor1="#ea4e33"
