@@ -106,6 +106,17 @@ app.delete('/api/categories/:categoryId', async (req, res) => {
   }
 });
 
+
+
+app.get('/api/balances', (req, res) => {
+  // Fetch balances data from Firebase Realtime Database
+  balancesRef.once('value', (snapshot) => {
+    const balances = snapshot.val();
+    res.json(balances);
+  });
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
