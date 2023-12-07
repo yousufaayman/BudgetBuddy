@@ -50,6 +50,35 @@ app.get('/api/categories', async (req, res) => {
   }
 });
 
+
+// update category
+app.put('/api/categories/:categoryId', async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const { name, icon } = req.body;
+
+    const categoryRef = admin.database().ref(`categories/${categoryId}`);
+    const categorySnapshot = await categoryRef.once('value');
+    const categoryData = categorySnapshot.val();
+
+    // check if category exists
+    if (!categoryData) {
+      return res.status(404).send('Category not found');
+    }
+
+    // update category in firebase
+    await categoryRef.update({
+      name: name || categoryData.name,
+      icon: icon || categoryData.icon,
+    });
+
+    res.status(200).send('Category updated successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
