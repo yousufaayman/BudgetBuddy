@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: matrix3d(200);
+    }
+    to {
+      opacity: 1;
+      transform: matrix3d(0);
+    }
+  }
+
 .TopBar{
     margin: 0;
     display: grid;
@@ -9,6 +20,8 @@
     box-shadow: 1px 10px 22px -3px #670AAD70;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease-in-out; 
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .dollarIcon{

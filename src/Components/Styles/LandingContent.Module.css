@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: matrix3d(200);
+    }
+    to {
+      opacity: 1;
+      transform: matrix3d(0);
+    }
+  }
+  
 .main-content{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
@@ -5,6 +16,8 @@
     background-color: #FFF3E2;
     border-radius: 1%;
     margin-right: 2%;
+    transition: all 0.2s ease-in-out; 
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .main-slogan{
