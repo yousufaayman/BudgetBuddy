@@ -118,45 +118,56 @@ app.get('/api/balances', (req, res) => {
 
 
 
-// Define the budget calculation endpoint
-app.post('/calculate-budget', (req, res) => {
-  const { userId, income, budgetMethod, recurringExpenses } = req.body;
+// Endpoint to handle budget calculation
+app.post('/api/budget', (req, res) => {
+  try {
+    const { monthlyIncome, selectedMethod } = req.body;
 
-  // Define your budget calculation logic based on the selected method
-  let necessities, wants, savings, investments;
+    if (!monthlyIncome || !selectedMethod) {
+      return res.status(400).json({ error: 'Invalid request. Please provide monthly income and selected budgeting method.' });
+    }
 
-  switch (budgetMethod) {
-    case '50/30/20':
-      necessities = 0.5 * income;
-      wants = 0.3 * income;
-      savings = 0.2 * income;
-      investments = 0;
-      break;
-    case '70/30':
-      necessities = 0.7 * income;
-      wants = 0.3 * income;
-      savings = 0;
-      investments = 0;
-      break;
-    case '40/30/30':
-      necessities = 0.4 * income;
-      wants = 0.3 * income;
-      savings = 0.3 * income;
-      investments = 0;
-      break;
-    case '40/30/20/10':
-      necessities = 0.4 * income;
-      wants = 0.3 * income;
-      savings = 0.2 * income;
-      investments = 0.1 * income;
-      break;
-    default:
-      necessities = 0;
-      wants = 0;
-      savings = 0;
-      investments = 0;
+    // Perform budget calculation based on the selected budgeting method
+    let allocatedBudget = {};
+    switch (selectedMethod) {
+      case '50/30/20':
+        allocatedBudget = {
+          necessities: 0.5 * monthlyIncome,
+          wants: 0.3 * monthlyIncome,
+          savings: 0.2 * monthlyIncome,
+        };
+        break;
+      case '70/30':
+        allocatedBudget = {
+          necessities: 0.7 * monthlyIncome,
+          wants: 0.3 * monthlyIncome,
+          savings: 0,
+        };
+        break;
+      case '40/30/30':
+        allocatedBudget = {
+          necessities: 0.4 * monthlyIncome,
+          wants: 0.3 * monthlyIncome,
+          savings: 0.3 * monthlyIncome,
+        };
+        break;
+      case '40/30/20/10':
+        allocatedBudget = {
+          necessities: 0.4 * monthlyIncome,
+          wants: 0.3 * monthlyIncome,
+          savings: 0.2 * monthlyIncome,
+          other: 0.1 * monthlyIncome,
+        };
+        break;
+      default:
+        return res.status(400).json({ error: 'Invalid budgeting method selected.' });
+    }
+
+    res.status(200).json({ allocatedBudget });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-
   // Add recurring expenses to necessities
   necessities += recurringExpenses.reduce((acc, expense) => acc + expense.amount, 0);
 
