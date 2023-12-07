@@ -1,12 +1,12 @@
-
 name: SonarCloud analysis
 
 on:
   push:
     branches: 
-      - "Regestration-Page"
+      - '**'
   pull_request:
-    branches: [ "*" ]
+    branches: 
+      - '**'
   workflow_dispatch:
 
 permissions:
