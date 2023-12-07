@@ -24,7 +24,7 @@ export class RegestrationForm extends Component {
           userExists: false, 
           loading: true,
           googleAccount: false,
-          idToken: ""
+          uid: ''
       };
 
       prevStep = () => {
@@ -44,7 +44,7 @@ export class RegestrationForm extends Component {
       
           if (response.status === 201) {
             if (response.data && response.data.success) {
-              Cookies.set('user', JSON.stringify(response.data.user));
+              const setcookies = await Cookies.set('user', JSON.stringify(response.data.user));
               this.nextStep();
             } else {
               console.error('Signup failed. No success indication in response.');
@@ -117,20 +117,23 @@ export class RegestrationForm extends Component {
       googleSignUp = async () => {
         const { step } = this.state;
         const userData = await handleGoogleSignUp();
-        
       
         if (userData.error) {
           console.error(userData.error);
         } else {
+          Cookies.set('user', JSON.stringify(userData.uid));
+          this.setState({ uid : userData.uid});
+          
           this.setState({
             googleAccount: true,
             step: step + 2,
             firstName: userData.firstName,
             lastName: userData.lastName,
-            idToken: userData.idToken,
             email: userData.email,
+
           }, async () => {
             const userIsRegestired = await this.checkUserExistence()
+
             if (userIsRegestired) {
               this.setState({
                 step: 0,
@@ -146,47 +149,31 @@ export class RegestrationForm extends Component {
                 userExists: false,
                 loading: true,
                 googleAccount: false,
-                idToken: '',
+                uid: '',
               }, () => {});
               alert("This user already exists! Try Logging in :)");
             };
           });
         };
       };
-
-      googleSignUpCompletion = async () => {
-        const {idToken} = this.state
-        const userData = this.state
+      
+      googleSignUpCompletion = async () => {;
+        const {uid} = this.state;
 
         try{
-          const response = await fetch('http://localhost:3002/signup/google', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${idToken}`,
-          },
-          body: JSON.stringify({ idToken, userData }),
-          
-        });
+          await axios.post(`http://localhost:3002/signup/google/${uid}`, this.state)
         this.nextStep()
         }catch(error){
           alert(error)
           this.resetState()
         }  
       };
-      
+
       removeUser = async () => {
-        const { idToken } = this.state;
-      
+        const {uid} = Cookies.get('uid');
+        
         try {
-          const response = await fetch('http://localhost:3002/delete/user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': idToken, 
-            },
-            body: JSON.stringify({ idToken }), 
-          });
+          const response = await axios.post(`http://localhost:3002/delete/${uid}`)
       
           if (response.ok) {
             console.log('User deleted successfully');
@@ -216,7 +203,6 @@ export class RegestrationForm extends Component {
           userExists: false,
           loading: true,
           googleAccount: false,
-          idToken: '',
         }, () => {});
       };
 

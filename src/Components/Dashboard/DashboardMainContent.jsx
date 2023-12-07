@@ -3,8 +3,8 @@ import './Styles/DashboardMainContent.Module.css';
 import { TbPigMoney } from 'react-icons/tb';
 import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
 import { TransactionPopup } from '../Shared Components/TransactionPopup';
-import { TransactionHistoryTable } from '../Shared Components/TableTransactionHistory'
-import UserContext from '../UserContext';
+import { TransactionHistoryTable } from './TableTransactionHistory'
+import UserContext from '../../Services/UserContext';
 
 
 export const DashboardMainContent = ({refresh}) => {
@@ -39,17 +39,17 @@ export const DashboardMainContent = ({refresh}) => {
   
 
   return (
-    <div className="MainContent">
+    <div className="main-content-dashboard">
       {WalletId ? (
         <>
           <div className="main-features">
             <div className="balance">
-              <TbPigMoney />Real-Time Balance::
+              <TbPigMoney />Real-Time Balance:: 
             </div>
-            <button onClick={handleOpenPopupIncome} className="add-income">
+            <button onClick={handleOpenPopupIncome} className="add-income-dashboard">
               <GiReceiveMoney /> Add Income
             </button>
-            <button onClick={handleOpenPopupExpense} className="add-expense">
+            <button onClick={handleOpenPopupExpense} className="add-expense-dashboard">
               <GiPayMoney /> Add Expense
             </button>
           </div>

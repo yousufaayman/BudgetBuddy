@@ -34,13 +34,13 @@ background-color: #FA8EE1;
 border-radius: 5px; 
 }
 
-.balance{
+.manage-balance{
     font-size: 200%;
     color: #7b0dcf;
     grid-area: 1 / 2 / 2 / 3;
 }
 
-.add-income, .add-expense{
+.manage-add-income, .manage-add-expense{
     font-size: 110%;
     width: 90%;
     height: 40%;

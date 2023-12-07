@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Styles/popups.css';
 import { GrClose } from 'react-icons/gr';
-import UserContext from '../UserContext';
+import UserContext from '../../Services/UserContext';
 import {WalletsDropwdoown} from './UserWalletsDropdown'
 
 export const WalletPopup = ({ isOpen, onClose}) => {

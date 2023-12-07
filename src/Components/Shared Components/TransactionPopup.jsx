@@ -5,7 +5,7 @@ import { PopupInputStyled } from './Styles/PopupInputStyled';
 import axios from 'axios';
 import { StatusPopup } from './StatusPopup'
 import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
-import UserContext from '../UserContext';
+import UserContext from '../../Services/UserContext';
 
 
 

@@ -84,10 +84,6 @@ app.post('/signup/email', async (req, res) => {
       walletName: 'Main Wallet',
     });
 
-    await admin.firestore().collection('users').doc(userUID).collection('user_wallets').add({
-      walletName: 'SEcond Wallet',
-    });
-
     const transaction = {
       type: "income",
       title: "salary",
@@ -106,36 +102,40 @@ app.post('/signup/email', async (req, res) => {
   }
 });
 
-app.post('/signup/google', async (req, res) => {
-  const { idToken, userData } = req.body;
-  const { firstName, lastName, country, currency, avgIncome } = userData;
+app.post('/signup/google/:userId', async (req, res) => {
+  const uid = req.params.userId;
+  const { firstName, lastName, country, currency, avgIncome } = req.body;
+  const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments', 'Savings'];
+  const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-
-    const userSnapshot = await admin.firestore().collection('users').doc(uid).get();
-
-    if (!userSnapshot.exists) {
+    
       await admin.firestore().collection('users').doc(uid).set({
         firstName,
         lastName,
         country,
         currency,
         avgIncome,
-      });
-      
-      const defaultIncomeCategories = ['Salary', 'Freelancing', 'Investments'];
-      const defaultExpenseCategories = ['Rent', 'Utilities', 'Groceries'];
+        categories: {
+          incomeCategories: defaultIncomeCategories,
+          expenseCategories: defaultExpenseCategories,
+        }}
+        );
 
-      await admin.firestore().collection('categories').doc(uid).set({
-        incomeCategories: defaultIncomeCategories,
-        expenseCategories: defaultExpenseCategories,
-      });
-
-    } else {
-      console.log('User already exists');
-    }
+        const walletRef = await admin.firestore().collection('users').doc(uid).collection('user_wallets').add({
+          walletName: 'Main Wallet',
+        });
+    
+        const transaction = {
+          type: "income",
+          title: "salary",
+          amount: avgIncome,
+          category: "Salary",
+          date: new Date().toISOString().split('T')[0],  
+          description: "Monthly Salary",
+          recurring: true,
+        };
+        await axios.post(`http://localhost:3002/user/transaction/${uid}/${walletRef.id}`, transaction);
 
     res.status(200).json({ message: 'Google sign-up successful' });
   } catch (error) {
@@ -145,14 +145,11 @@ app.post('/signup/google', async (req, res) => {
 });
 
 // Delete User Endpoint
-app.post('/delete/user', async (req, res) => {
-  const { idToken } = req.body;
+app.post('/delete/:userId', async (req, res) => {
+  const userid = req.params.userId;
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-
-    await admin.auth().deleteUser(uid);
+    await admin.auth().deleteUser(userid);
 
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {

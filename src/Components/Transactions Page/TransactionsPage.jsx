@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ContainerStyled } from './Styles/Container.Styled';
-import { GridItem } from './Styles/GridItem';
+import { ContainerStyled } from '../Shared Components/Styles/Container.Styled';
+import { GridItem } from '../Shared Components/Styles/GridItem';
 import { TransactionsMainContent } from './TransactionsMainContent';
-import { NavBar } from './AccountNavBar';
-import { TopBar } from './AccountTopBar';
+import { NavBar } from '../Shared Components/AccountNavBar';
+import { TopBar } from '../Shared Components/AccountTopBar';
 import './Styles/Transactions.Module.css';
-import {device} from './Styles/devices'
+import {device} from '../Shared Components/Styles/devices'
 
 export const Transactions = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -19,8 +19,6 @@ export const Transactions = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
-    TransactionsMainContent("3cZUJIvnx7OqOl5uXkSGfveaLHw2")
 
     return (
         <ContainerStyled className="page" display="grid" gridrows="1fr 10fr" gridcolumns="2fr 10fr 0.1fr" ql_height="100vh" ql_width="100vw" qm_height="100vh" qm_width="100vw">

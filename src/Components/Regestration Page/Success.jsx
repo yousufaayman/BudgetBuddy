@@ -9,7 +9,7 @@ export const Success = ({ values }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/user/dashboard");
-    }, 10000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, [navigate]);
 

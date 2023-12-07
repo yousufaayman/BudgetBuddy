@@ -1,11 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import './Styles/AccountTopBar.css'
 import { FaUserCircle } from "react-icons/fa";
-import UserContext from '../UserContext';
+import UserContext from '../../Services/UserContext';
+import { useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
+
+
 
 export const TopBar = ({pageName}) => {
   const [isUserOptionsOpen, setUserOptionsIsOpen] = useState(false);
   const dropdownRef = useRef();
+  const navigate = useNavigate();
+  const { setUser, setUserWallets, setWalletId } = useContext(UserContext);
+
+  const logout = () => {
+    Cookies.remove('user'); 
+    setUser(null);
+    setUserWallets([]);
+    setWalletId(null);
+    navigate('/');
+  };
 
   const handleClickOutside = e => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -29,7 +43,7 @@ export const TopBar = ({pageName}) => {
           <div ref={dropdownRef} className='account-dropdown-menu'>
             <a className='user-account-options' href='/profile'>Edit Profile</a>
             <a className='user-account-options' href='/settings'>Settings</a>
-            <a className='user-account-options' href='/logout'>Logout</a>
+            <a className='user-account-options' onClick={logout}>Logout</a>
           </div>
         )}
       </div>

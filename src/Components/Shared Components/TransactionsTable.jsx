@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useTable } from 'react-table';
+import { useTable, useRowSelect } from 'react-table';
 import './Styles/TransactionTable.css';
-import UserContext from '../UserContext';
+import UserContext from '../../Services/UserContext';
 
-
-export const TransactionTable = ({ refresh, numberOfTransactions}) => {
+export const TransactionTable = ({ refresh, numberOfTransactions, className, innerClassName, selectable, onSelect, 
+  filterType = 'all', filterRecurring = 'all', filterCategory = 'all'}) => {
   const { user, walletId } = useContext(UserContext);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+    
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +19,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
 
         let transformedData = data
           .map(transaction => ({
+            id: transaction.id,
             ...transaction.data,
             date: new Date(transaction.data.date._seconds * 1000),
           }))
@@ -28,6 +30,18 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
           transformedData = transformedData.slice(0, numberOfTransactions);
         }
 
+        if (filterType !== 'all') {
+          transformedData = transformedData.filter(t => t.type === filterType);
+        }
+
+        if (filterCategory !== 'all') {
+          transformedData = transformedData.filter(t => t.category === filterCategory);
+        }
+
+        if (filterRecurring !== 'all') {
+          transformedData = transformedData.filter(t => t.recurring === filterRecurring);
+        }
+
         setTransactions(transformedData);
         setIsLoading(false);
       } catch (error) {
@@ -36,7 +50,7 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
     };
 
     fetchData();
-  }, [refresh, numberOfTransactions, user, walletId]);
+  }, [refresh, numberOfTransactions, user, walletId, filterType, filterCategory, filterRecurring]);
 
   const columns = React.useMemo(
     () => [
@@ -79,31 +93,54 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data: transactions,
-  });
+  } = useTable(
+    {
+      columns,
+      data: transactions,
+      initialState: {
+        selectedRowIds: {},
+      },
+    },
+    useRowSelect,
+    hooks => {
+      if (selectable) {
+        hooks.visibleColumns.push(columns => [
+          {
+            id: 'selection',
+            Header: '',
+            Cell: ({ row }) => (
+              <div>
+                <input
+                  type="radio"
+                  name="rowSelector"
+                  id='row-select-box'
+                  checked={selectedTransaction && selectedTransaction.id === row.original.id}
+                  onChange={() => {
+                    row.toggleRowSelected(true);
+                    setSelectedTransaction({
+                      id: row.original.id,
+                      data: row.original,
+                    });
+                  }}
+                />
+              </div>
+            ),
+          },
+          ...columns,
+        ]);
+      }
+    }
+  );
 
-  const placeholderRows = isLoading
-    ? Array.from({ length: 8 }).map((_, index) => (
-        <tr key={index}>
-          {columns.map(column => (
-            <td key={column.accessor} style={{ fontSize: '80%' }}></td>
-          ))}
-        </tr>
-      ))
-    : null;
+  useEffect(() => {
+    if (typeof onSelect === 'function') {
+      onSelect(selectedTransaction);
+    }
+  }, [selectedTransaction, onSelect]);  
 
   return (
-    <div className='inner-table-container'>
-      {isLoading ? (
-        <table className='table'>
-          <tbody>
-            {placeholderRows}
-          </tbody>
-        </table>
-      ) : (
-        <table {...getTableProps()} className='table'>
+    <div className={innerClassName}>
+        <table {...getTableProps()} className={className}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -114,27 +151,26 @@ export const TransactionTable = ({ refresh, numberOfTransactions}) => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-          {rows.length > 0 ? (
-            rows.map(row => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                {rows.length > 0 ? (
+                  rows.map(row => {
+                    prepareRow(row);
                     return (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                          return (
+                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                          );
+                        })}
+                      </tr>
                     );
-                  })}
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan={7}>No transactions were found in this wallet please add one</td>
-            </tr>
-          )}
-          </tbody>
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={7}>No transactions were found in this wallet. Please add one.</td>
+                  </tr>
+                )}
+              </tbody>
         </table>
-      )}
     </div>
   );
 };

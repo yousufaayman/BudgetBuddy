@@ -23,7 +23,7 @@ export const handleGoogleSignUp = async () => {
     const result = await signInWithPopup(auth, provider);
     const { user } = result;
 
-    const idToken = await user.getIdToken();
+    const uid = user.uid; 
     const {displayName, email} = user;
 
     let firstName = '';
@@ -33,10 +33,10 @@ export const handleGoogleSignUp = async () => {
       const nameArray = displayName.split(' ');
       firstName = nameArray[0];
       lastName = nameArray.slice(1).join(' ');
-      return { idToken, firstName, lastName, email};
+      return { uid, firstName, lastName, email};
     }else{
       firstName = displayName
-      return { idToken, firstName, email};
+      return { uid, firstName, email};
     }
 
   } catch (error) {

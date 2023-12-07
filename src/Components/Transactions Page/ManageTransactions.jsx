@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Styles/ManageTransactions.css';
 import { TbPigMoney } from 'react-icons/tb';
 import { GiReceiveMoney, GiPayMoney } from 'react-icons/gi';
-import { TransactionPopup } from './TransactionPopup';
+import { TransactionPopup } from '../Shared Components/TransactionPopup';
 import { ListTransactionsTable } from './ListTransactionsTable'
 
 export const ManageTransactions = () => {
@@ -28,16 +28,16 @@ export const ManageTransactions = () => {
   return (
     <div className="manage-transactions">
 
-        <div className="balance">
+        <div className="manage-balance">
           <TbPigMoney />Real-Time Balance:{' '}
         </div>
         
         <div className='add-transaction-buttons'>
 
-        <button onClick={handleOpenPopupIncome} className="add-income">
+        <button onClick={handleOpenPopupIncome} className="manage-add-income">
           <GiReceiveMoney /> Add Income
         </button>
-        <button onClick={handleOpenPopupExpense} className="add-expense">
+        <button onClick={handleOpenPopupExpense} className="manage-add-expense">
           <GiPayMoney /> Add Expense
         </button>
 

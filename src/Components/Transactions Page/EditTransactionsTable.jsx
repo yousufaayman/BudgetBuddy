@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { TransactionTable } from './TransactionsTable';
+import React, { useState, useContext } from 'react';
+import { TransactionTable } from '../Shared Components/TransactionsTable';
 import './Styles/EditTransactionsTable.css';
-import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from './UserCategoryDropdown'
+import {ExpenseCategoriesDropdown, IncomeCategoriesDropdown} from '../Shared Components/UserCategoryDropdown'
 
 export const EditTransactionsTable = ({ refresh, onTransactionSelect }) => {
-  const userID = 'fxAEXzfQSHf26vyOJFPFOtpcZyE3'
   const [filterByType, setfilterByType] = useState("all");
   const [filterByRecurring, setfilterByRecurring] = useState("all");
   const [filterByCategory, setfilterByCategory] = useState("all");
@@ -29,8 +28,8 @@ export const EditTransactionsTable = ({ refresh, onTransactionSelect }) => {
 
   return (
     <div className="edit-table-container">
-      <div className="table-header">
-        <h2 className='table-title'>Transactions</h2>
+      <div className="edit-table-header">
+        <h2 className='edit-table-title'>Transactions</h2>
 
         <div className='edit-table-filters'>
           <label>Filter By Type: </label>
@@ -54,18 +53,18 @@ export const EditTransactionsTable = ({ refresh, onTransactionSelect }) => {
               <div className='edit-table-filters'>
                 <label>Category:</label>
                   {filterByType === 'income' && (
-                    <IncomeCategoriesDropdown className="filter-category-dropdown" userID={userID} onCategoryChange={handleFilterCategoryChange} />
+                    <IncomeCategoriesDropdown className="filter-category-dropdown"  onCategoryChange={handleFilterCategoryChange} />
                   )}
       
                   {filterByType === 'expense' && (
-                    <ExpenseCategoriesDropdown className="filter-category-dropdown" userID={userID} onCategoryChange={handleFilterCategoryChange} />
+                    <ExpenseCategoriesDropdown className="filter-category-dropdown"  onCategoryChange={handleFilterCategoryChange} />
                   )}
               </div>
             )}
 
         </div>
 
-      <TransactionTable refresh={refresh} selectable={true} onSelect={handleTransactionId} filterType={filterByType} filterRecurring={filterByRecurring} filterCategory={filterByCategory} />
+      <TransactionTable refresh={refresh} selectable={true} onSelect={handleTransactionId} className="edit-table" innerClassName="edit-inner-table-container" filterType={filterByType} filterRecurring={filterByRecurring} filterCategory={filterByCategory} />
     
     </div>
   );

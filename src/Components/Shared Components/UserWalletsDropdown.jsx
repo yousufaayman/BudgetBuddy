@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import UserContext from '../UserContext';
+import UserContext from '../../Services/UserContext';
 
  const WalletsDropwdoown = ({ className, onWalletSelectChange }) => {
   const { user, walletId } = useContext(UserContext);
