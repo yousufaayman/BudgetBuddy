@@ -128,7 +128,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
       {isOpen && (
         <div className="popup-overlay">
           <div className="popup">
-            <button id="close-btn" onClick={onClose}>
+            <button data-test-id="transactions-popup" id="close-btn" onClick={onClose}>
               <GrClose style={{ color: "#7b0dcf" }} />
             </button>
             <h1 className="title">Add {type}</h1>
@@ -222,7 +222,7 @@ export const TransactionPopup = ({ isOpen, onClose, type }) => {
               </label>
             </div>
 
-            <button id="submit-btn" onClick={handleSubmit}>
+            <button data-test-id="submit-popup" id="submit-btn" onClick={handleSubmit}>
               Submit
             </button>
 
