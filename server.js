@@ -117,6 +117,57 @@ app.get('/api/balances', (req, res) => {
 });
 
 
+
+// Define the budget calculation endpoint
+app.post('/calculate-budget', (req, res) => {
+  const { userId, income, budgetMethod, recurringExpenses } = req.body;
+
+  // Define your budget calculation logic based on the selected method
+  let necessities, wants, savings, investments;
+
+  switch (budgetMethod) {
+    case '50/30/20':
+      necessities = 0.5 * income;
+      wants = 0.3 * income;
+      savings = 0.2 * income;
+      investments = 0;
+      break;
+    case '70/30':
+      necessities = 0.7 * income;
+      wants = 0.3 * income;
+      savings = 0;
+      investments = 0;
+      break;
+    case '40/30/30':
+      necessities = 0.4 * income;
+      wants = 0.3 * income;
+      savings = 0.3 * income;
+      investments = 0;
+      break;
+    case '40/30/20/10':
+      necessities = 0.4 * income;
+      wants = 0.3 * income;
+      savings = 0.2 * income;
+      investments = 0.1 * income;
+      break;
+    default:
+      necessities = 0;
+      wants = 0;
+      savings = 0;
+      investments = 0;
+  }
+
+  // Add recurring expenses to necessities
+  necessities += recurringExpenses.reduce((acc, expense) => acc + expense.amount, 0);
+
+  // Save the calculated budget to the Firebase Realtime Database
+  const calculatedBudget = { necessities, wants, savings, investments };
+  admin.database().ref(`/users/${userId}/budget`).set(calculatedBudget);
+
+  res.json({ success: true, message: 'Budget calculated and saved successfully.' });
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
