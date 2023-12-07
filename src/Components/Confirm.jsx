@@ -3,12 +3,7 @@ import './Styles/RegestrationForm.css'
 import { ButtonStyled } from './Styles/ButtonStyled'
 import { LabelStyled } from './Styles/LabelStyled'
 
-export const Confirm = ({prevStep, nextStep, values, handleSignUp}) => {
-  
-  const Continue = e => {
-    e.preventDefault();
-    nextStep();
-      }
+export const Confirm = ({prevStep, values, handleSignUp}) => {
 
   const Previous = e => {
     e.preventDefault();

@@ -1,8 +1,8 @@
-import {BudgetBuddyApp} from './React-Router'
+import {RegestrationPage} from './Components/RegestrationPage'
 
 function App() {
   return (
-    <BudgetBuddyApp/>
+    <RegestrationPage/>
   );
 }
 
