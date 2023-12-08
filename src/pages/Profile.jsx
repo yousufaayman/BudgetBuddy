@@ -50,9 +50,6 @@ export const Profile = () => {
 
     // MainContent("3cZUJIvnx7OqOl5uXkSGfveaLHw2")
     return (
-      <ContainerStyled className="page" display="grid" gridrows="1fr 10fr" gridcolumns="2fr 10fr 0.1fr">
-          <GridItem gridarea = "1 / 2 / 2 / 3" qgridarea = " 2 / 1 / 4 / 4"><TopBar pageName='Dashboard' /></GridItem>
-            <GridItem gridarea = "2 / 2 / 3 / 3" qgridarea = "1 / 1 / 1 /4">
                 <div className='profile'>
                   <h1>User Information</h1>
                   <form>
