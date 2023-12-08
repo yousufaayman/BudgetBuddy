@@ -1,7 +1,7 @@
+import { BudgetBuddyApp } from "./Services/Budget-Buddy-Router";
+
 function App() {
-  return (
-    <div></div>
-  );
+  return <BudgetBuddyApp />;
 }
 
 export default App;

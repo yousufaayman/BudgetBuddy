@@ -1,0 +1,48 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: matrix3d(200);
+  }
+  to {
+    opacity: 1;
+    transform: matrix3d(0);
+  }
+}
+
+.edit-transactions {
+  display: grid;
+  grid-area: 2 / 1 / 3 / 2;
+  width: 95%;
+  height: 100%;
+  grid-template-columns: 5fr 3fr;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #bbb9bb15;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fa8ee1;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 450px) {
+}
+
+@media screen and (max-width: 850px) {
+  .edit-transactions {
+    grid-template-columns: 5fr 5fr;
+    grid-template-rows: 2fr 5fr;
+    height: 100%;
+  }
+}
