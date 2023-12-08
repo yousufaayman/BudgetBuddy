@@ -39,7 +39,7 @@ export function LoginForm() {
         <GrGoogle size={50} color="#fff5ea" />
       </div>
 
-      <div aria-atomicclassName="login-help-container">
+      <div className="login-help-container">
         <button
           data-test-id="forgot-password-button-landing"
           className="login-form-sub-buttons"
