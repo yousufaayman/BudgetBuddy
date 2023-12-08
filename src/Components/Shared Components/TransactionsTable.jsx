@@ -5,6 +5,7 @@ import "./Styles/TransactionTable.css";
 import UserContext from "../../Services/UserContext";
 
 export const TransactionTable = ({
+  id,
   refresh,
   numberOfTransactions,
   className,
@@ -17,7 +18,6 @@ export const TransactionTable = ({
 }) => {
   const { user, walletId } = useContext(UserContext);
   const [transactions, setTransactions] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   useEffect(() => {
@@ -60,7 +60,6 @@ export const TransactionTable = ({
         }
 
         setTransactions(transformedData);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -162,7 +161,7 @@ export const TransactionTable = ({
   }, [selectedTransaction, onSelect]);
 
   return (
-    <div className={innerClassName}>
+    <div id={id} className={innerClassName}>
       <table {...getTableProps()} className={className}>
         <thead>
           {headerGroups.map((headerGroup) => (

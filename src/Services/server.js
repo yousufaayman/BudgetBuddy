@@ -440,7 +440,6 @@ app.get("/user/getTotalIncome/:userID/:walletID", async (req, res) => {
       .doc(walletID)
       .collection("user_transactions");
     const snapshot = await userTransactionsRef.get();
-    console.log(snapshot);
 
     // Calculate total income
     let totalIncome = 0;
@@ -453,7 +452,6 @@ app.get("/user/getTotalIncome/:userID/:walletID", async (req, res) => {
 
     // Round the total income to two decimal places
     totalIncome = parseFloat(totalIncome.toFixed(2));
-    console.log(totalIncome);
 
     res.status(200).json({
       totalIncome,
@@ -477,7 +475,6 @@ app.get("/user/getTotalExpense/:userID/:walletID", async (req, res) => {
       .doc(walletID)
       .collection("user_transactions");
     const snapshot = await userTransactionsRef.get();
-    console.log(snapshot);
 
     // Calculate total expense
     let totalExpense = 0;
