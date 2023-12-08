@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import {TransactionsNavbar} from './TransactionsContentNavBar' 
-import {ManageTransactions} from './ManageTransactions'
-import {EditTransactions} from './EditTransactions'
-import './Styles/TransactionsMainContent.Module.css';
+import React, { useState } from "react";
+import { TransactionsNavbar } from "./TransactionsContentNavBar";
+import { ManageTransactions } from "./ManageTransactions";
+import { EditTransactions } from "./EditTransactions";
+import "./Styles/TransactionsMainContent.Module.css";
 
 export const TransactionsMainContent = () => {
-  const [step, setStep] = useState(1); 
+  const [step, setStep] = useState(1);
 
   const goToStep = (stepNumber) => {
     setStep(stepNumber);
@@ -34,8 +34,8 @@ export const TransactionsMainContent = () => {
 
   return (
     <div className="MainContent">
-              <TransactionsNavbar goToStep={goToStep} />
-              {currentStep}
+      <TransactionsNavbar goToStep={goToStep} />
+      {currentStep}
     </div>
   );
 };

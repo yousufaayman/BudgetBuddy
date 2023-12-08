@@ -1,4 +1,4 @@
-import {Transactions} from './Components/Transactions'
+import { Transactions } from "./Components/Transactions Page/TransactionsPage";
 
 function App() {
   return (

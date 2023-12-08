@@ -1,12 +1,35 @@
-*{
-    margin: 0%;
-    padding: 0%;
+* {
+  margin: 0%;
+  padding: 0%;
 }
 
-.page{
-    background-color: #FFF3E2;
-    background: radial-gradient(circle, transparent 20%, #FFF3E2 20%, #FFF3E2 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #FFF3E2 20%, #FFF3E2 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#7b0dcf 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #7b0dcf 2px, #FFF3E2 2px) -1px 0;
-    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
-    width: 100vw;
-    height: 100vh;
+.page {
+  background-color: #fff3e2;
+  background:
+    radial-gradient(
+      circle,
+      transparent 20%,
+      #fff3e2 20%,
+      #fff3e2 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #fff3e2 20%,
+        #fff3e2 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(#7b0dcf 2px, transparent 2px) 0 -1px,
+    linear-gradient(90deg, #7b0dcf 2px, #fff3e2 2px) -1px 0;
+  background-size:
+    50px 50px,
+    50px 50px,
+    25px 25px,
+    25px 25px;
+  width: 100vw;
+  height: 100vh;
 }
