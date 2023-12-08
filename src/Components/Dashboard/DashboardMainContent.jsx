@@ -46,12 +46,14 @@ export const DashboardMainContent = ({ refresh }) => {
               Real-Time Balance::
             </div>
             <button
+              data-test-id="dashboard-add-income"
               onClick={handleOpenPopupIncome}
               className="add-income-dashboard"
             >
               <GiReceiveMoney /> Add Income
             </button>
             <button
+              data-test-id="dashboard-add-expense"
               onClick={handleOpenPopupExpense}
               className="add-expense-dashboard"
             >

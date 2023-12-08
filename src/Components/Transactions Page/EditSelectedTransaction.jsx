@@ -188,6 +188,7 @@ export const EditSelectedTransactions = ({
       <h1 className="edit-transaction-title">Edit Transaction</h1>
 
       <PopupInputStyled
+        data-test-id="title-transaction-edit-table"
         placeholder="Transaction Title"
         type="text"
         name="edit-title"
@@ -198,6 +199,7 @@ export const EditSelectedTransactions = ({
       />
 
       <PopupInputStyled
+        data-test-id="amount-transaction-edit-table"
         type="number"
         min="1"
         name="edit-amount"
@@ -209,6 +211,7 @@ export const EditSelectedTransactions = ({
       />
 
       <PopupInputStyled
+        data-test-id="description-transaction-edit-table"
         placeholder="Description"
         type="text"
         name="description"
@@ -222,6 +225,7 @@ export const EditSelectedTransactions = ({
         <IncomeCategoriesDropdown
           className="edit-category-dropdwon"
           onCategoryChange={handleCategoryChange}
+          dataTestId="income-ctaegory-transaction-edit-table"
         />
       )}
 
@@ -229,10 +233,12 @@ export const EditSelectedTransactions = ({
         <ExpenseCategoriesDropdown
           className="edit-category-dropdwon"
           onCategoryChange={handleCategoryChange}
+          dataTestId="expense-category-transaction-edit-table"
         />
       )}
 
       <PopupInputStyled
+        data-test-id="date-transaction-edit-table"
         type="date"
         name="date"
         value={inputValues.date}
@@ -248,6 +254,7 @@ export const EditSelectedTransactions = ({
         </label>
 
         <input
+          data-test-id="no-recurring-button-edit-table"
           type="radio"
           id="recurring-true"
           name="recurring"
@@ -261,6 +268,7 @@ export const EditSelectedTransactions = ({
         </label>
 
         <input
+          data-test-id="no-recurring-button-edit-table"
           type="radio"
           id="recurring-false"
           name="recurring"
@@ -276,6 +284,7 @@ export const EditSelectedTransactions = ({
 
       <div id="edit-delete-submit-btns">
         <button
+          data-test-id="submit-button-edit-table"
           className="edit-transaction-btns"
           id="edit-transaction-submit-btn"
           onClick={handleSubmit}
@@ -284,6 +293,7 @@ export const EditSelectedTransactions = ({
         </button>
 
         <button
+          data-test-id="submit-button-edit-table"
           className="edit-transaction-btns"
           id="edit-transaction-delete-btn"
           onClick={handleDelete}

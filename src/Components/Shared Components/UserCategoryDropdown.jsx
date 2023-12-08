@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import UserContext from "../../Services/UserContext";
 
-const ExpenseCategoriesDropdown = ({ className, onCategoryChange }) => {
+const ExpenseCategoriesDropdown = ({
+  className,
+  onCategoryChange,
+  dataTestId,
+}) => {
   const { user } = useContext(UserContext);
   const [expenseCategories, setExpenseCategories] = useState([]);
   const [selectedExpenseCategory, setSelectedExpenseCategory] = useState("");
@@ -33,6 +37,7 @@ const ExpenseCategoriesDropdown = ({ className, onCategoryChange }) => {
       className={className}
       value={selectedExpenseCategory}
       onChange={handleExpenseCategoryChange}
+      data-test-id={dataTestId}
     >
       <option value="">Select an expense category</option>
       {expenseCategories.map((category, index) => (
@@ -75,6 +80,7 @@ const IncomeCategoriesDropdown = ({ className, onCategoryChange }) => {
       className={className}
       value={selectedIncomeCategory}
       onChange={handleIncomeCategoryChange}
+      data-test-id={dataTestId}
     >
       <option value="">Select an income category</option>
       {incomeCategories.map((category, index) => (

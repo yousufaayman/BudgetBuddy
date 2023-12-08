@@ -10,6 +10,7 @@ export const TransactionHistoryTable = ({ refresh, numberOfTransactions }) => {
       <div className="dashboard-table-header">
         <h2 className="dashboard-table-title">Latest Transactions</h2>
         <button
+          data-test-id="dashboard-view-all-transactions"
           className="dashboard-all-transactions-btn"
           onClick={() => navigate("/user/transactions")}
         >

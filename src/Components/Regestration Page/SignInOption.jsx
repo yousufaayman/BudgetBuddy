@@ -18,6 +18,7 @@ export const SignInOption = ({ nextStep, googleNextStep }) => {
   return (
     <div className="sign-up-options">
       <ButtonStyled
+        data-test-id="sign-up-using-email"
         fsize="100%"
         color="white"
         bgcolor1="#FFF3E2"
@@ -34,6 +35,7 @@ export const SignInOption = ({ nextStep, googleNextStep }) => {
       </ButtonStyled>
 
       <ButtonStyled
+        data-test-id="sign-up-using-google"
         fsize="100%"
         color="white"
         bgcolor1="#DB4437"

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import UserContext from "../../Services/UserContext";
 
-const WalletsDropwdoown = ({ className, onWalletSelectChange }) => {
+const WalletsDropwdoown = ({ className, onWalletSelectChange, dataTestId }) => {
   const { user, walletId } = useContext(UserContext);
   const [userWallets, settUserWallets] = useState([]);
 
@@ -31,6 +31,7 @@ const WalletsDropwdoown = ({ className, onWalletSelectChange }) => {
       className={className}
       value={walletId}
       onChange={handelSelectedWalletChange}
+      data-test-id={dataTestId}
     >
       <option value="">Select a Wallet</option>
       {userWallets.map((wallet, index) => (

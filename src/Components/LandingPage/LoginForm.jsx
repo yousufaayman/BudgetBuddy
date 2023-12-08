@@ -12,9 +12,24 @@ export function LoginForm() {
 
       <div className="input-container">
         <form className="input-container">
-          <input type="text" placeholder="Email" className="input" />
-          <input type="Password" placeholder="Password" className="input" />
-          <button className="landing-login-button">Login</button>
+          <input
+            data-test-id="email-input-landing"
+            type="text"
+            placeholder="Email"
+            className="input"
+          />
+          <input
+            data-test-id="password-input-landing"
+            type="Password"
+            placeholder="Password"
+            className="input"
+          />
+          <button
+            data-test-id="login-button-landing"
+            className="landing-login-button"
+          >
+            Login
+          </button>
         </form>
       </div>
 
@@ -24,9 +39,15 @@ export function LoginForm() {
         <GrGoogle size={50} color="#fff5ea" />
       </div>
 
-      <div className="login-help-container">
-        <button className="login-form-sub-buttons">Forgot Passowrd?</button>
+      <div aria-atomicclassName="login-help-container">
         <button
+          data-test-id="forgot-password-button-landing"
+          className="login-form-sub-buttons"
+        >
+          Forgot Passowrd?
+        </button>
+        <button
+          data-test-id="regestration-button-landing"
           className="login-form-sub-buttons"
           onClick={() => navigate("/registration-page")}
         >

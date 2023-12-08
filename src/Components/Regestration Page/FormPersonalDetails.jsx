@@ -27,6 +27,7 @@ export const FormPersonalDetails = ({
         First Name
       </LabelStyled>
       <InputStyled
+        data-test-id="input-for-firstname"
         gridarea="1 / 2 / 2 / 3"
         qgridarea="3 / 2 / 4 / 3"
         type="text"
@@ -44,6 +45,7 @@ export const FormPersonalDetails = ({
         Last Name
       </LabelStyled>
       <InputStyled
+        data-test-id="input-for-lastname"
         gridarea="2 / 2 / 3 / 3"
         qgridarea="5 / 2 / 6 / 3"
         type="text"
@@ -61,6 +63,7 @@ export const FormPersonalDetails = ({
         Email
       </LabelStyled>
       <InputStyled
+        data-test-id="input-for-email"
         gridarea="3 / 2 / 4 / 3"
         qgridarea="7 / 2 / 8 / 3"
         type="text"
@@ -78,6 +81,7 @@ export const FormPersonalDetails = ({
         Password
       </LabelStyled>
       <InputStyled
+        data-test-id="input-for-password"
         gridarea="4 / 2 / 5 / 3"
         qgridarea="9 / 2 / 10 / 3"
         type="password"
@@ -95,6 +99,7 @@ export const FormPersonalDetails = ({
         Confirm Password
       </LabelStyled>
       <InputStyled
+        data-test-id="input-for-password-check"
         gridarea="5 / 2 / 6 / 3"
         qgridarea="11 / 2 / 12 / 3"
         type="password"
@@ -104,6 +109,7 @@ export const FormPersonalDetails = ({
       />
 
       <ButtonStyled
+        data-test-id="next-for-regestration-to-confirm"
         fsize="130%"
         color="#FFF3E2"
         bgcolor1="#ea4e33"

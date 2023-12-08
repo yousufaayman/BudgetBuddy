@@ -13,6 +13,7 @@ export function RegNavBar() {
       />
       <h1 className="reg-budget-buddy">Budget Buddy</h1>
       <ButtonStyled
+        data-test-id="login-button-for-navbar"
         fsize="130%"
         color="#FFF3E2"
         bgcolor1="#ea4e33"
