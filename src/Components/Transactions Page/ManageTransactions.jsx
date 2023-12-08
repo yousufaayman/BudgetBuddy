@@ -4,7 +4,7 @@ import { TbPigMoney } from "react-icons/tb";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { TransactionPopup } from "../Shared Components/TransactionPopup";
 import { ListTransactionsTable } from "./ListTransactionsTable";
-import {Analysis} from '../Analysis/analysis'
+import { Analysis } from "../Analysis/analysis";
 
 export const ManageTransactions = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -29,10 +29,10 @@ export const ManageTransactions = () => {
   return (
     <div className="manage-transactions">
       <div className="manage-balance">
-              <TbPigMoney />
-              Real-Time Balance:: 
-              <Analysis />
-        </div>
+        <TbPigMoney />
+        Real-Time Balance::
+        <Analysis />
+      </div>
 
       <div className="add-transaction-buttons">
         <button onClick={handleOpenPopupIncome} className="manage-add-income">

@@ -200,7 +200,6 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .list-table th {
     font-size: 70%;
   }
@@ -214,7 +213,7 @@
     height: 50%;
   }
 
-  .list-table td{
+  .list-table td {
     text-align: center;
   }
 }

@@ -85,14 +85,14 @@
 
 .edit-table-filters label {
   color: #7b0dcf;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 90%;
 }
 
 .edit-table-filters select {
   color: #7b0dcf !important;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 90%;
   border-radius: 5%;

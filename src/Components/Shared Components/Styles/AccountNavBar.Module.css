@@ -31,7 +31,7 @@
 }
 
 .nav-menu {
-  display:grid;
+  display: grid;
   grid-template-rows: 2fr 0.5fr 4fr 0.5fr 3fr;
   background-color: transparent;
   width: 100%;
@@ -56,7 +56,7 @@
 .menu-link {
   color: #670aad;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   transition: all 250ms;
   font-size: 200%;
   width: 100%;
@@ -80,7 +80,7 @@
 .active-page {
   color: #ebebeb;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 200%;
   width: 100%;
   display: flex;
@@ -105,12 +105,12 @@
   background-color: #670aad;
 }
 
-.select-wallet-button{
+.select-wallet-button {
   font-size: 110%;
   width: 90%;
   height: 40%;
   color: #fff3e2;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #7b0dcf;
   border-radius: 100px;
   box-shadow:
@@ -132,10 +132,9 @@
   touch-action: manipulation;
   font-weight: 400;
   grid-area: 1 / 1/ 2 /2;
-
 }
 
-.nav-links{
+.nav-links {
   grid-area: 3 / 1/ 4 /2;
 }
 @media screen and (max-width: 1440px) {
