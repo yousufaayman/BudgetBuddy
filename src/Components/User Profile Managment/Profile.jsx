@@ -1,12 +1,14 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import UserContext from '../../Services/UserContext'
 
 
 export const Profile = () => {
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
-    const userID = "0RraVrFmb3RtnlrVIoSF6JitkaV2"
+    const {user} = useContext(UserContext)
+    const userID = user
 
     const fetchProfile = async () => {
       try {
