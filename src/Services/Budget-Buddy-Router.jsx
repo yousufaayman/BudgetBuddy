@@ -11,7 +11,7 @@ import { Dashboard } from "../Components/Dashboard/Dashboard";
 import { Transactions } from "../Components/Transactions Page/TransactionsPage";
 import { UserContext } from "./UserContext";
 import Cookies from "js-cookie";
-import {Profile} from '../Components/User Profile Managment/Profile'
+import { Profile } from "../Components/User Profile Managment/Profile";
 
 export function BudgetBuddyApp() {
   const [user, setUser] = useState(null);

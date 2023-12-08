@@ -42,7 +42,10 @@ export const TopBar = ({ pageName }) => {
         />
         {isUserOptionsOpen && (
           <div ref={dropdownRef} className="account-dropdown-menu">
-            <a onClick={() => navigate("/user/profile/managment")} className="user-account-options">
+            <a
+              onClick={() => navigate("/user/profile/managment")}
+              className="user-account-options"
+            >
               Edit Profile
             </a>
             <a className="user-account-options" onClick={logout}>

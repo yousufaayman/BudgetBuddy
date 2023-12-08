@@ -341,7 +341,8 @@ app.get("/user/getTransactions/:userID/:walletID", async (req, res) => {
 });
 
 // Update Transactions Endpoint
-app.put("/user/updateTransaction/:userID/:walletID/:transactionID",
+app.put(
+  "/user/updateTransaction/:userID/:walletID/:transactionID",
   async (req, res) => {
     try {
       const { title, amount, category, date, description, recurring } =
@@ -375,7 +376,8 @@ app.put("/user/updateTransaction/:userID/:walletID/:transactionID",
 );
 
 // Delete Transactions Endpoint
-app.delete("/user/deleteTransaction/:userID/:walletID/:transactionID",
+app.delete(
+  "/user/deleteTransaction/:userID/:walletID/:transactionID",
   async (req, res) => {
     try {
       const { userID, walletID, transactionID } = req.params;
@@ -497,42 +499,42 @@ app.get("/user/getTotalExpense/:userID/:walletID", async (req, res) => {
   }
 });
 
-app.get('/userProfile/:userID', async (req, res) => {
+app.get("/userProfile/:userID", async (req, res) => {
   try {
     const uid = req.params.userID;
 
     // Fetch user profile from Firestore
-    const userRef = admin.firestore().collection('users').doc(uid);
+    const userRef = admin.firestore().collection("users").doc(uid);
     const snapshot = await userRef.get();
 
     if (snapshot.exists) {
       const userData = snapshot.data();
       res.status(200).json(userData);
     } else {
-      res.status(500).json({ error: 'User not found' });
+      res.status(500).json({ error: "User not found" });
     }
   } catch (error) {
-    console.error('Error fetching profile:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.post('/updateProfile/:userID', async (req, res) => {
+app.post("/updateProfile/:userID", async (req, res) => {
   try {
     const uid = req.params.userID;
-    const { firstName, lastName } = req.body; 
+    const { firstName, lastName } = req.body;
 
     // Update user profile in Firestore
-    const userRef = admin.firestore().collection('users').doc(uid);
+    const userRef = admin.firestore().collection("users").doc(uid);
     await userRef.update({
       firstName,
-      lastName
+      lastName,
     });
 
-    res.status(200).json({ message: 'Profile updated successfully' });
+    res.status(200).json({ message: "Profile updated successfully" });
   } catch (error) {
-    console.error('Error updating profile:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error updating profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
