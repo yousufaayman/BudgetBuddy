@@ -124,19 +124,20 @@
   .manage-transactions {
     grid-template-columns: 5fr 5fr;
     grid-template-rows: 2fr 5fr;
+    width: 95%
   }
 
-  .balance {
-    font-size: 100%;
+  .manage-balance {
+    font-size: 150%;
     color: #7b0dcf;
-    grid-area: 1 / 1 / 2 / 2;
+    grid-area: 1 / 2 / 2 / 3;
   }
   .add-transaction-buttons {
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: 1fr 1fr;
-    grid-area: 1 / 2 / 2 / 3;
+    grid-area: 2 / 2 / 3 / 3;
     height: 100%;
     width: 100%;
   }

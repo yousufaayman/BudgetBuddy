@@ -46,28 +46,27 @@ export const NavBar = ({ collapsed, activePage }) => {
           overlayVisible ? "overlay visible" : "overlay"
         }`}
       >
-        <ul className="nav-menu">
-          <li>
+        <div className="nav-menu">
+          <div className="select-wallet">
             <button
               className="select-wallet-button"
               onClick={handleOpenWalletPopup}
             >
               Wallet popup
             </button>
-          </li>
-          {isWalletPopupOpen && (
+            {isWalletPopupOpen && (
             <WalletPopup
               isOpen={isWalletPopupOpen}
               onClose={handleCloseWalletPopup}
             />
           )}
-          <li>
+          </div>
             <img
               className="account-bb-logo"
-              src="../../Assets/BudgetBuddyLogo.png"
+              src="BudgetBuddyLogo.png"
               alt="budget buddy logo"
             />
-          </li>
+          <div className="nav-links">
           <hr />
           <li className="menu-item">
             <a
@@ -90,7 +89,8 @@ export const NavBar = ({ collapsed, activePage }) => {
             </a>
           </li>
           <hr />
-        </ul>
+          </div>
+        </div>
       </div>
 
       <div className="collapsed-icon" onClick={toggleOverlay}>

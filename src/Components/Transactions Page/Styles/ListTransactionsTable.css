@@ -200,9 +200,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .all-transactions-btn {
-    font-size: 50%;
-  }
 
   .list-table th {
     font-size: 70%;
@@ -210,11 +207,15 @@
 
   .list-table-container {
     width: 90%;
-    height: 90%;
+    height: 50%;
   }
 
   .list-table {
-    height: 90%;
+    height: 50%;
+  }
+
+  .list-table td{
+    text-align: center;
   }
 }
 
