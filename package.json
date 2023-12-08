@@ -19,6 +19,7 @@
     "react-notifications": "^1.7.4",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-scripts": "5.0.1",
+    "react-tables": "^1.0.2",
     "styled": "^1.0.0",
     "styled-components": "^6.1.1",
     "toast": "^0.5.4",
