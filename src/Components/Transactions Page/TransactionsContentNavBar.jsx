@@ -11,6 +11,7 @@ export function TransactionsNavbar({ goToStep }) {
       <ul className="transactions-menu">
         <li className="transactions-menu-item">
           <button
+            data-test-id="transaction-menu-table" 
             className="transactions-menu-button"
             onClick={() => handleStepClick(1)}
           >
@@ -20,6 +21,7 @@ export function TransactionsNavbar({ goToStep }) {
 
         <li className="transactions-menu-item">
           <button
+            data-test-id="edit-transaction-menu-table" 
             className="transactions-menu-button"
             onClick={() => handleStepClick(2)}
           >
@@ -29,6 +31,7 @@ export function TransactionsNavbar({ goToStep }) {
 
         <li className="transactions-menu-item">
           <button
+            data-test-id="manage-categories-menu-table" 
             className="transactions-menu-button"
             onClick={() => handleStepClick(3)}
           >
@@ -38,6 +41,7 @@ export function TransactionsNavbar({ goToStep }) {
 
         <li className="transactions-menu-item">
           <button
+            data-test-id="view-income-menu-table" 
             className="transactions-menu-button"
             onClick={() => handleStepClick(4)}
           >

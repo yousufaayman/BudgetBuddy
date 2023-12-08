@@ -276,6 +276,7 @@ export const EditSelectedTransactions = ({
 
       <div id="edit-delete-submit-btns">
         <button
+          data-test-id="submit-button-transaction-table" 
           className="edit-transaction-btns"
           id="edit-transaction-submit-btn"
           onClick={handleSubmit}
@@ -284,6 +285,7 @@ export const EditSelectedTransactions = ({
         </button>
 
         <button
+          data-test-id="delete-button-transaction-table" 
           className="edit-transaction-btns"
           id="edit-transaction-delete-btn"
           onClick={handleDelete}
