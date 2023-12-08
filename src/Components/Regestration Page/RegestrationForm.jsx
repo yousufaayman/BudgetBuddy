@@ -46,11 +46,9 @@ export class RegestrationForm extends Component {
       );
 
       if (response.status === 201) {
-        if (response.data && response.data.success) {
-           Cookies.set(
-            "user",
-            JSON.stringify(response.data.user),
-          );
+        if (response.data?.success) {
+          const responseUserId = response.data.user;
+          this.setState({ uid: responseUserId });
           this.nextStep();
         } else {
           console.error("Signup failed. No success indication in response.");
@@ -100,23 +98,22 @@ export class RegestrationForm extends Component {
     if (step === 1) {
       if (firstName === "" || lastName === "") {
         this.setState({ errorHandle: "Please input your first and Last Name" });
+        return;
+      }
+
+      const emailResult = validateEmail(email);
+      const passwordResult = validatePasswords(password, check_password);
+      const userExists = await this.checkUserExistence();
+
+      if (!emailResult || !passwordResult) {
+        this.setState({ errorHandle: "Invalid email or password" });
+        return;
+      }
+
+      if (userExists) {
+        this.setState({ errorHandle: "User already exists" });
       } else {
-        try {
-          const emailResult = validateEmail(email);
-          const passwordResult = validatePasswords(password, check_password);
-
-          const userExists = await this.checkUserExistence();
-
-          if (passwordResult && emailResult) {
-            if (userExists) {
-              this.setState({ errorHandle: "User already exists" });
-            } else {
-              this.setState((prevState) => ({ step: prevState.step + 1 }));
-            }
-          }
-        } catch (error) {
-          this.setState({ errorHandle: error.message });
-        }
+        this.setState((prevState) => ({ step: prevState.step + 1 }));
       }
     } else {
       this.setState({
@@ -130,11 +127,9 @@ export class RegestrationForm extends Component {
     const userData = await handleGoogleSignUp();
 
     if (userData.error) {
-      console.error(userData.error);
+      console.error("Google Sign Up Failed Due to unexpected error");
     } else {
-      Cookies.set("user", JSON.stringify(userData.uid));
-      this.setState({ uid: userData.uid });
-
+      const googleResponseUserId = userData.uid;
       this.setState(
         {
           googleAccount: true,
@@ -142,30 +137,13 @@ export class RegestrationForm extends Component {
           firstName: userData.firstName,
           lastName: userData.lastName,
           email: userData.email,
+          uid: googleResponseUserId,
         },
         async () => {
           const userIsRegestired = await this.checkUserExistence();
 
-          if (userIsRegestired) {
-            this.setState(
-              {
-                step: 0,
-                errorHandle: "",
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: "",
-                check_password: "",
-                country: "",
-                currency: "",
-                avgIncome: 0,
-                userExists: false,
-                loading: true,
-                googleAccount: false,
-                uid: "",
-              },
-              () => {},
-            );
+          if (await userIsRegestired) {
+            this.resetState();
             alert("This user already exists! Try Logging in :)");
           }
         },
@@ -231,6 +209,8 @@ export class RegestrationForm extends Component {
     const { step, errorHandle, googleAccount } = this.state;
     const finalValues = this.state;
     const values = {};
+    let returnOption;
+    let signUpMethod;
 
     switch (step) {
       case 0:
@@ -253,9 +233,10 @@ export class RegestrationForm extends Component {
         );
 
       case 2:
-        let returnOption = this.prevStep;
         if (googleAccount) {
           returnOption = this.resetState;
+        } else {
+          returnOption = this.prevStep;
         }
 
         return (
@@ -269,8 +250,6 @@ export class RegestrationForm extends Component {
         );
 
       case 3:
-        let signUpMethod = null;
-
         if (finalValues.country === "") {
           finalValues.country = "Egypt";
         }
@@ -279,7 +258,7 @@ export class RegestrationForm extends Component {
           finalValues.currency = "EGP";
         }
 
-        if (finalValues.avgIncome === "") {
+        if (finalValues.avgIncome === null) {
           finalValues.avgIncome = 0;
         }
 

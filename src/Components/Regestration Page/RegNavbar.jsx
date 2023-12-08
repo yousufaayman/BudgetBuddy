@@ -5,7 +5,6 @@ import { ButtonStyled } from "../Shared Components/Styles/ButtonStyled";
 export function RegNavBar() {
   return (
     <div className="reg-nav-bar">
-      \
       <img
         className="reg-logo"
         src="BudgetBuddyLogo.png"

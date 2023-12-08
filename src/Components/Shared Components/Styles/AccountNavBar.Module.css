@@ -52,7 +52,7 @@
 .menu-link {
   color: #670aad;
   text-decoration: none;
-  font-family: "Montserrat";
+  font-family: 'Montserrat', sans-serif;
   transition: all 250ms;
   font-size: 200%;
   width: 100%;
@@ -75,7 +75,7 @@
 .active-page {
   color: #ebebeb;
   text-decoration: none;
-  font-family: "Montserrat";
+  font-family: 'Montserrat', sans-serif;
   font-size: 200%;
   width: 100%;
   display: flex;

@@ -48,7 +48,12 @@ export const NavBar = ({ collapsed, activePage }) => {
       >
         <ul className="nav-menu">
           <li>
-            <button onClick={handleOpenWalletPopup}>Wallet popup</button>
+            <button
+              className="select-wallet-button"
+              onClick={handleOpenWalletPopup}
+            >
+              Wallet popup
+            </button>
           </li>
           {isWalletPopupOpen && (
             <WalletPopup

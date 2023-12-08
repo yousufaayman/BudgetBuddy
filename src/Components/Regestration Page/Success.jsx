@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./Styles/RegestrationForm.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import UserContext from "../../Services/UserContext";
 
 export const Success = ({ values }) => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setUser(values.uid);
+
+    const timeout = setTimeout(() => {
       navigate("/user/dashboard");
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [navigate]);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [navigate, values.uid, setUser]);
 
   return (
     <div className="success-form">

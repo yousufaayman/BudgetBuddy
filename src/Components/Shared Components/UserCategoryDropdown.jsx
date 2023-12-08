@@ -49,7 +49,11 @@ const ExpenseCategoriesDropdown = ({
   );
 };
 
-const IncomeCategoriesDropdown = ({ className, onCategoryChange, dataTestId }) => {
+const IncomeCategoriesDropdown = ({
+  className,
+  onCategoryChange,
+  dataTestId,
+}) => {
   const { user } = useContext(UserContext);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [selectedIncomeCategory, setSelectedIncomeCategory] = useState("");
@@ -80,7 +84,7 @@ const IncomeCategoriesDropdown = ({ className, onCategoryChange, dataTestId }) =
       className={className}
       value={selectedIncomeCategory}
       onChange={handleIncomeCategoryChange}
-      data-test-id = {dataTestId}
+      data-test-id={dataTestId}
     >
       <option value="">Select an income category</option>
       {incomeCategories.map((category, index) => (

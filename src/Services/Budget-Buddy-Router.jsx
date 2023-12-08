@@ -39,7 +39,6 @@ export function BudgetBuddyApp() {
     }
     if (userWallets) {
       Cookies.set("userWallets", JSON.stringify(userWallets));
-      console.log(userWallets);
     }
     if (walletId) {
       Cookies.set("walletId", walletId);
@@ -71,7 +70,7 @@ export function BudgetBuddyApp() {
           />
           <Route
             path="/user/dashboard"
-            element={!Cookies.get("user") ? <Navigate to="/" /> : <Dashboard />}
+            element={!user ? <Navigate to="/" /> : <Dashboard />}
           />
           <Route
             path="/user/transactions"
