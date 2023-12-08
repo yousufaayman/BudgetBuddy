@@ -1,8 +1,4 @@
 import '../Components/Styles/Dashboard.Module.css'
-import {ContainerStyled} from '../Components/Styles/Container.Styled'
-import {GridItem} from '../Components/Styles/GridItem'
-import {NavBar} from '../Components/AccountNavBar'
-import {TopBar} from '../Components/AccountTopBar'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { API_URL } from '../lib/const'
@@ -83,9 +79,6 @@ export const Profile = () => {
                     </div>
                   </form>
                 </div>
-            </GridItem>
-          <GridItem gridarea = "1 / 1 / 3 / 2" qgridarea = " 2 / 1 / 4 / 4"><NavBar/></GridItem>
-      </ContainerStyled>
     );
   }
   
