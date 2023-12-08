@@ -14,7 +14,7 @@ const CurrencyList = (currencies, setCurrencies) => {
     };
 
     fetchCurrencies();
-  }, []);
+  }, [setCurrencies]);
 };
 
 export default CurrencyList;

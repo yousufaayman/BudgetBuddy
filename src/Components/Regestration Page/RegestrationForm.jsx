@@ -47,7 +47,7 @@ export class RegestrationForm extends Component {
 
       if (response.status === 201) {
         if (response.data && response.data.success) {
-          const setcookies = await Cookies.set(
+           Cookies.set(
             "user",
             JSON.stringify(response.data.user),
           );

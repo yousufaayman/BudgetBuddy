@@ -20,6 +20,6 @@ export const CountryList = (countries, setCountries) => {
     };
 
     fetchData();
-  }, []);
+  }, [setCountries]);
 };
 export default CountryList;
