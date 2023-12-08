@@ -33,10 +33,18 @@ export const ManageTransactions = () => {
       </div>
 
       <div className="add-transaction-buttons">
-        <button data-test-id="income-button-transaction-table" onClick={handleOpenPopupIncome} className="manage-add-income">
+        <button
+          data-test-id="income-button-transaction-table"
+          onClick={handleOpenPopupIncome}
+          className="manage-add-income"
+        >
           <GiReceiveMoney /> Add Income
         </button>
-        <button data-test-id="expense-button-transaction-table" onClick={handleOpenPopupExpense} className="manage-add-expense">
+        <button
+          data-test-id="expense-button-transaction-table"
+          onClick={handleOpenPopupExpense}
+          className="manage-add-expense"
+        >
           <GiPayMoney /> Add Expense
         </button>
       </div>

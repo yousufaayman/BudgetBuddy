@@ -15,7 +15,11 @@ export const WalletPopup = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className="wallet-popup">
-          <button data-test-id="close-button-trans-popup" id="walletclose-btn" onClick={onClose}>
+          <button
+            data-test-id="close-button-trans-popup"
+            id="walletclose-btn"
+            onClick={onClose}
+          >
             <GrClose style={{ color: "#7b0dcf" }} />
           </button>
 
