@@ -5,6 +5,7 @@ import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { TransactionPopup } from "../Shared Components/TransactionPopup";
 import { TransactionHistoryTable } from "./TableTransactionHistory";
 import UserContext from "../../Services/UserContext";
+import {Analysis} from '../Analysis/analysis'
 
 export const DashboardMainContent = ({ refresh }) => {
   const { walletId } = useContext(UserContext);
@@ -43,7 +44,8 @@ export const DashboardMainContent = ({ refresh }) => {
           <div className="main-features">
             <div className="balance">
               <TbPigMoney />
-              Real-Time Balance::
+              Real-Time Balance:: 
+              <Analysis />
             </div>
             <button
               data-test-id="dashboard-add-income"

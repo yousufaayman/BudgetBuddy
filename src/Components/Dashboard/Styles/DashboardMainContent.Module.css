@@ -14,7 +14,7 @@
   width: 95%;
   height: 90%;
   background-color: rgba(255, 243, 226, 0);
-  grid-template-rows: 1fr 2fr 2fr;
+  grid-template-rows: 1fr 3fr 1fr;
   align-items: center;
   justify-items: center;
   padding: 1%;
@@ -31,13 +31,17 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 3fr 5fr 1.5fr 1.5fr;
+  grid-template-columns: 4fr 5fr 1.5fr 1.5fr;
   grid-template-rows: 1fr;
   align-items: center;
   font-family: "Open Sans", sans-serif;
 }
 
 .balance {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
   font-size: 200%;
   color: #7b0dcf;
 }
